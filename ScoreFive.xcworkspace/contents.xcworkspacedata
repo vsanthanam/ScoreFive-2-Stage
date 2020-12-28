@@ -14,5 +14,11 @@
    <Group
       location = "container:"
       name = "Vendor">
+      <FileRef
+         location = "group:Vendor/NeedleFoundation/NeedleFoundation.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Vendor/SnapKit/SnapKit.xcodeproj">
+      </FileRef>
    </Group>
 </Workspace>

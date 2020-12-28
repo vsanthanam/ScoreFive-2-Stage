@@ -3,18 +3,37 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		072F8162259A4D48005EE56B /* NeedleFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; };
+		072F8163259A4D48005EE56B /* NeedleFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072F8168259A4D4D005EE56B /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8167259A4D4D005EE56B /* SnapKit.framework */; };
+		072F8169259A4D4D005EE56B /* SnapKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8167259A4D4D005EE56B /* SnapKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072F816D259A4D57005EE56B /* ShortRibs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F816C259A4D57005EE56B /* ShortRibs.framework */; };
+		072F816E259A4D57005EE56B /* ShortRibs.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072F816C259A4D57005EE56B /* ShortRibs.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		072F817F259A4E99005EE56B /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F817C259A4E99005EE56B /* RootViewController.swift */; };
+		072F8180259A4E99005EE56B /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F817D259A4E99005EE56B /* RootBuilder.swift */; };
+		072F8181259A4E99005EE56B /* RootInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F817E259A4E99005EE56B /* RootInteractor.swift */; };
+		072F818A259A51FD005EE56B /* DependencyGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8189259A51FD005EE56B /* DependencyGraph.swift */; };
+		072F8192259A523F005EE56B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F818F259A523F005EE56B /* MainViewController.swift */; };
+		072F8193259A523F005EE56B /* MainBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8190259A523F005EE56B /* MainBuilder.swift */; };
+		072F8194259A523F005EE56B /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8191259A523F005EE56B /* MainInteractor.swift */; };
+		072F81A9259A5D76005EE56B /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81A8259A5D76005EE56B /* Mocks.swift */; };
+		072F81B2259A5D9E005EE56B /* RootInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81B1259A5D9E005EE56B /* RootInteractorTests.swift */; };
+		072F81B6259A5EBA005EE56B /* RootViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81B5259A5EBA005EE56B /* RootViewControllerTests.swift */; };
+		072F81BC259A5FC3005EE56B /* FiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81B9259A5FC3005EE56B /* FiveViewController.swift */; };
+		072F81BD259A5FC3005EE56B /* FiveBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81BA259A5FC3005EE56B /* FiveBuilder.swift */; };
+		072F81BE259A5FC3005EE56B /* FiveInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81BB259A5FC3005EE56B /* FiveInteractor.swift */; };
+		072F81C3259A6220005EE56B /* GameStorageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81C2259A6220005EE56B /* GameStorageWorker.swift */; };
+		072F81C7259A62BD005EE56B /* ScoreFive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 072F81C5259A62BD005EE56B /* ScoreFive.xcdatamodeld */; };
+		072F81CC259A63E3005EE56B /* MainInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81CB259A63E3005EE56B /* MainInteractorTests.swift */; };
+		072F81D0259A6451005EE56B /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81CF259A6451005EE56B /* MainViewControllerTests.swift */; };
 		07E6F00B259980E300AEF80A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E6F00A259980E300AEF80A /* AppDelegate.swift */; };
 		07E6F00D259980E300AEF80A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E6F00C259980E300AEF80A /* SceneDelegate.swift */; };
-		07E6F00F259980E300AEF80A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E6F00E259980E300AEF80A /* ViewController.swift */; };
-		07E6F012259980E300AEF80A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E6F010259980E300AEF80A /* Main.storyboard */; };
 		07E6F014259980E500AEF80A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E6F013259980E500AEF80A /* Assets.xcassets */; };
 		07E6F017259980E500AEF80A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E6F015259980E500AEF80A /* LaunchScreen.storyboard */; };
-		07E6F022259980E500AEF80A /* ScoreFiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E6F021259980E500AEF80A /* ScoreFiveTests.swift */; };
-		07E6F02D259980E500AEF80A /* ScoreFiveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E6F02C259980E500AEF80A /* ScoreFiveUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,30 +44,53 @@
 			remoteGlobalIDString = 07E6F006259980E300AEF80A;
 			remoteInfo = ScoreFive;
 		};
-		07E6F029259980E500AEF80A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 07E6EFFF259980E300AEF80A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 07E6F006259980E300AEF80A;
-			remoteInfo = ScoreFive;
-		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		072F8164259A4D49005EE56B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				072F8163259A4D48005EE56B /* NeedleFoundation.framework in Embed Frameworks */,
+				072F816E259A4D57005EE56B /* ShortRibs.framework in Embed Frameworks */,
+				072F8169259A4D4D005EE56B /* SnapKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		072F8161259A4D48005EE56B /* NeedleFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NeedleFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		072F8167259A4D4D005EE56B /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		072F816C259A4D57005EE56B /* ShortRibs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ShortRibs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		072F817C259A4E99005EE56B /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		072F817D259A4E99005EE56B /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
+		072F817E259A4E99005EE56B /* RootInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootInteractor.swift; sourceTree = "<group>"; };
+		072F8189259A51FD005EE56B /* DependencyGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyGraph.swift; sourceTree = "<group>"; };
+		072F818F259A523F005EE56B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		072F8190259A523F005EE56B /* MainBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBuilder.swift; sourceTree = "<group>"; };
+		072F8191259A523F005EE56B /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
+		072F81A8259A5D76005EE56B /* Mocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		072F81B1259A5D9E005EE56B /* RootInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootInteractorTests.swift; sourceTree = "<group>"; };
+		072F81B5259A5EBA005EE56B /* RootViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewControllerTests.swift; sourceTree = "<group>"; };
+		072F81B9259A5FC3005EE56B /* FiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveViewController.swift; sourceTree = "<group>"; };
+		072F81BA259A5FC3005EE56B /* FiveBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveBuilder.swift; sourceTree = "<group>"; };
+		072F81BB259A5FC3005EE56B /* FiveInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveInteractor.swift; sourceTree = "<group>"; };
+		072F81C2259A6220005EE56B /* GameStorageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStorageWorker.swift; sourceTree = "<group>"; };
+		072F81C6259A62BD005EE56B /* ScoreFive.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScoreFive.xcdatamodel; sourceTree = "<group>"; };
+		072F81CB259A63E3005EE56B /* MainInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractorTests.swift; sourceTree = "<group>"; };
+		072F81CF259A6451005EE56B /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
 		07E6F007259980E300AEF80A /* ScoreFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E6F00A259980E300AEF80A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E6F00C259980E300AEF80A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		07E6F00E259980E300AEF80A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		07E6F011259980E300AEF80A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07E6F013259980E500AEF80A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07E6F016259980E500AEF80A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07E6F018259980E500AEF80A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07E6F01D259980E500AEF80A /* ScoreFiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoreFiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		07E6F021259980E500AEF80A /* ScoreFiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreFiveTests.swift; sourceTree = "<group>"; };
 		07E6F023259980E500AEF80A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		07E6F028259980E500AEF80A /* ScoreFiveUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoreFiveUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		07E6F02C259980E500AEF80A /* ScoreFiveUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreFiveUITests.swift; sourceTree = "<group>"; };
-		07E6F02E259980E500AEF80A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +98,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				072F8162259A4D48005EE56B /* NeedleFoundation.framework in Frameworks */,
+				072F816D259A4D57005EE56B /* ShortRibs.framework in Frameworks */,
+				072F8168259A4D4D005EE56B /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,23 +111,139 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		07E6F025259980E500AEF80A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		072F8160259A4D48005EE56B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				072F816C259A4D57005EE56B /* ShortRibs.framework */,
+				072F8167259A4D4D005EE56B /* SnapKit.framework */,
+				072F8161259A4D48005EE56B /* NeedleFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		072F8177259A4DEB005EE56B /* Src */ = {
+			isa = PBXGroup;
+			children = (
+				072F81C9259A639E005EE56B /* UI */,
+				072F817A259A4E84005EE56B /* Features */,
+				072F8179259A4E7E005EE56B /* Infra */,
+			);
+			path = Src;
+			sourceTree = "<group>";
+		};
+		072F8178259A4DF7005EE56B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				07E6F013259980E500AEF80A /* Assets.xcassets */,
+				07E6F015259980E500AEF80A /* LaunchScreen.storyboard */,
+				072F81C5259A62BD005EE56B /* ScoreFive.xcdatamodeld */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		072F8179259A4E7E005EE56B /* Infra */ = {
+			isa = PBXGroup;
+			children = (
+				072F8189259A51FD005EE56B /* DependencyGraph.swift */,
+				07E6F00A259980E300AEF80A /* AppDelegate.swift */,
+				07E6F00C259980E300AEF80A /* SceneDelegate.swift */,
+			);
+			path = Infra;
+			sourceTree = "<group>";
+		};
+		072F817A259A4E84005EE56B /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				072F81B8259A5FB0005EE56B /* Five */,
+				072F818E259A5226005EE56B /* Main */,
+				072F817B259A4E88005EE56B /* Root */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		072F817B259A4E88005EE56B /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				072F817C259A4E99005EE56B /* RootViewController.swift */,
+				072F817D259A4E99005EE56B /* RootBuilder.swift */,
+				072F817E259A4E99005EE56B /* RootInteractor.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		072F818E259A5226005EE56B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				072F818F259A523F005EE56B /* MainViewController.swift */,
+				072F8190259A523F005EE56B /* MainBuilder.swift */,
+				072F8191259A523F005EE56B /* MainInteractor.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		072F81AC259A5D7E005EE56B /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				072F81CA259A63DD005EE56B /* Main */,
+				072F81B0259A5D96005EE56B /* Root */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		072F81B0259A5D96005EE56B /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				072F81B1259A5D9E005EE56B /* RootInteractorTests.swift */,
+				072F81B5259A5EBA005EE56B /* RootViewControllerTests.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		072F81B8259A5FB0005EE56B /* Five */ = {
+			isa = PBXGroup;
+			children = (
+				072F81C1259A6217005EE56B /* Workers */,
+				072F81B9259A5FC3005EE56B /* FiveViewController.swift */,
+				072F81BA259A5FC3005EE56B /* FiveBuilder.swift */,
+				072F81BB259A5FC3005EE56B /* FiveInteractor.swift */,
+			);
+			path = Five;
+			sourceTree = "<group>";
+		};
+		072F81C1259A6217005EE56B /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				072F81C2259A6220005EE56B /* GameStorageWorker.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
+		072F81C9259A639E005EE56B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		072F81CA259A63DD005EE56B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				072F81CB259A63E3005EE56B /* MainInteractorTests.swift */,
+				072F81CF259A6451005EE56B /* MainViewControllerTests.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		07E6EFFE259980E300AEF80A = {
 			isa = PBXGroup;
 			children = (
 				07E6F009259980E300AEF80A /* ScoreFive */,
 				07E6F020259980E500AEF80A /* ScoreFiveTests */,
-				07E6F02B259980E500AEF80A /* ScoreFiveUITests */,
 				07E6F008259980E300AEF80A /* Products */,
+				072F8160259A4D48005EE56B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,7 +252,6 @@
 			children = (
 				07E6F007259980E300AEF80A /* ScoreFive.app */,
 				07E6F01D259980E500AEF80A /* ScoreFiveTests.xctest */,
-				07E6F028259980E500AEF80A /* ScoreFiveUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,12 +259,8 @@
 		07E6F009259980E300AEF80A /* ScoreFive */ = {
 			isa = PBXGroup;
 			children = (
-				07E6F00A259980E300AEF80A /* AppDelegate.swift */,
-				07E6F00C259980E300AEF80A /* SceneDelegate.swift */,
-				07E6F00E259980E300AEF80A /* ViewController.swift */,
-				07E6F010259980E300AEF80A /* Main.storyboard */,
-				07E6F013259980E500AEF80A /* Assets.xcassets */,
-				07E6F015259980E500AEF80A /* LaunchScreen.storyboard */,
+				072F8178259A4DF7005EE56B /* Resources */,
+				072F8177259A4DEB005EE56B /* Src */,
 				07E6F018259980E500AEF80A /* Info.plist */,
 			);
 			path = ScoreFive;
@@ -113,19 +269,11 @@
 		07E6F020259980E500AEF80A /* ScoreFiveTests */ = {
 			isa = PBXGroup;
 			children = (
-				07E6F021259980E500AEF80A /* ScoreFiveTests.swift */,
+				072F81AC259A5D7E005EE56B /* Features */,
+				072F81A8259A5D76005EE56B /* Mocks.swift */,
 				07E6F023259980E500AEF80A /* Info.plist */,
 			);
 			path = ScoreFiveTests;
-			sourceTree = "<group>";
-		};
-		07E6F02B259980E500AEF80A /* ScoreFiveUITests */ = {
-			isa = PBXGroup;
-			children = (
-				07E6F02C259980E500AEF80A /* ScoreFiveUITests.swift */,
-				07E6F02E259980E500AEF80A /* Info.plist */,
-			);
-			path = ScoreFiveUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,9 +283,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07E6F031259980E500AEF80A /* Build configuration list for PBXNativeTarget "ScoreFive" */;
 			buildPhases = (
+				072F8186259A5175005EE56B /* Generate Dependency Graph */,
 				07E6F003259980E300AEF80A /* Sources */,
 				07E6F004259980E300AEF80A /* Frameworks */,
 				07E6F005259980E300AEF80A /* Resources */,
+				072F8164259A4D49005EE56B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -152,6 +302,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07E6F034259980E500AEF80A /* Build configuration list for PBXNativeTarget "ScoreFiveTests" */;
 			buildPhases = (
+				072F81A1259A5CEA005EE56B /* Generate Mocks */,
 				07E6F019259980E500AEF80A /* Sources */,
 				07E6F01A259980E500AEF80A /* Frameworks */,
 				07E6F01B259980E500AEF80A /* Resources */,
@@ -165,24 +316,6 @@
 			productName = ScoreFiveTests;
 			productReference = 07E6F01D259980E500AEF80A /* ScoreFiveTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		07E6F027259980E500AEF80A /* ScoreFiveUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 07E6F037259980E500AEF80A /* Build configuration list for PBXNativeTarget "ScoreFiveUITests" */;
-			buildPhases = (
-				07E6F024259980E500AEF80A /* Sources */,
-				07E6F025259980E500AEF80A /* Frameworks */,
-				07E6F026259980E500AEF80A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				07E6F02A259980E500AEF80A /* PBXTargetDependency */,
-			);
-			name = ScoreFiveUITests;
-			productName = ScoreFiveUITests;
-			productReference = 07E6F028259980E500AEF80A /* ScoreFiveUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -198,10 +331,7 @@
 					};
 					07E6F01C259980E500AEF80A = {
 						CreatedOnToolsVersion = 12.3;
-						TestTargetID = 07E6F006259980E300AEF80A;
-					};
-					07E6F027259980E500AEF80A = {
-						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
 						TestTargetID = 07E6F006259980E300AEF80A;
 					};
 				};
@@ -221,7 +351,6 @@
 			targets = (
 				07E6F006259980E300AEF80A /* ScoreFive */,
 				07E6F01C259980E500AEF80A /* ScoreFiveTests */,
-				07E6F027259980E500AEF80A /* ScoreFiveUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -233,7 +362,6 @@
 			files = (
 				07E6F017259980E500AEF80A /* LaunchScreen.storyboard in Resources */,
 				07E6F014259980E500AEF80A /* Assets.xcassets in Resources */,
-				07E6F012259980E300AEF80A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,23 +372,67 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		07E6F026259980E500AEF80A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		072F8186259A5175005EE56B /* Generate Dependency Graph */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Dependency Graph";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
 			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export SOURCEKIT_LOGGING=0 && needle generate ScoreFive/Src/Infra/DependencyGraph.swift ScoreFive/src/Features/\n";
 		};
-/* End PBXResourcesBuildPhase section */
+		072F81A1259A5CEA005EE56B /* Generate Mocks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Mocks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "mockolo -s ScoreFive/Src ../Libraries -d ScoreFiveTests/Mocks.swift -i ShortRibs ScoreFive\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		07E6F003259980E300AEF80A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07E6F00F259980E300AEF80A /* ViewController.swift in Sources */,
+				072F81BC259A5FC3005EE56B /* FiveViewController.swift in Sources */,
+				072F8193259A523F005EE56B /* MainBuilder.swift in Sources */,
+				072F8192259A523F005EE56B /* MainViewController.swift in Sources */,
+				072F81BD259A5FC3005EE56B /* FiveBuilder.swift in Sources */,
 				07E6F00B259980E300AEF80A /* AppDelegate.swift in Sources */,
 				07E6F00D259980E300AEF80A /* SceneDelegate.swift in Sources */,
+				072F817F259A4E99005EE56B /* RootViewController.swift in Sources */,
+				072F8194259A523F005EE56B /* MainInteractor.swift in Sources */,
+				072F81C3259A6220005EE56B /* GameStorageWorker.swift in Sources */,
+				072F81BE259A5FC3005EE56B /* FiveInteractor.swift in Sources */,
+				072F818A259A51FD005EE56B /* DependencyGraph.swift in Sources */,
+				072F8180259A4E99005EE56B /* RootBuilder.swift in Sources */,
+				072F81C7259A62BD005EE56B /* ScoreFive.xcdatamodeld in Sources */,
+				072F8181259A4E99005EE56B /* RootInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,15 +440,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07E6F022259980E500AEF80A /* ScoreFiveTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		07E6F024259980E500AEF80A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				07E6F02D259980E500AEF80A /* ScoreFiveUITests.swift in Sources */,
+				072F81B2259A5D9E005EE56B /* RootInteractorTests.swift in Sources */,
+				072F81A9259A5D76005EE56B /* Mocks.swift in Sources */,
+				072F81B6259A5EBA005EE56B /* RootViewControllerTests.swift in Sources */,
+				072F81CC259A63E3005EE56B /* MainInteractorTests.swift in Sources */,
+				072F81D0259A6451005EE56B /* MainViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,22 +456,9 @@
 			target = 07E6F006259980E300AEF80A /* ScoreFive */;
 			targetProxy = 07E6F01E259980E500AEF80A /* PBXContainerItemProxy */;
 		};
-		07E6F02A259980E500AEF80A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 07E6F006259980E300AEF80A /* ScoreFive */;
-			targetProxy = 07E6F029259980E500AEF80A /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		07E6F010259980E300AEF80A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				07E6F011259980E300AEF80A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		07E6F015259980E500AEF80A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -474,6 +629,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y88YPD4RJA;
 				INFOPLIST_FILE = ScoreFiveTests/Info.plist;
@@ -485,6 +641,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.varunsanthanam.ScoreFiveTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScoreFive.app/ScoreFive";
@@ -496,6 +653,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y88YPD4RJA;
 				INFOPLIST_FILE = ScoreFiveTests/Info.plist;
@@ -510,46 +668,6 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ScoreFive.app/ScoreFive";
-			};
-			name = Release;
-		};
-		07E6F038259980E500AEF80A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y88YPD4RJA;
-				INFOPLIST_FILE = ScoreFiveUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.varunsanthanam.ScoreFiveUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ScoreFive;
-			};
-			name = Debug;
-		};
-		07E6F039259980E500AEF80A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y88YPD4RJA;
-				INFOPLIST_FILE = ScoreFiveUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.varunsanthanam.ScoreFiveUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ScoreFive;
 			};
 			name = Release;
 		};
@@ -583,16 +701,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		07E6F037259980E500AEF80A /* Build configuration list for PBXNativeTarget "ScoreFiveUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				07E6F038259980E500AEF80A /* Debug */,
-				07E6F039259980E500AEF80A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		072F81C5259A62BD005EE56B /* ScoreFive.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				072F81C6259A62BD005EE56B /* ScoreFive.xcdatamodel */,
+			);
+			currentVersion = 072F81C6259A62BD005EE56B /* ScoreFive.xcdatamodel */;
+			path = ScoreFive.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 07E6EFFF259980E300AEF80A /* Project object */;
 }

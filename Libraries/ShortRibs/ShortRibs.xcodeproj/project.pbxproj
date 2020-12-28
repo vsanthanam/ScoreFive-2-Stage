@@ -20,6 +20,7 @@
 		0725EE56259981DC00F3C4B5 /* ScopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0725EE54259981DC00F3C4B5 /* ScopeView.swift */; };
 		0725EE57259981DC00F3C4B5 /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0725EE55259981DC00F3C4B5 /* ScopeViewController.swift */; };
 		0725EE5B259981EB00F3C4B5 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0725EE5A259981EB00F3C4B5 /* Builder.swift */; };
+		072F80A5259A4A3E005EE56B /* AutoCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F80A4259A4A3E005EE56B /* AutoCancel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		0725EE54259981DC00F3C4B5 /* ScopeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeView.swift; sourceTree = "<group>"; };
 		0725EE55259981DC00F3C4B5 /* ScopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeViewController.swift; sourceTree = "<group>"; };
 		0725EE5A259981EB00F3C4B5 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
+		072F80A4259A4A3E005EE56B /* AutoCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCancel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,18 +93,10 @@
 		0725EE26259981A000F3C4B5 /* ShortRibs */ = {
 			isa = PBXGroup;
 			children = (
-				0725EE54259981DC00F3C4B5 /* ScopeView.swift */,
-				0725EE55259981DC00F3C4B5 /* ScopeViewController.swift */,
-				0725EE4E259981C300F3C4B5 /* Worker.swift */,
-				0725EE4F259981C300F3C4B5 /* Workflow.swift */,
-				0725EE42259981B800F3C4B5 /* ComponentizedBuilder.swift */,
-				0725EE43259981B800F3C4B5 /* Interactor.swift */,
-				0725EE41259981B800F3C4B5 /* MultiStageBuilder.swift */,
-				0725EE40259981B800F3C4B5 /* PersistentContainer.swift */,
-				0725EE44259981B800F3C4B5 /* PresentableInteractor.swift */,
+				072F80A9259A4BD5005EE56B /* Core */,
+				072F80A8259A4BCE005EE56B /* Cocoa */,
 				0725EE27259981A000F3C4B5 /* ShortRibs.h */,
 				0725EE28259981A000F3C4B5 /* Info.plist */,
-				0725EE5A259981EB00F3C4B5 /* Builder.swift */,
 			);
 			path = ShortRibs;
 			sourceTree = "<group>";
@@ -114,6 +108,87 @@
 				0725EE34259981A000F3C4B5 /* Info.plist */,
 			);
 			path = ShortRibsTests;
+			sourceTree = "<group>";
+		};
+		072F80A8259A4BCE005EE56B /* Cocoa */ = {
+			isa = PBXGroup;
+			children = (
+				072F80AB259A4BEE005EE56B /* CoreData */,
+				072F80AA259A4BDB005EE56B /* UIKit */,
+			);
+			path = Cocoa;
+			sourceTree = "<group>";
+		};
+		072F80A9259A4BD5005EE56B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				072F80B0259A4C29005EE56B /* Worker */,
+				072F80AF259A4C23005EE56B /* Workflow */,
+				072F80AD259A4C0C005EE56B /* Builder */,
+				072F80AC259A4C08005EE56B /* Interactor */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		072F80AA259A4BDB005EE56B /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				0725EE54259981DC00F3C4B5 /* ScopeView.swift */,
+				0725EE55259981DC00F3C4B5 /* ScopeViewController.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		072F80AB259A4BEE005EE56B /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0725EE40259981B800F3C4B5 /* PersistentContainer.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		072F80AC259A4C08005EE56B /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				0725EE43259981B800F3C4B5 /* Interactor.swift */,
+				0725EE44259981B800F3C4B5 /* PresentableInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		072F80AD259A4C0C005EE56B /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				072F80AE259A4C1A005EE56B /* Needle */,
+				0725EE5A259981EB00F3C4B5 /* Builder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		072F80AE259A4C1A005EE56B /* Needle */ = {
+			isa = PBXGroup;
+			children = (
+				0725EE42259981B800F3C4B5 /* ComponentizedBuilder.swift */,
+				0725EE41259981B800F3C4B5 /* MultiStageBuilder.swift */,
+			);
+			path = Needle;
+			sourceTree = "<group>";
+		};
+		072F80AF259A4C23005EE56B /* Workflow */ = {
+			isa = PBXGroup;
+			children = (
+				0725EE4F259981C300F3C4B5 /* Workflow.swift */,
+			);
+			path = Workflow;
+			sourceTree = "<group>";
+		};
+		072F80B0259A4C29005EE56B /* Worker */ = {
+			isa = PBXGroup;
+			children = (
+				072F80A4259A4A3E005EE56B /* AutoCancel.swift */,
+				0725EE4E259981C300F3C4B5 /* Worker.swift */,
+			);
+			path = Worker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +302,7 @@
 			files = (
 				0725EE46259981B800F3C4B5 /* MultiStageBuilder.swift in Sources */,
 				0725EE50259981C300F3C4B5 /* Worker.swift in Sources */,
+				072F80A5259A4A3E005EE56B /* AutoCancel.swift in Sources */,
 				0725EE49259981B800F3C4B5 /* PresentableInteractor.swift in Sources */,
 				0725EE51259981C300F3C4B5 /* Workflow.swift in Sources */,
 				0725EE45259981B800F3C4B5 /* PersistentContainer.swift in Sources */,
