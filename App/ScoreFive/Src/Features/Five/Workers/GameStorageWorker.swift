@@ -29,5 +29,4 @@ final class GameStorageWorker: Worker, GameStorageWorking {
     // MARK: - Private
     
     private let persistentContainer: PersistentContaining
-    
 }

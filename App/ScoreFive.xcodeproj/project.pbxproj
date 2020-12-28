@@ -30,6 +30,8 @@
 		072F81C7259A62BD005EE56B /* ScoreFive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 072F81C5259A62BD005EE56B /* ScoreFive.xcdatamodeld */; };
 		072F81CC259A63E3005EE56B /* MainInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81CB259A63E3005EE56B /* MainInteractorTests.swift */; };
 		072F81D0259A6451005EE56B /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81CF259A6451005EE56B /* MainViewControllerTests.swift */; };
+		072F81D4259A658F005EE56B /* FiveInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81D3259A658F005EE56B /* FiveInteractorTests.swift */; };
+		072F81D8259A65E1005EE56B /* FiveViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81D7259A65E1005EE56B /* FiveViewControllerTests.swift */; };
 		07E6F00B259980E300AEF80A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E6F00A259980E300AEF80A /* AppDelegate.swift */; };
 		07E6F00D259980E300AEF80A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E6F00C259980E300AEF80A /* SceneDelegate.swift */; };
 		07E6F014259980E500AEF80A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E6F013259980E500AEF80A /* Assets.xcassets */; };
@@ -83,6 +85,8 @@
 		072F81C6259A62BD005EE56B /* ScoreFive.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScoreFive.xcdatamodel; sourceTree = "<group>"; };
 		072F81CB259A63E3005EE56B /* MainInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractorTests.swift; sourceTree = "<group>"; };
 		072F81CF259A6451005EE56B /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
+		072F81D3259A658F005EE56B /* FiveInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveInteractorTests.swift; sourceTree = "<group>"; };
+		072F81D7259A65E1005EE56B /* FiveViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveViewControllerTests.swift; sourceTree = "<group>"; };
 		07E6F007259980E300AEF80A /* ScoreFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E6F00A259980E300AEF80A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E6F00C259980E300AEF80A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 		072F81AC259A5D7E005EE56B /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				072F81D2259A6587005EE56B /* Five */,
 				072F81CA259A63DD005EE56B /* Main */,
 				072F81B0259A5D96005EE56B /* Root */,
 			);
@@ -235,6 +240,15 @@
 				072F81CF259A6451005EE56B /* MainViewControllerTests.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		072F81D2259A6587005EE56B /* Five */ = {
+			isa = PBXGroup;
+			children = (
+				072F81D3259A658F005EE56B /* FiveInteractorTests.swift */,
+				072F81D7259A65E1005EE56B /* FiveViewControllerTests.swift */,
+			);
+			path = Five;
 			sourceTree = "<group>";
 		};
 		07E6EFFE259980E300AEF80A = {
@@ -440,7 +454,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				072F81D4259A658F005EE56B /* FiveInteractorTests.swift in Sources */,
 				072F81B2259A5D9E005EE56B /* RootInteractorTests.swift in Sources */,
+				072F81D8259A65E1005EE56B /* FiveViewControllerTests.swift in Sources */,
 				072F81A9259A5D76005EE56B /* Mocks.swift in Sources */,
 				072F81B6259A5EBA005EE56B /* RootViewControllerTests.swift in Sources */,
 				072F81CC259A63E3005EE56B /* MainInteractorTests.swift in Sources */,
