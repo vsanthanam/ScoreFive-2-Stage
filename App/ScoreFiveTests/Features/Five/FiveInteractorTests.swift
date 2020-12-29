@@ -13,23 +13,16 @@ import XCTest
 final class FiveInteractorTests: XCTestCase {
     
     let presenter = FivePresentableMock()
-    let gameStorageWorker = GameStorageWorkingMock()
     
     var interactor: FiveInteractor!
     
     override func setUp() {
         super.setUp()
-        interactor = .init(presenter: presenter, gameStorageWorker: gameStorageWorker)
+        interactor = .init(presenter: presenter)
     }
     
     func test_init_setsPresenterListener() {
         XCTAssertTrue(presenter.listener === self.interactor)
-    }
-    
-    func test_activate_startsGameStorageWorker() {
-        XCTAssertEqual(gameStorageWorker.startCallCount, 0)
-        interactor.activate()
-        XCTAssertEqual(gameStorageWorker.startCallCount, 1)
     }
 }
 

@@ -18,17 +18,11 @@ class FiveComponent: Component<FiveDependency> {
     // MARK: - Published Dependencies
     
     var gameStorageProvider: GameStorageProviding {
-        gameStorageWorker
+        gameStorageManager
     }
     
     var gameStorageManager: GameStorageManaging {
-        gameStorageWorker
-    }
-    
-    // MARK: - Internal Dependencies
-    
-    fileprivate var gameStorageWorker: GameStorageWorking {
-        shared { GameStorageWorker(persistentContainer: dependency.persistentContainer) }
+        GameStorageManager(persistentContainer: dependency.persistentContainer)
     }
 }
 
@@ -51,8 +45,7 @@ final class FiveBuilder: ComponentizedBuilder<FiveComponent, PresentableInteract
     override final func build(with component: FiveComponent, _ dynamicBuildDependency: FiveDynamicBuildDependency) -> PresentableInteractable {
         let listener = dynamicBuildDependency
         let viewController = FiveViewController()
-        let interactor = FiveInteractor(presenter: viewController,
-                                        gameStorageWorker: component.gameStorageWorker)
+        let interactor = FiveInteractor(presenter: viewController)
         interactor.listener = listener
         return interactor
     }

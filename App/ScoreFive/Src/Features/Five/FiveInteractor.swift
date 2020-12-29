@@ -20,9 +20,7 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
     
     // MARK: - Initializers
     
-    init(presenter: FivePresentable,
-         gameStorageWorker: GameStorageWorking) {
-        self.gameStorageWorker = gameStorageWorker
+    override init(presenter: FivePresentable) {
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -31,21 +29,10 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
     
     weak var listener: FiveListener?
     
-    // MARK: - Interactor
-    
-    override func didBecomeActive() {
-        super.didBecomeActive()
-        gameStorageWorker.start(on: self)
-    }
-    
     // MARK: - FiveInteractable
     
     var viewController: ViewControllable {
         presenter
     }
-    
-    // MARK: - Private
-    
-    private let gameStorageWorker: GameStorageWorking
     
 }
