@@ -35,12 +35,6 @@ public struct Round: Codable, Equatable, Hashable {
         }
     }
     
-    /// Create a `Round` from another round
-    /// - Parameter Round: The round to copy
-    public init(round: Round) {
-        self = round
-    }
-    
     /// Create a `Round` from a dictionary of players and scores
     /// - Parameter entries: A dictionary with players and scores
     /// - Note: This initialize produces a run-time failure if the provided collection contains invalid scores.
@@ -50,6 +44,12 @@ public struct Round: Codable, Equatable, Hashable {
         precondition(!aboveZero.contains(false), "Entry must not contain scores less than 0")
         precondition(!belowFifty.contains(false), "Entry must not contain score greater than 50")
         self.init(entries: entries)
+    }
+    
+    /// Create a `Round` from another round
+    /// - Parameter Round: The round to copy
+    public init(round: Round) {
+        self = round
     }
     
     // MARK: - API

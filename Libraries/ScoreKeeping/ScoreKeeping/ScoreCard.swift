@@ -19,6 +19,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     /// - Parameters:
     ///   - scoreLimit: The score limit used to eliminate players. Defaults to 250.
     ///   - orderedPlayers: The players in this game, ordered by who plays first.
+    /// - Note: This initializer produces a runtime failure if the provided score limit is less than 50, if fewer than 2 players are provided, or if more than 8 players are provided.b
     public init(scoreLimit: Int = 250,
                 orderedPlayers: [Player]) {
         precondition(orderedPlayers.count >= 2, "There must be at least 2 players in a game")
@@ -75,19 +76,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     /// - Returns: The total score for the player
     /// - Note: This method produces a run-time failure if the player is not in this game
     public func totalScore(for player: Player) -> Int {
-        guard orderedPlayers.contains(player) else {
-            fatalError("This score card does not contain this player")
-        }
-        let uuids = orderedPlayers.map { player in
-            player.uuid
-        }
-        precondition(uuids.contains(player.uuid))
-        let applicableRounds = rounds.filter { round in
-            round.containsScore(for: player)
-        }
-        return applicableRounds.reduce(0) { total, round in
-            total + (round.score(for: player) ?? 0)
-        }
+        totalScore(forPlayer: player, atIndex: rounds.count - 1)
     }
     
     /// Get the round at the specified index
@@ -107,28 +96,46 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     ///   - newRound: The new round
     /// - Returns: Whether or not the update is permissable
     /// - Note: You cannot update a round with a new round that would change which players have been eliminated, unless that round is the most recent round.
-    public func canReplaceRound(at index: Int, with newRound: Round) -> Bool {
+    public func canReplaceRound(at index: Int, with newRound: Round?) -> Bool {
         guard index < rounds.count else {
             return false
         }
-        if index == rounds.count - 1 {
+        if index == (rounds.count - 1) {
             return true
         }
         var copy = self
         let activePlayers = copy.activePlayers
-        copy.rounds[index] = newRound
+        if let newRound = newRound {
+            copy.rounds[index] = newRound
+        } else {
+            copy.rounds.remove(at: index)
+        }
         return activePlayers == copy.activePlayers
+    }
+    
+    /// Whether or not a round can be safely removed.
+    /// - Parameter index: The index of the round you want to remove
+    /// - Returns: Whether or not the removal is permissable
+    /// - Note: You cannot remove a round that would change which players have been eliminated, unless that round is the most recent round.
+    public func canRemoveRound(at index: Int) -> Bool {
+        canReplaceRound(at: index, with: nil)
     }
     
     /// Remove the round at the specified index
     /// - Parameter index: The index used to remove the round
-    /// - Note: this method prodiuces a run-time failure if no such index exists
+    /// - Note: This method prodiuces a run-time failure if no such index exists, or if the desired removal is not permissable.
+    ///         You can validate a removal before attempting to make one using `canRemoveRound(at:)`
     public mutating func removeRound(at index: Int) {
         guard index < rounds.count else {
             fatalError("This game does not contain a round at this index")
         }
-        rounds.remove(at: index)
-        precondition(activePlayers.count >= 1, "Round must leave at least one player standing after being removal")
+        if index == (rounds.count - 1) {
+            rounds.remove(at: index)
+        } else {
+            let previouslyActivePlayers = activePlayers
+            rounds.remove(at: index)
+            precondition(previouslyActivePlayers == activePlayers, "Round removal must not change active players")
+        }
     }
     
     /// Replace the round at the given index
@@ -136,7 +143,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     ///   - index: The index to replace
     ///   - newRound: The new round
     /// - Note: This method produes a run-time failure if the index doesn't exist in the score card, or if the desired change is not permissable.
-    ///         You can validate a change before making one using `canReplaceRound:`
+    ///         You can validate a change before attempting ot make one using `canReplaceRound(at:with:)`
     public mutating func replaceRound(at index: Int, with newRound: Round) {
         guard canReplaceRound(at: index, with: newRound) else {
             fatalError("Cannot replace round with new round that would change which players have or haven't been eliminated")
@@ -177,6 +184,26 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     // MARK: - Private
     
     private var rounds = [Round]()
+    
+    private func partialGame(atIndex index: Int) -> ScoreCard {
+        precondition(index < rounds.count, "This round hasn't happend yet")
+        var partial = ScoreCard(scoreLimit: scoreLimit, orderedPlayers: orderedPlayers)
+        partial.rounds = .init(rounds.prefix(index + 1))
+        return partial
+    }
+    
+    private func totalScore(forPlayer player: Player, atIndex index: Int) -> Int {
+        precondition(index < rounds.count, "This round hasn't happened yet")
+        precondition(orderedPlayers.contains(player), "This score card does not contain this player")
+        return rounds
+            .prefix(index + 1)
+            .filter { round in
+                round.containsScore(for: player)
+            }
+            .reduce(0) { total, round in
+                total + (round.score(for: player) ?? 0)
+            }
+    }
 }
 
 fileprivate extension Round {
@@ -187,9 +214,7 @@ fileprivate extension Round {
     
     var containedScores: [Int] {
         players
-            .map { player -> Int? in
-                score(for: player)
-            }
+            .map(score(for:))
             .compactMap { $0 }
     }
 }
