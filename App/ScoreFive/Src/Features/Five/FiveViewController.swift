@@ -17,6 +17,13 @@ protocol FivePresentableListener: AnyObject {}
 
 final class FiveViewController: ScopeViewController, FivePresentable, FiveViewControllable {
     
+    // MARK: - UIViewController
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .backgroundPrimary
+    }
+    
     // MARK: - FivePresentable
     
     weak var listener: FivePresentableListener?

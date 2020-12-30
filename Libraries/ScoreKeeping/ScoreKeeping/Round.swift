@@ -87,7 +87,7 @@ public struct Round: Codable, Equatable, Hashable {
     // MARK: - Subscript
     
     /// Subscriptable interface to retrieve, add and remove scores from the round
-    subscript(player: Player) -> Int? {
+    public subscript(player: Player) -> Int? {
         get {
             score(for: player)
         }

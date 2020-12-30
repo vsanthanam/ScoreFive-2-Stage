@@ -169,4 +169,22 @@ final class RoundTests: XCTestCase {
         XCTAssertEqual(round.players.count, 1, "Round should only have 1 player")
         XCTAssertTrue(round.players.contains(player1), "Round should have a score for player1")
     }
+    
+    func test_equality() {
+        let player1 = Player(name: "Test Player")
+        let player2 = Player(name: "Test Player")
+        var round1 = Round()
+        var round2 = Round()
+        var round3 = Round()
+        
+        round1[player1] = 0
+        round1[player2] = 12
+        round2[player1] = 34
+        round2[player2] = 0
+        round3[player1] = 0
+        round3[player2] = 12
+        XCTAssertEqual(round1, round1)
+        XCTAssertNotEqual(round1, round2)
+        XCTAssertEqual(round1, round3)
+    }
 }

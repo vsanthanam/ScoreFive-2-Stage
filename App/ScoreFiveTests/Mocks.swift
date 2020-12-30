@@ -120,21 +120,6 @@ public class InteractableMock: Interactable {
     }
 }
 
-class FivePresentableMock: FivePresentable {
-    init() { }
-    init(listener: FivePresentableListener? = nil, uiviewController: UIViewController = UIViewController()) {
-        self.listener = listener
-        self.uiviewController = uiviewController
-    }
-
-
-    private(set) var listenerSetCallCount = 0
-    var listener: FivePresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
-
-    public private(set) var uiviewControllerSetCallCount = 0
-    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
-}
-
 class MainPresentableMock: MainPresentable {
     init() { }
     init(listener: MainPresentableListener? = nil, uiviewController: UIViewController = UIViewController()) {
@@ -205,6 +190,21 @@ class FiveViewControllableMock: FiveViewControllable {
 
     public private(set) var uiviewControllerSetCallCount = 0
     public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
+}
+
+class FivePresentableMock: FivePresentable {
+    init() { }
+    init(uiviewController: UIViewController = UIViewController(), listener: FivePresentableListener? = nil) {
+        self.uiviewController = uiviewController
+        self.listener = listener
+    }
+
+
+    public private(set) var uiviewControllerSetCallCount = 0
+    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
+
+    private(set) var listenerSetCallCount = 0
+    var listener: FivePresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
 }
 
 public class PersistentContainingMock: PersistentContaining {
@@ -302,34 +302,44 @@ class GameStorageProvidingMock: GameStorageProviding {
     init() { }
 
 
-    private(set) var fetchGameCallCount = 0
-    var fetchGameHandler: ((UUID) throws -> (Game?))?
-    func fetchGame(for identifier: UUID) throws -> Game? {
-        fetchGameCallCount += 1
-        if let fetchGameHandler = fetchGameHandler {
-            return try fetchGameHandler(identifier)
+    private(set) var fetchScoreCardCallCount = 0
+    var fetchScoreCardHandler: ((UUID) throws -> (ScoreCard?))?
+    func fetchScoreCard(for identifier: UUID) throws -> ScoreCard? {
+        fetchScoreCardCallCount += 1
+        if let fetchScoreCardHandler = fetchScoreCardHandler {
+            return try fetchScoreCardHandler(identifier)
         }
         return nil
     }
 
-    private(set) var gameCallCount = 0
-    var gameHandler: ((UUID) -> (AnyPublisher<Game?, Never>))?
-    func game(for identifier: UUID) -> AnyPublisher<Game?, Never> {
-        gameCallCount += 1
-        if let gameHandler = gameHandler {
-            return gameHandler(identifier)
+    private(set) var scoreCardCallCount = 0
+    var scoreCardHandler: ((UUID) -> (AnyPublisher<ScoreCard?, Never>))?
+    func scoreCard(for identifier: UUID) -> AnyPublisher<ScoreCard?, Never> {
+        scoreCardCallCount += 1
+        if let scoreCardHandler = scoreCardHandler {
+            return scoreCardHandler(identifier)
         }
-        fatalError("gameHandler returns can't have a default value thus its handler must be set")
+        fatalError("scoreCardHandler returns can't have a default value thus its handler must be set")
     }
 
     private(set) var fetchGamesCallCount = 0
-    var fetchGamesHandler: ((Bool) throws -> ([Game]))?
-    func fetchGames(inProgressOnly: Bool) throws -> [Game] {
+    var fetchGamesHandler: (() throws -> ([GameRecord]))?
+    func fetchGames() throws -> [GameRecord] {
         fetchGamesCallCount += 1
         if let fetchGamesHandler = fetchGamesHandler {
-            return try fetchGamesHandler(inProgressOnly)
+            return try fetchGamesHandler()
         }
-        return [Game]()
+        return [GameRecord]()
+    }
+
+    private(set) var fetchInProgressGamesCallCount = 0
+    var fetchInProgressGamesHandler: (() throws -> ([GameRecord]))?
+    func fetchInProgressGames() throws -> [GameRecord] {
+        fetchInProgressGamesCallCount += 1
+        if let fetchInProgressGamesHandler = fetchInProgressGamesHandler {
+            return try fetchInProgressGamesHandler()
+        }
+        return [GameRecord]()
     }
 }
 
@@ -406,61 +416,6 @@ class MainInteractableMock: MainInteractable {
     }
 }
 
-class GameStorageManagingMock: GameStorageManaging {
-    init() { }
-
-
-    private(set) var fetchGameCallCount = 0
-    var fetchGameHandler: ((UUID) throws -> (Game?))?
-    func fetchGame(for identifier: UUID) throws -> Game? {
-        fetchGameCallCount += 1
-        if let fetchGameHandler = fetchGameHandler {
-            return try fetchGameHandler(identifier)
-        }
-        return nil
-    }
-
-    private(set) var gameCallCount = 0
-    var gameHandler: ((UUID) -> (AnyPublisher<Game?, Never>))?
-    func game(for identifier: UUID) -> AnyPublisher<Game?, Never> {
-        gameCallCount += 1
-        if let gameHandler = gameHandler {
-            return gameHandler(identifier)
-        }
-        fatalError("gameHandler returns can't have a default value thus its handler must be set")
-    }
-
-    private(set) var fetchGamesCallCount = 0
-    var fetchGamesHandler: ((Bool) throws -> ([Game]))?
-    func fetchGames(inProgressOnly: Bool) throws -> [Game] {
-        fetchGamesCallCount += 1
-        if let fetchGamesHandler = fetchGamesHandler {
-            return try fetchGamesHandler(inProgressOnly)
-        }
-        return [Game]()
-    }
-
-    private(set) var saveGamesCallCount = 0
-    var saveGamesHandler: (() throws -> ())?
-    func saveGames() throws  {
-        saveGamesCallCount += 1
-        if let saveGamesHandler = saveGamesHandler {
-            try saveGamesHandler()
-        }
-        
-    }
-
-    private(set) var newGameCallCount = 0
-    var newGameHandler: ((ScoreCard) throws -> (Game))?
-    func newGame(from scoreCard: ScoreCard) throws -> Game {
-        newGameCallCount += 1
-        if let newGameHandler = newGameHandler {
-            return try newGameHandler(scoreCard)
-        }
-        fatalError("newGameHandler returns can't have a default value thus its handler must be set")
-    }
-}
-
 public class WorkingMock: Working {
     public init() { }
     public init(isStarted: Bool = false, isStartedStream: AnyPublisher<Bool, Never>) {
@@ -497,6 +452,81 @@ public class WorkingMock: Working {
     public var isStartedStream: AnyPublisher<Bool, Never> {
         get { return _isStartedStream }
         set { _isStartedStream = newValue }
+    }
+}
+
+class GameStorageManagingMock: GameStorageManaging {
+    init() { }
+
+
+    private(set) var fetchScoreCardCallCount = 0
+    var fetchScoreCardHandler: ((UUID) throws -> (ScoreCard?))?
+    func fetchScoreCard(for identifier: UUID) throws -> ScoreCard? {
+        fetchScoreCardCallCount += 1
+        if let fetchScoreCardHandler = fetchScoreCardHandler {
+            return try fetchScoreCardHandler(identifier)
+        }
+        return nil
+    }
+
+    private(set) var scoreCardCallCount = 0
+    var scoreCardHandler: ((UUID) -> (AnyPublisher<ScoreCard?, Never>))?
+    func scoreCard(for identifier: UUID) -> AnyPublisher<ScoreCard?, Never> {
+        scoreCardCallCount += 1
+        if let scoreCardHandler = scoreCardHandler {
+            return scoreCardHandler(identifier)
+        }
+        fatalError("scoreCardHandler returns can't have a default value thus its handler must be set")
+    }
+
+    private(set) var fetchGamesCallCount = 0
+    var fetchGamesHandler: (() throws -> ([GameRecord]))?
+    func fetchGames() throws -> [GameRecord] {
+        fetchGamesCallCount += 1
+        if let fetchGamesHandler = fetchGamesHandler {
+            return try fetchGamesHandler()
+        }
+        return [GameRecord]()
+    }
+
+    private(set) var fetchInProgressGamesCallCount = 0
+    var fetchInProgressGamesHandler: (() throws -> ([GameRecord]))?
+    func fetchInProgressGames() throws -> [GameRecord] {
+        fetchInProgressGamesCallCount += 1
+        if let fetchInProgressGamesHandler = fetchInProgressGamesHandler {
+            return try fetchInProgressGamesHandler()
+        }
+        return [GameRecord]()
+    }
+
+    private(set) var newGameCallCount = 0
+    var newGameHandler: ((ScoreCard) throws -> (GameRecord))?
+    func newGame(from scoreCard: ScoreCard) throws -> GameRecord {
+        newGameCallCount += 1
+        if let newGameHandler = newGameHandler {
+            return try newGameHandler(scoreCard)
+        }
+        fatalError("newGameHandler returns can't have a default value thus its handler must be set")
+    }
+
+    private(set) var saveCallCount = 0
+    var saveHandler: ((ScoreCard, UUID) throws -> ())?
+    func save(scoreCard: ScoreCard, with identifier: UUID) throws  {
+        saveCallCount += 1
+        if let saveHandler = saveHandler {
+            try saveHandler(scoreCard, identifier)
+        }
+        
+    }
+
+    private(set) var saveAllGamesCallCount = 0
+    var saveAllGamesHandler: (() throws -> ())?
+    func saveAllGames() throws  {
+        saveAllGamesCallCount += 1
+        if let saveAllGamesHandler = saveAllGamesHandler {
+            try saveAllGamesHandler()
+        }
+        
     }
 }
 

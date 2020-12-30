@@ -7,6 +7,7 @@
 
 import Foundation
 import ShortRibs
+import ScoreKeeping
 
 /// @mockable
 protocol FivePresentable: FiveViewControllable {

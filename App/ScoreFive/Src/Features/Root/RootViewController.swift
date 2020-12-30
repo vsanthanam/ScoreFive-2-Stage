@@ -18,6 +18,13 @@ protocol RootPresentableListener: AnyObject {}
 
 final class RootViewController: ScopeViewController, RootPresentable, RootViewControllable {
     
+    // MARK: - UIViewController
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .backgroundPrimary
+    }
+    
     // MARK: - RootPresentable
     
     weak var listener: RootPresentableListener?

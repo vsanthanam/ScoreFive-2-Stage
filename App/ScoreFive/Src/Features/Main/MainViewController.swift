@@ -18,6 +18,13 @@ protocol MainPresentableListener: AnyObject {}
 
 final class MainViewController: ScopeViewController, MainPresentable, MainViewControllable {
     
+    // MARK: - UIViewController
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .backgroundPrimary
+    }
+    
     // MARK: - MainPresentable
     
     weak var listener: MainPresentableListener?
