@@ -197,7 +197,7 @@ extension Cancellable {
     /// - note: This is the preferred method when trying to confine a subscription to the lifecycle of a `Workflow`.
     ///
     /// - parameter workflow: The workflow to dispose the subscription with.
-    public func disposeWith<ActionableItemType>(workflow: Workflow<ActionableItemType>) {
+    public func cancelWith<ActionableItemType>(workflow: Workflow<ActionableItemType>) {
         store(in: &workflow.compositeCancellable)
     }
 }

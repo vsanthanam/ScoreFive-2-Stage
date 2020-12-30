@@ -16,8 +16,8 @@ import ShortRibs
 protocol GameStorageProviding: AnyObject {
     func fetchScoreCard(for identifier: UUID) throws -> ScoreCard?
     func scoreCard(for identifier: UUID) -> AnyPublisher<ScoreCard?, Never>
-    func fetchGames() throws -> [GameRecord]
-    func fetchInProgressGames() throws -> [GameRecord]
+    func fetchGameRecords() throws -> [GameRecord]
+    func fetchInProgressGameRecords() throws -> [GameRecord]
 }
 
 /// @mockable
@@ -41,12 +41,12 @@ final class GameStorageManager: GameStorageManaging {
         try fetchGame(for: identifier)?.getScoreCard()
     }
     
-    func fetchGames() throws -> [GameRecord] {
+    func fetchGameRecords() throws -> [GameRecord] {
         let request = buildFetchRequest()
         return try persistentContainer.viewContext.fetch(request)
     }
     
-    func fetchInProgressGames() throws -> [GameRecord] {
+    func fetchInProgressGameRecords() throws -> [GameRecord] {
         let predicate = NSPredicate(format: "inProgress == YES")
         let request = buildFetchRequest(withPredicate: predicate)
         return try persistentContainer.viewContext.fetch(request)
@@ -54,17 +54,18 @@ final class GameStorageManager: GameStorageManaging {
     
     func scoreCard(for identifier: UUID) -> AnyPublisher<ScoreCard?, Never> {
         saveSubject
-            .tryMap { [weak self] _ -> GameRecord? in
-                if let self = self {
-                    return try self.fetchGame(for: identifier)
+            .dropFirst()
+            .filterNil()
+            .map { games in
+                games.first { $0.uniqueIdentifier == identifier }
+            }
+            .tryMap { game in
+                if let game = game {
+                    return try game.getScoreCard()
                 }
                 return nil
             }
-            .tryMap { game in
-                try game?.getScoreCard()
-            }
             .replaceError(with: nil)
-            .removeDuplicates()
             .eraseToAnyPublisher()
     }
     
@@ -86,13 +87,13 @@ final class GameStorageManager: GameStorageManaging {
     
     func saveAllGames() throws {
         try persistentContainer.viewContext.save()
-        saveSubject.send(())
+        saveSubject.send(try? fetchGameRecords())
     }
     
     // MARK: - Private
     
     private let persistentContainer: PersistentContaining
-    private let saveSubject = PassthroughSubject<(), Never>()
+    private let saveSubject = CurrentValueSubject<[GameRecord]?, Never>([])
     
     private func fetchGame(for identifier: UUID) throws -> GameRecord? {
         let filter = NSPredicate(format: "rawIdentifier == %@", identifier as CVarArg)

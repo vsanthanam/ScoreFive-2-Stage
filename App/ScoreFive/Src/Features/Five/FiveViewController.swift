@@ -27,4 +27,37 @@ final class FiveViewController: ScopeViewController, FivePresentable, FiveViewCo
     // MARK: - FivePresentable
     
     weak var listener: FivePresentableListener?
+    
+    func showHome(_ viewController: ViewControllable) {
+        removeActiveChild()
+        embedActiveChild(viewController)
+    }
+    
+    func showGame(_ viewController: ViewControllable) {
+        removeActiveChild()
+        embedActiveChild(viewController)
+    }
+    
+    // MARK: - Private
+    
+    private var activeChild: ViewControllable?
+    
+    private func embedActiveChild(_ viewController: ViewControllable) {
+        addChild(viewController.uiviewController)
+        view.addSubview(viewController.uiviewController.view)
+        viewController.uiviewController.view.snp.makeConstraints { make in
+            make
+                .edges
+                .equalToSuperview()
+        }
+        viewController.uiviewController.didMove(toParent: self)
+        activeChild = viewController
+    }
+    
+    private func removeActiveChild() {
+        activeChild?.uiviewController.willMove(toParent: nil)
+        activeChild?.uiviewController.view.removeFromSuperview()
+        activeChild?.uiviewController.removeFromParent()
+        activeChild = nil
+    }
 }

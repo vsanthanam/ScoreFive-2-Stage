@@ -42,14 +42,14 @@ final class MainViewController: ScopeViewController, MainPresentable, MainViewCo
     
     private func embedFiveViewController(_ viewController: ViewControllable) {
         assert(fiveViewController == nil)
-        viewController.uiviewController.willMove(toParent: self)
+        addChild(viewController.uiviewController)
         view.addSubview(viewController.uiviewController.view)
         viewController.uiviewController.view.snp.makeConstraints { make in
             make
                 .edges
                 .equalToSuperview()
         }
-        addChild(viewController.uiviewController)
+        viewController.uiviewController.didMove(toParent: self)
         fiveViewController = viewController
     }
     

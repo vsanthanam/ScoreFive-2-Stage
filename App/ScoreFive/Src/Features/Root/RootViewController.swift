@@ -5,6 +5,7 @@
 //  Created by Varun Santhanam on 12/28/20.
 //
 
+import FiveUI
 import Foundation
 import ShortRibs
 import UIKit
@@ -42,14 +43,14 @@ final class RootViewController: ScopeViewController, RootPresentable, RootViewCo
     
     private func embedMainViewController(_ viewController: ViewControllable) {
         assert(mainViewController == nil)
-        viewController.uiviewController.willMove(toParent: self)
+        addChild(viewController.uiviewController)
         view.addSubview(viewController.uiviewController.view)
         viewController.uiviewController.view.snp.makeConstraints { make in
             make
                 .edges
                 .equalToSuperview()
         }
-        addChild(viewController.uiviewController)
+        viewController.uiviewController.didMove(toParent: self)
         mainViewController = viewController
     }
     

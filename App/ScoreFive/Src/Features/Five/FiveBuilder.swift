@@ -22,12 +22,32 @@ class FiveComponent: Component<FiveDependency> {
     }
     
     var gameStorageManager: GameStorageManaging {
-        GameStorageManager(persistentContainer: dependency.persistentContainer)
+        shared { GameStorageManager(persistentContainer: dependency.persistentContainer) }
+    }
+    
+    var activeGameStream: ActiveGameStreaming {
+        mutableActiveGameStream
+    }
+    
+    // MARK: - Internal Dependencies
+    
+    fileprivate var mutableActiveGameStream: MutableActiveGameStreaming {
+        shared { ActiveGameStream() }
+    }
+    
+    // MARK: - Children
+    
+    fileprivate var homeBuilder: HomeBuildable {
+        HomeBuilder { HomeComponent(parent: self) }
+    }
+    
+    fileprivate var gameBuilder: GameBuildable {
+        GameBuilder { GameComponent(parent: self) }
     }
 }
 
 /// @mockable
-protocol FiveInteractable: PresentableInteractable {}
+protocol FiveInteractable: PresentableInteractable, HomeListener, GameListener {}
 
 typealias FiveDynamicBuildDependency = (
     FiveListener
@@ -45,7 +65,10 @@ final class FiveBuilder: ComponentizedBuilder<FiveComponent, PresentableInteract
     override final func build(with component: FiveComponent, _ dynamicBuildDependency: FiveDynamicBuildDependency) -> PresentableInteractable {
         let listener = dynamicBuildDependency
         let viewController = FiveViewController()
-        let interactor = FiveInteractor(presenter: viewController)
+        let interactor = FiveInteractor(presenter: viewController,
+                                        mutableActiveGameStream: component.mutableActiveGameStream,
+                                        homeBuilder: component.homeBuilder,
+                                        gameBuilder: component.gameBuilder)
         interactor.listener = listener
         return interactor
     }
