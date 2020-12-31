@@ -18,6 +18,8 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
  
     // MARK: - Initializers
     
+    /// Initialize a `ScopeViewController` with a view builder
+    /// - Parameter viewBuilder: The closure used to build the view on `loadView`
     public init(_ viewBuilder: @escaping () -> T) {
         self.viewBuilder = viewBuilder
         super.init(nibName: nil, bundle: nil)
@@ -25,34 +27,48 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
     
     // MARK: - API
     
+    /// `BaseScopeViewController` lifecycle events
+    /// Observe `lifecycleStream` to get this info in real time.
     public enum LifecycleEvent {
+        
+        /// Fired on `loadView()`
         case loadView
+        
+        /// Fired on `viewDidLoad()`
         case viewDidLoad
+        
+        /// Fired on `viewWillAppear(_:)`
         case viewWillAppear
+        
+        /// Fired on `viewWillLayoutSubviews`
         case viewWillLayoutSubviews
+        
+        /// Fired on `viewDidLayoutSubviews`
         case viewDidLayoutSubviews
+        
+        /// Fired on `viewDidAppear(_:)`
         case viewDidAppear
+        
+        /// Fired on `viewWillDisappear(_:)`
         case viewWillDisappear
+        
+        /// Fired on `viewDidDisappear(_:)`
         case viewDidDisappear
     }
-
+    
+    /// The typed, read-only interface for th view managed by this view controller
     public final var specializedView: T {
         unsafeDowncast(view, to: T.self)
     }
     
+    /// A `Publisher` to observe lifecycle events
+    /// - seeAlso: `BaseScopeViewController.LifecycleEvent`
     public final var lifecycleStream: AnyPublisher<LifecycleEvent, Never> {
         lifecycleSubject
             .compactMap { event in
                 event
             }
             .eraseToAnyPublisher()
-    }
-    
-    open func displayError(_ error: Error, title: String) {
-        let controller = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        controller.addAction(action)
-        present(controller, animated: true, completion: nil)
     }
     
     /// Confine some closure to a set of lifecycle events
@@ -99,6 +115,10 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
             }
             .cancelOnDeinit(self)
     }
+    
+    /// Executed within `loadView`, just after `view` has a value.
+    /// Override this method instead of overriding `loadView`
+    open func onViewLoad() {}
         
     // MARK: - UIViewController
     
@@ -107,8 +127,18 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
         fatalError("Don't use interface builder 😡")
     }
     
+    open override var view: UIView! {
+        get {
+            super.view
+        }
+        set {
+            assertionFailure("You cannot assign the `view` of a `ScopeViewController`")
+        }
+    }
+    
     public final override func loadView() {
-        view = viewBuilder()
+        super.view = viewBuilder()
+        onViewLoad()
         lifecycleSubject.send(.loadView)
     }
     
@@ -161,6 +191,13 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
     private let lifecycleSubject = CurrentValueSubject<LifecycleEvent?, Never>(nil)
     
     private let viewBuilder: () -> T
+    
+    // MARK: - Deinit
+    
+    deinit {
+        storage.forEach { cancellable in cancellable.cancel() }
+        storage.removeAll()
+    }
 }
 
 open class ScopeViewController: BaseScopeViewController<ScopeView> {

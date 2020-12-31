@@ -9,7 +9,9 @@ import Foundation
 import ShortRibs
 import NeedleFoundation
 
-protocol NewGameDependency: Dependency {}
+protocol NewGameDependency: Dependency {
+    var gameStorageManager: GameStorageManaging { get }
+}
 
 class NewGameComponent: Component<NewGameDependency> {}
 
@@ -32,7 +34,8 @@ final class NewGameBuilder: ComponentizedBuilder<NewGameComponent, PresentableIn
     override final func build(with component: NewGameComponent, _ dynamicBuildDependency: NewGameDynamicBuildDependency) -> PresentableInteractable {
         let listener = dynamicBuildDependency
         let viewController = NewGameViewController()
-        let interactor = NewGameInteractor(presenter: viewController)
+        let interactor = NewGameInteractor(presenter: viewController,
+                                           gameStorageManager: component.gameStorageManager)
         interactor.listener = listener
         return interactor
     }

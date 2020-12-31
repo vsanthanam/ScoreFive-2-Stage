@@ -23,6 +23,10 @@
 		070683E9259D072C004B7A78 /* ScoreCardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683E5259D072C004B7A78 /* ScoreCardBuilder.swift */; };
 		070683EA259D072C004B7A78 /* ScoreCardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683E6259D072C004B7A78 /* ScoreCardInteractor.swift */; };
 		070683EB259D072C004B7A78 /* ScoreCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683E7259D072C004B7A78 /* ScoreCardView.swift */; };
+		070683FF259D22F8004B7A78 /* NewPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683FE259D22F8004B7A78 /* NewPlayerCell.swift */; };
+		07068403259D27A4004B7A78 /* ScoreLimitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068402259D27A4004B7A78 /* ScoreLimitCell.swift */; };
+		07068407259D2A7A004B7A78 /* AddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068406259D2A7A004B7A78 /* AddPlayerCell.swift */; };
+		07068417259D3878004B7A78 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068416259D3878004B7A78 /* HeaderView.swift */; };
 		072F8162259A4D48005EE56B /* NeedleFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; };
 		072F8163259A4D48005EE56B /* NeedleFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		072F8168259A4D4D005EE56B /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8167259A4D4D005EE56B /* SnapKit.framework */; };
@@ -105,6 +109,10 @@
 		070683E5259D072C004B7A78 /* ScoreCardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCardBuilder.swift; sourceTree = "<group>"; };
 		070683E6259D072C004B7A78 /* ScoreCardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCardInteractor.swift; sourceTree = "<group>"; };
 		070683E7259D072C004B7A78 /* ScoreCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCardView.swift; sourceTree = "<group>"; };
+		070683FE259D22F8004B7A78 /* NewPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlayerCell.swift; sourceTree = "<group>"; };
+		07068402259D27A4004B7A78 /* ScoreLimitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreLimitCell.swift; sourceTree = "<group>"; };
+		07068406259D2A7A004B7A78 /* AddPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerCell.swift; sourceTree = "<group>"; };
+		07068416259D3878004B7A78 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		072F8161259A4D48005EE56B /* NeedleFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NeedleFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072F8167259A4D4D005EE56B /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072F816C259A4D57005EE56B /* ShortRibs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ShortRibs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,6 +187,7 @@
 		0706838A259C1621004B7A78 /* NewGame */ = {
 			isa = PBXGroup;
 			children = (
+				070683FC259D22DB004B7A78 /* Views */,
 				0706838B259C1636004B7A78 /* NewGameViewController.swift */,
 				0706838C259C1636004B7A78 /* NewGameBuilder.swift */,
 				0706838D259C1636004B7A78 /* NewGameInteractor.swift */,
@@ -199,10 +208,10 @@
 		070683D4259CFE14004B7A78 /* ScoreCard */ = {
 			isa = PBXGroup;
 			children = (
+				070683FD259D22E0004B7A78 /* Views */,
 				070683E4259D072C004B7A78 /* ScoreCardViewController.swift */,
 				070683E5259D072C004B7A78 /* ScoreCardBuilder.swift */,
 				070683E6259D072C004B7A78 /* ScoreCardInteractor.swift */,
-				070683E7259D072C004B7A78 /* ScoreCardView.swift */,
 			);
 			path = ScoreCard;
 			sourceTree = "<group>";
@@ -213,6 +222,32 @@
 				070683DD259D02CA004B7A78 /* Optionals.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		070683FC259D22DB004B7A78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				070683FE259D22F8004B7A78 /* NewPlayerCell.swift */,
+				07068402259D27A4004B7A78 /* ScoreLimitCell.swift */,
+				07068406259D2A7A004B7A78 /* AddPlayerCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		070683FD259D22E0004B7A78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				070683E7259D072C004B7A78 /* ScoreCardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		07068415259D3870004B7A78 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				07068416259D3878004B7A78 /* HeaderView.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		072F8160259A4D48005EE56B /* Frameworks */ = {
@@ -230,6 +265,7 @@
 		072F8177259A4DEB005EE56B /* Src */ = {
 			isa = PBXGroup;
 			children = (
+				07068415259D3870004B7A78 /* UI */,
 				070683DC259D0274004B7A78 /* Extensions */,
 				072F822C259AA20F005EE56B /* Models */,
 				072F817A259A4E84005EE56B /* Features */,
@@ -552,8 +588,10 @@
 			files = (
 				072F81BC259A5FC3005EE56B /* FiveViewController.swift in Sources */,
 				070683E8259D072C004B7A78 /* ScoreCardViewController.swift in Sources */,
+				07068403259D27A4004B7A78 /* ScoreLimitCell.swift in Sources */,
 				072F8193259A523F005EE56B /* MainBuilder.swift in Sources */,
 				072F8263259C0908005EE56B /* HomeViewController.swift in Sources */,
+				07068417259D3878004B7A78 /* HeaderView.swift in Sources */,
 				07068398259C33F9004B7A78 /* NewRoundBuilder.swift in Sources */,
 				070683EB259D072C004B7A78 /* ScoreCardView.swift in Sources */,
 				070683EA259D072C004B7A78 /* ScoreCardInteractor.swift in Sources */,
@@ -572,10 +610,12 @@
 				072F8264259C0908005EE56B /* HomeBuilder.swift in Sources */,
 				07068397259C33F9004B7A78 /* NewRoundViewController.swift in Sources */,
 				070683DE259D02CA004B7A78 /* Optionals.swift in Sources */,
+				070683FF259D22F8004B7A78 /* NewPlayerCell.swift in Sources */,
 				07068387259C1251004B7A78 /* GameBuilder.swift in Sources */,
 				072F825B259C0565005EE56B /* ActiveGameStream.swift in Sources */,
 				0706838E259C1636004B7A78 /* NewGameViewController.swift in Sources */,
 				072F818A259A51FD005EE56B /* DependencyGraph.swift in Sources */,
+				07068407259D2A7A004B7A78 /* AddPlayerCell.swift in Sources */,
 				072F8180259A4E99005EE56B /* RootBuilder.swift in Sources */,
 				07068399259C33F9004B7A78 /* NewRoundInteractor.swift in Sources */,
 				070683E9259D072C004B7A78 /* ScoreCardBuilder.swift in Sources */,

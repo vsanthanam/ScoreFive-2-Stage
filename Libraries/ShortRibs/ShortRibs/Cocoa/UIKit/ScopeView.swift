@@ -5,6 +5,7 @@
 //  Created by Varun Santhanam on 12/8/20.
 //
 
+import Combine
 import Foundation
 import UIKit
 
@@ -21,6 +22,21 @@ open class ScopeView: UIView {
     @available(*, unavailable)
     public required init?(coder: NSCoder) {
         fatalError("Don't use interface builder 😡")
+    }
+    
+    // MARK: - Private
+    
+    fileprivate func store(cancellable: Cancellable) {
+        cancellable.store(in: &storage)
+    }
+
+    private var storage = Set<AnyCancellable>()
+    
+    // MARK: - Deinit
+    
+    deinit {
+        storage.forEach { cancellable in cancellable.cancel() }
+        storage.removeAll()
     }
     
 }

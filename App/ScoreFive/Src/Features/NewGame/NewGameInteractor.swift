@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ScoreKeeping
 import ShortRibs
 
 /// @mockable
@@ -14,13 +15,18 @@ protocol NewGamePresentable: NewGameViewControllable {
 }
 
 /// @mockable
-protocol NewGameListener: AnyObject {}
+protocol NewGameListener: AnyObject {
+    func newGameDidCreateNewGame(with identifier: UUID)
+    func newGameDidAbort()
+}
 
 final class NewGameInteractor: PresentableInteractor<NewGamePresentable>, NewGameInteractable, NewGamePresentableListener {
     
     // MARK: - Initializers
     
-    override init(presenter: NewGamePresentable) {
+    init(presenter: NewGamePresentable,
+         gameStorageManager: GameStorageManaging) {
+        self.gameStorageManager = gameStorageManager
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -28,4 +34,27 @@ final class NewGameInteractor: PresentableInteractor<NewGamePresentable>, NewGam
     // MARK: - API
     
     weak var listener: NewGameListener?
+    
+    // MARK: - NewGamePresentableListener
+    
+    func didTapNewGame(with playerNames: [String?], scoreLimit: Int) {
+        let (_, names) = playerNames.reduce((0, [])) { (total, name) in
+            let (current, list) = total
+            let actualName = name ?? "Player \(current + 1)"
+            let newNames = list + [actualName]
+            return (current + 1, newNames)
+        }
+        let players = names.map { Player(name: $0 as! String) }
+        let scoreCard = ScoreCard(scoreLimit: scoreLimit, orderedPlayers: players)
+        do {
+            let record = try gameStorageManager.newGame(from: scoreCard)
+            listener?.newGameDidCreateNewGame(with: record.uniqueIdentifier)
+        } catch {
+            listener?.newGameDidAbort()
+        }
+    }
+    
+    // MARK: - Private
+    
+    private let gameStorageManager: GameStorageManaging
 }

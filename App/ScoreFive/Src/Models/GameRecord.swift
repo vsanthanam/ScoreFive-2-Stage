@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import ScoreKeeping
 
+/// @CreateMock
 protocol GameRecord: AnyObject {
     var inProgress: Bool { get }
     var uniqueIdentifier: UUID { get }

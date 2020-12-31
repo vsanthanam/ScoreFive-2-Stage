@@ -82,16 +82,18 @@ private class GameDependency81e44729f3f6e44c959bProvider: GameDependency81e44729
     }
 }
 private class NewGameDependencya0c15d095925b8e7801cBaseProvider: NewGameDependency {
-
-
-    init() {
-
+    var gameStorageManager: GameStorageManaging {
+        return fiveComponent.gameStorageManager
+    }
+    private let fiveComponent: FiveComponent
+    init(fiveComponent: FiveComponent) {
+        self.fiveComponent = fiveComponent
     }
 }
 /// ^->RootComponent->MainComponent->FiveComponent->HomeComponent->NewGameComponent
 private class NewGameDependencya0c15d095925b8e7801cProvider: NewGameDependencya0c15d095925b8e7801cBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(fiveComponent: component.parent.parent as! FiveComponent)
     }
 }
 private class MainDependency453d57de9749f65d685aBaseProvider: MainDependency {

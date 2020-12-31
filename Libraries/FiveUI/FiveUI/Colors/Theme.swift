@@ -16,6 +16,10 @@ extension UIColor {
         ColorPalette.Transparent
     }
     
+    public static var shadowColor: UIColor {
+        dynamicDarkPrimary
+    }
+    
     public static var backgroundPrimary: UIColor {
         dynamicLightPrimary
     }
@@ -24,12 +28,52 @@ extension UIColor {
         dynamicLightSecondary
     }
     
+    public static var backgroundInversePrimary: UIColor {
+        dynamicDarkPrimary
+    }
+    
+    public static var backgroundInverseSecondary: UIColor {
+        dynamicDarkSecondary
+    }
+    
     public static var contentPrimary: UIColor {
         dynamicDarkPrimary
     }
     
     public static var contentSecondary: UIColor {
         dynamicDarkSecondary
+    }
+    
+    public static var contentInversePrimary: UIColor {
+        dynamicLightPrimary
+    }
+    
+    public static var contentInverseSecondary: UIColor {
+        dynamicLightSecondary
+    }
+    
+    public static var contentOnColorPrimary: UIColor {
+        staticLightPrimary
+    }
+    
+    public static var contentOnColorSecondary: UIColor {
+        staticLightSecondary
+    }
+    
+    public static var contentOnColorInversePrimary: UIColor {
+        staticDarkPrimary
+    }
+    
+    public static var contentOnColorInverseSecondary: UIColor {
+        staticDarkSecondary
+    }
+    
+    public static var contentAccentPrimary: UIColor {
+        staticThemePrimary
+    }
+    
+    public static var contentAccentSecondary: UIColor {
+        staticThemeSecondary
     }
     
     // MARK: - Implementation Colors
@@ -41,6 +85,9 @@ extension UIColor {
     private static let staticLightPrimary: UIColor = ColorPalette.White
     
     private static let staticLightSecondary: UIColor = ColorPalette.Grey200
+    
+    private static var staticThemePrimary: UIColor = ColorPalette.Blue500
+    private static var staticThemeSecondary: UIColor = ColorPalette.Blue700
     
     private static var dynamicDarkPrimary: UIColor {
         .init { traitCollection in

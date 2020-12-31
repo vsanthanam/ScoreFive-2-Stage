@@ -67,6 +67,7 @@ final class FiveBuilder: ComponentizedBuilder<FiveComponent, PresentableInteract
         let viewController = FiveViewController()
         let interactor = FiveInteractor(presenter: viewController,
                                         mutableActiveGameStream: component.mutableActiveGameStream,
+                                        gameStorageProvider: component.gameStorageProvider,
                                         homeBuilder: component.homeBuilder,
                                         gameBuilder: component.gameBuilder)
         interactor.listener = listener

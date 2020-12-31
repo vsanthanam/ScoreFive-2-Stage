@@ -15,10 +15,7 @@ import UIKit
 protocol HomeViewControllable: ViewControllable {}
 
 /// @mockable
-protocol HomePresentableListener: AnyObject {
-    func didAbortNewGame()
-    func didCreateNewGame(withPlayers players: [Player], scoreLimit: Int)
-}
+protocol HomePresentableListener: AnyObject {}
 
 final class HomeViewController: ScopeViewController, HomePresentable, HomeViewControllable {
     

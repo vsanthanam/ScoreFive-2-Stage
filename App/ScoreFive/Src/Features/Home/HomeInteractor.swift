@@ -14,7 +14,6 @@ protocol HomePresentable: HomeViewControllable {
     var listener: HomePresentableListener? { get set }
     func showNewGame(_ viewController: ViewControllable)
     func closeNewGame()
-    func displayError(_ error: Error, title: String)
 }
 
 /// @mockable
@@ -46,21 +45,15 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         openNewGameIfEmpty()
     }
     
-    // MARK: - HomePresentableListener
+    // MARK: - NewGameListener
     
-    func didAbortNewGame() {
+    func newGameDidCreateNewGame(with identifier: UUID) {
         routeAwayFromNewGame()
+        listener?.homeWantToOpenGame(withIdentifier: identifier)
     }
     
-    func didCreateNewGame(withPlayers players: [Player], scoreLimit: Int) {
+    func newGameDidAbort() {
         routeAwayFromNewGame()
-        let newCard = ScoreCard(scoreLimit: scoreLimit, orderedPlayers: players)
-        do {
-            let game = try gameStorageManager.newGame(from: newCard)
-            listener?.homeWantToOpenGame(withIdentifier: game.uniqueIdentifier)
-        } catch {
-            presenter.displayError(error, title: "Couldn't save game")
-        }
     }
     
     // MARK: - Private
