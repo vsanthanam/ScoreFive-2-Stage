@@ -76,6 +76,10 @@ extension UIColor {
         staticThemeSecondary
     }
     
+    public static var controlDisabled: UIColor {
+        ColorPalette.Grey500
+    }
+    
     // MARK: - Implementation Colors
     
     private static let staticDarkPrimary: UIColor = ColorPalette.Black

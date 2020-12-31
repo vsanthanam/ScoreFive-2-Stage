@@ -27,6 +27,7 @@
 		07068403259D27A4004B7A78 /* ScoreLimitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068402259D27A4004B7A78 /* ScoreLimitCell.swift */; };
 		07068407259D2A7A004B7A78 /* AddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068406259D2A7A004B7A78 /* AddPlayerCell.swift */; };
 		07068417259D3878004B7A78 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068416259D3878004B7A78 /* HeaderView.swift */; };
+		0706841F259E55C1004B7A78 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706841E259E55C1004B7A78 /* TextField.swift */; };
 		072F8162259A4D48005EE56B /* NeedleFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; };
 		072F8163259A4D48005EE56B /* NeedleFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		072F8168259A4D4D005EE56B /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8167259A4D4D005EE56B /* SnapKit.framework */; };
@@ -113,6 +114,7 @@
 		07068402259D27A4004B7A78 /* ScoreLimitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreLimitCell.swift; sourceTree = "<group>"; };
 		07068406259D2A7A004B7A78 /* AddPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerCell.swift; sourceTree = "<group>"; };
 		07068416259D3878004B7A78 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		0706841E259E55C1004B7A78 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		072F8161259A4D48005EE56B /* NeedleFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NeedleFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072F8167259A4D4D005EE56B /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072F816C259A4D57005EE56B /* ShortRibs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ShortRibs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -245,6 +247,7 @@
 		07068415259D3870004B7A78 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				0706841E259E55C1004B7A78 /* TextField.swift */,
 				07068416259D3878004B7A78 /* HeaderView.swift */,
 			);
 			path = UI;
@@ -597,6 +600,7 @@
 				070683EA259D072C004B7A78 /* ScoreCardInteractor.swift in Sources */,
 				072F8192259A523F005EE56B /* MainViewController.swift in Sources */,
 				072F81BD259A5FC3005EE56B /* FiveBuilder.swift in Sources */,
+				0706841F259E55C1004B7A78 /* TextField.swift in Sources */,
 				07E6F00B259980E300AEF80A /* AppDelegate.swift in Sources */,
 				072F8265259C0908005EE56B /* HomeInteractor.swift in Sources */,
 				07E6F00D259980E300AEF80A /* SceneDelegate.swift in Sources */,
