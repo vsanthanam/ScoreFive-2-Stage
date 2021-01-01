@@ -91,6 +91,7 @@ extension UIColor {
     private static let staticLightSecondary: UIColor = ColorPalette.Grey200
     
     private static var staticThemePrimary: UIColor = ColorPalette.Blue500
+    
     private static var staticThemeSecondary: UIColor = ColorPalette.Blue700
     
     private static var dynamicDarkPrimary: UIColor {

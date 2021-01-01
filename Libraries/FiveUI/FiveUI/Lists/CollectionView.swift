@@ -51,8 +51,8 @@ open class CellContentView<T>: UIView, UIContentView where T: CellContentConfigu
     }
 }
 
-open class ListCellView<ContentConfiguration, ContentView>: CollectionViewListCell where ContentConfiguration: CellContentConfiguration, ContentView: CellContentView<ContentConfiguration> {
-    public class func buildConfiguration() -> ContentConfiguration {
+open class ListCell<ContentConfiguration, ContentView>: CollectionViewListCell where ContentConfiguration: CellContentConfiguration, ContentView: CellContentView<ContentConfiguration> {
+    public class func newConfiguration() -> ContentConfiguration {
         .init()
     }
 }
@@ -68,8 +68,8 @@ open class CollectionViewListCell: UICollectionViewListCell {
     }
 }
 
-open class CellView<ContentConfiguration, ContentView>: CollectionViewCell where ContentConfiguration: CellContentConfiguration, ContentView: CellContentView<ContentConfiguration> {
-    public class func buildConfiguration() -> ContentConfiguration {
+open class Cell<ContentConfiguration, ContentView>: CollectionViewCell where ContentConfiguration: CellContentConfiguration, ContentView: CellContentView<ContentConfiguration> {
+    public class func newConfiguration() -> ContentConfiguration {
         .init()
     }
 }
@@ -83,4 +83,24 @@ open class CollectionViewCell: UICollectionViewCell {
     required public init?(coder: NSCoder) {
         fatalError("Don't Use Interface Builder 😡")
     }
+}
+
+open class TableViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
+    
+    @available(*, unavailable)
+    required public init?(coder: NSCoder) {
+        fatalError("Don't Use Interface Builder 😡")
+    }
+}
+
+open class TableCell<ContentConfiguration, ContentView>: TableViewCell where ContentConfiguration: CellContentConfiguration, ContentView: CellContentView<ContentConfiguration> {
+    
+    public class func newConfiguration() -> ContentConfiguration {
+        .init()
+    }
+    
 }

@@ -31,8 +31,10 @@ class HeaderView: BaseView {
     private let label = UILabel()
     
     private func setUp() {
-        label.font = .systemFont(ofSize: 27.0, weight: .regular)
+        backgroundColor = .backgroundInversePrimary
+        label.font = .systemFont(ofSize: 27.0, weight: .medium)
         label.textAlignment = .natural
+        label.textColor = .contentInversePrimary
         addSubview(label)
         label.snp.makeConstraints { make in
             make
@@ -44,13 +46,9 @@ class HeaderView: BaseView {
                 .equalToSuperview()
                 .inset(8.0)
         }
-        layer.shadowOpacity = 0.2
-        layer.shadowColor = UIColor.shadowColor.cgColor
-        layer.shadowOffset = .init(width: 0.0, height: 1.0)
-        layer.shadowRadius = 4.0
     }
     
     override var intrinsicContentSize: CGSize {
-        .init(width: UIView.noIntrinsicMetric, height: 112.0)
+        .init(width: UIView.noIntrinsicMetric, height: 72.0)
     }
 }

@@ -1,19 +1,19 @@
 //
-//  NewGameCell.swift
+//  AddPlayerCell.swift
 //  ScoreFive
 //
-//  Created by Varun Santhanam on 12/30/20.
+//  Created by Varun Santhanam on 1/1/21.
 //
 
 import FiveUI
 import Foundation
 import UIKit
 
-protocol NewPlayerCellDelegate: AnyObject {
+protocol NewGamePlayerNameCellDelegate: AnyObject {
     func didInputPlayerName(input: String?, index: Int)
 }
 
-final class NewPlayerCell: ListCellView<NewPlayerCell.ContentConfiguration, NewPlayerCell.ContentView> {
+final class NewGamePlayerNameCell: ListCell<NewGamePlayerNameCell.ContentConfiguration, NewGamePlayerNameCell.ContentView> {
 
     final class ContentView: CellContentView<ContentConfiguration> {
         
@@ -36,7 +36,7 @@ final class NewPlayerCell: ListCellView<NewPlayerCell.ContentConfiguration, NewP
         
         // MARK: - Private
         
-        private let input = UITextField()
+        private let input = TextField()
         
         private var editingAction: UIAction? {
             didSet {
@@ -50,29 +50,22 @@ final class NewPlayerCell: ListCellView<NewPlayerCell.ContentConfiguration, NewP
         }
         
         private func setUp() {
-            input.textColor = .contentPrimary
-            input.backgroundColor = .transparent
             input.clearButtonMode = .whileEditing
             input.returnKeyType = .done
             input.addAction(UIAction { [unowned input] _ in
                 input.resignFirstResponder()
             }, for: .editingDidEndOnExit)
-            backgroundColor = .transparent
             addSubview(input)
             input.snp.makeConstraints { make in
+                make
+                    .leading
+                    .trailing
+                    .equalToSuperview()
                 make
                     .top
                     .bottom
                     .equalToSuperview()
                     .inset(8.0)
-                make
-                    .leading
-                    .trailing
-                    .equalToSuperview()
-                    .inset(16.0)
-                make
-                    .height
-                    .greaterThanOrEqualTo(28.0)
             }
         }
     }
@@ -81,7 +74,7 @@ final class NewPlayerCell: ListCellView<NewPlayerCell.ContentConfiguration, NewP
         
         // MARK: - API
         
-        weak var delegate: NewPlayerCellDelegate?
+        weak var delegate: NewGamePlayerNameCellDelegate?
         
         var playerIndex = 0
         var enteredPlayerName: String?
@@ -93,3 +86,4 @@ final class NewPlayerCell: ListCellView<NewPlayerCell.ContentConfiguration, NewP
         func updated(for state: UIConfigurationState) -> ContentConfiguration { self }
     }
 }
+

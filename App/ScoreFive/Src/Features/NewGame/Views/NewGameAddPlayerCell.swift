@@ -1,0 +1,91 @@
+//
+//  NewGameCell.swift
+//  ScoreFive
+//
+//  Created by Varun Santhanam on 12/30/20.
+//
+
+import FiveUI
+import Foundation
+import UIKit
+
+final class NewGameAddPlayerCell: Cell<NewGameAddPlayerCell.ContentConfiguration, NewGameAddPlayerCell.ContentView> {
+
+    final class ContentView: CellContentView<ContentConfiguration> {
+        
+        // MARK: - Initializrs
+        
+        override init(configuration: ContentConfiguration) {
+            super.init(configuration: configuration)
+            setUp()
+        }
+        
+        // MARK: - CellContentView
+        
+        override func apply(configuration: ContentConfiguration) {
+            label.text = configuration.title
+            button.backgroundColor = configuration.backgroundColor
+        }
+        
+        // MARK: - Private
+        
+        private let button = BaseView()
+        private let label = UILabel()
+        
+        private func setUp() {
+            backgroundColor = .transparent
+            button.backgroundColor = .contentPrimary
+            addSubview(button)
+            
+            label.textColor = .contentInversePrimary
+            button.addSubview(label)
+            
+            button.snp.makeConstraints { make in
+                make
+                    .leading
+                    .trailing
+                    .equalToSuperview()
+                make
+                    .top
+                    .bottom
+                    .equalToSuperview()
+                    .inset(8.0)
+            }
+            
+            label.snp.makeConstraints { make in
+                make
+                    .center
+                    .equalToSuperview()
+                make
+                    .top
+                    .bottom
+                    .equalToSuperview()
+                    .inset(12.0)
+            }
+        }
+    }
+
+    struct ContentConfiguration: CellContentConfiguration {
+    
+        var title: String?
+        
+        fileprivate var backgroundColor: UIColor = .contentPrimary
+        
+        // MARK: - UIContentConfiguration
+        
+        func makeContentView() -> UIView & UIContentView { ContentView(configuration: self) }
+        
+        func updated(for state: UIConfigurationState) -> ContentConfiguration {
+            if let state = state as? UICellConfigurationState {
+                var config = self
+                if state.isHighlighted {
+                    config.backgroundColor = .contentSecondary
+                } else {
+                    config.backgroundColor = .contentPrimary
+                }
+                return config
+            }
+            return self
+        }
+    }
+}

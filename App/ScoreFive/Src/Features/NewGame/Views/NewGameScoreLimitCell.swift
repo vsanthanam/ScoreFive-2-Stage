@@ -9,11 +9,11 @@ import FiveUI
 import Foundation
 import UIKit
 
-protocol ScoreLimitCellDelegate: AnyObject {
+protocol NewGameScoreLimitCellDelegate: AnyObject {
     func didInputScoreLimit(input: String?)
 }
 
-final class ScoreLimitCell: ListCellView<ScoreLimitCell.ContentConfiguration, ScoreLimitCell.ContentView> {
+final class NewGameScoreLimitCell: ListCell<NewGameScoreLimitCell.ContentConfiguration, NewGameScoreLimitCell.ContentView> {
     
     final class ContentView: CellContentView<ContentConfiguration> {
         
@@ -36,7 +36,7 @@ final class ScoreLimitCell: ListCellView<ScoreLimitCell.ContentConfiguration, Sc
         
         // MARK: - Private
         
-        private let input = UITextField()
+        private let input = TextField()
         
         private var editingAction: UIAction? {
             didSet {
@@ -50,15 +50,24 @@ final class ScoreLimitCell: ListCellView<ScoreLimitCell.ContentConfiguration, Sc
         }
         
         private func setUp() {
-            input.textAlignment = .center
-            input.font = .preferredFont(forTextStyle: .largeTitle)
+            widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width - 32).isActive = true // 30 is my added up left and right Inset
+            topAnchor.constraint(equalTo: topAnchor).isActive = true
+            leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            input.font = .systemFont(ofSize: 36.0)
             input.keyboardType = .numberPad
             addSubview(input)
             input.snp.makeConstraints { make in
                 make
-                    .edges
+                    .leading
+                    .trailing
                     .equalToSuperview()
-                    .inset(8.0)
+                make
+                    .top
+                    .bottom
+                    .equalToSuperview()
+                    .inset(16.0)
             }
         }
     }
@@ -70,7 +79,7 @@ final class ScoreLimitCell: ListCellView<ScoreLimitCell.ContentConfiguration, Sc
         var defaultScore: String?
         var enteredScore: String?
         
-        weak var delegate: ScoreLimitCellDelegate?
+        weak var delegate: NewGameScoreLimitCellDelegate?
         
         // MARK: - UIContentConfiguration
         
