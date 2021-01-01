@@ -69,16 +69,21 @@ private class NewRoundDependency7cd092c3b5cbba3d7ac0Provider: NewRoundDependency
     }
 }
 private class GameDependency81e44729f3f6e44c959bBaseProvider: GameDependency {
-
-
-    init() {
-
+    var gameStorageManager: GameStorageManaging {
+        return fiveComponent.gameStorageManager
+    }
+    var activeGameStream: ActiveGameStreaming {
+        return fiveComponent.activeGameStream
+    }
+    private let fiveComponent: FiveComponent
+    init(fiveComponent: FiveComponent) {
+        self.fiveComponent = fiveComponent
     }
 }
 /// ^->RootComponent->MainComponent->FiveComponent->GameComponent
 private class GameDependency81e44729f3f6e44c959bProvider: GameDependency81e44729f3f6e44c959bBaseProvider {
     init(component: NeedleFoundation.Scope) {
-        super.init()
+        super.init(fiveComponent: component.parent as! FiveComponent)
     }
 }
 private class NewGameDependencya0c15d095925b8e7801cBaseProvider: NewGameDependency {

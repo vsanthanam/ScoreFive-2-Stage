@@ -28,12 +28,20 @@ extension UIColor {
         dynamicLightSecondary
     }
     
+    public static var backgroundTertiary: UIColor {
+        dynamicLightTertiary
+    }
+    
     public static var backgroundInversePrimary: UIColor {
         dynamicDarkPrimary
     }
     
     public static var backgroundInverseSecondary: UIColor {
         dynamicDarkSecondary
+    }
+    
+    public static var backgrondInverserTertiary: UIColor {
+        dynamicDarkTertiary
     }
     
     public static var contentPrimary: UIColor {
@@ -44,12 +52,20 @@ extension UIColor {
         dynamicDarkSecondary
     }
     
+    public static var contentTertiary: UIColor {
+        dynamicDarkTertiary
+    }
+    
     public static var contentInversePrimary: UIColor {
         dynamicLightPrimary
     }
     
     public static var contentInverseSecondary: UIColor {
         dynamicLightSecondary
+    }
+    
+    public static var contentInverseTertiary: UIColor {
+        dynamicLightTertiary
     }
     
     public static var contentOnColorPrimary: UIColor {
@@ -66,6 +82,10 @@ extension UIColor {
     
     public static var contentOnColorInverseSecondary: UIColor {
         staticDarkSecondary
+    }
+    
+    public static var contentOnColorInverseTertiary: UIColor {
+        staticDarkTertiary
     }
     
     public static var contentAccentPrimary: UIColor {
@@ -86,9 +106,13 @@ extension UIColor {
     
     private static let staticDarkSecondary: UIColor = ColorPalette.Grey800
     
+    private static let staticDarkTertiary: UIColor = ColorPalette.Grey600
+    
     private static let staticLightPrimary: UIColor = ColorPalette.White
     
     private static let staticLightSecondary: UIColor = ColorPalette.Grey200
+    
+    private static let staticLightTertiary: UIColor = ColorPalette.Grey400
     
     private static var staticThemePrimary: UIColor = ColorPalette.Blue500
     
@@ -112,6 +136,15 @@ extension UIColor {
         }
     }
     
+    private static var dynamicDarkTertiary: UIColor {
+        .init { traitCollection in
+            switch traitCollection.themeStyle {
+            case .light: return staticDarkTertiary
+            case .dark: return staticLightTertiary
+            }
+        }
+    }
+    
     private static var dynamicLightPrimary: UIColor {
         .init { traitCollection in
             switch traitCollection.themeStyle {
@@ -126,6 +159,15 @@ extension UIColor {
             switch traitCollection.themeStyle {
             case .light: return staticLightSecondary
             case .dark: return staticDarkSecondary
+            }
+        }
+    }
+    
+    private static var dynamicLightTertiary: UIColor {
+        .init { traitCollection in
+            switch traitCollection.themeStyle {
+            case .light: return staticLightTertiary
+            case .dark: return staticDarkTertiary
             }
         }
     }

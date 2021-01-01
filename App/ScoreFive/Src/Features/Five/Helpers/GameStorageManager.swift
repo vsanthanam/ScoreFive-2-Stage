@@ -27,12 +27,21 @@ protocol GameStorageManaging: GameStorageProviding {
     func saveAllGames() throws
 }
 
-final class GameStorageManager: GameStorageManaging {
+protocol GameStorageWorking: Working, GameStorageManaging {}
+
+final class GameStorageWorker: Worker, GameStorageWorking {
     
     // MARK: - Initializers
     
     init(persistentContainer: PersistentContaining) {
         self.persistentContainer = persistentContainer
+    }
+    
+    // MARK: - Worker
+    
+    override func didStart(on scope: WorkerScope) {
+        super.didStart(on: scope)
+        try? saveAllGames()
     }
     
     // MARK: - GameStorageProviding
@@ -54,7 +63,6 @@ final class GameStorageManager: GameStorageManaging {
     
     func scoreCard(for identifier: UUID) -> AnyPublisher<ScoreCard?, Never> {
         saveSubject
-            .dropFirst()
             .filterNil()
             .map { games in
                 games.first { $0.uniqueIdentifier == identifier }
@@ -87,7 +95,8 @@ final class GameStorageManager: GameStorageManaging {
     
     func saveAllGames() throws {
         try persistentContainer.viewContext.save()
-        saveSubject.send(try? fetchGameRecords())
+        let games = try? fetchGameRecords()
+        saveSubject.send(games)
     }
     
     // MARK: - Private

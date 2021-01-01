@@ -24,6 +24,10 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         setUp()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    
     // MARK: - GamePresentable
     
     weak var listener: GamePresentableListener?
@@ -64,21 +68,73 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         viewController.uiviewController.didMove(toParent: self)
     }
     
+    func updateHeaderTitles(_ titles: [String]) {
+        gameHeader.apply(names: titles)
+    }
+    
     // MARK: - Private
     
+    private let topSpacer = ScopeView()
+    private let bottomSpacer = ScopeView()
+    private let gameHeader = GameHeaderView()
     private let scoreCardLayoutGuide = UILayoutGuide()
     
     private var newRoundViewController: ViewControllable?
     private var scoreCardViewController: ScoreCardViewControllable?
     
     private func setUp() {
-        view.backgroundColor = .backgroundSecondary
         view.addLayoutGuide(scoreCardLayoutGuide)
+        
+        topSpacer.backgroundColor = .backgroundInversePrimary
+        specializedView.addSubview(topSpacer)
+        bottomSpacer.backgroundColor = .contentAccentPrimary
+        specializedView.addSubview(bottomSpacer)
+        
+        specializedView.addSubview(gameHeader)
+        
+        topSpacer.snp.makeConstraints { make in
+            make
+                .leading
+                .trailing
+                .top
+                .equalToSuperview()
+            make
+                .bottom
+                .equalTo(specializedView.safeAreaLayoutGuide.snp.top)
+        }
+        
+        gameHeader.snp.makeConstraints { make in
+            make
+                .top
+                .equalTo(specializedView.safeAreaLayoutGuide)
+            make
+                .leading
+                .trailing
+                .equalToSuperview()
+        }
+        
         scoreCardLayoutGuide.snp.makeConstraints { make in
             make
-                .edges
-                .equalTo(view.safeAreaLayoutGuide)
-                .inset(20.0)
+                .leading
+                .trailing
+                .equalToSuperview()
+            make
+                .top
+                .equalTo(gameHeader.snp.bottom)
+            make
+                .bottom
+                .equalTo(bottomSpacer.snp.top)
+        }
+        
+        bottomSpacer.snp.makeConstraints { make in
+            make
+                .leading
+                .trailing
+                .bottom
+                .equalToSuperview()
+            make
+                .top
+                .equalTo(specializedView.safeAreaLayoutGuide.snp.bottom)
         }
     }
 }

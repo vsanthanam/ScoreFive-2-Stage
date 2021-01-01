@@ -16,6 +16,7 @@
 		070683F7259D1F79004B7A78 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683F6259D1F79004B7A78 /* CollectionView.swift */; };
 		0706840A259D364D004B7A78 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068409259D364D004B7A78 /* BaseView.swift */; };
 		0706841B259D4C47004B7A78 /* BaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706841A259D4C47004B7A78 /* BaseControl.swift */; };
+		07C38CCD259FCED400A9AFCD /* TappableControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C38CCC259FCED400A9AFCD /* TappableControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		070683F6259D1F79004B7A78 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		07068409259D364D004B7A78 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		0706841A259D4C47004B7A78 /* BaseControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseControl.swift; sourceTree = "<group>"; };
+		07C38CCC259FCED400A9AFCD /* TappableControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 				070683AA259CFBD2004B7A78 /* Info.plist */,
 				07068409259D364D004B7A78 /* BaseView.swift */,
 				0706841A259D4C47004B7A78 /* BaseControl.swift */,
+				07C38CCC259FCED400A9AFCD /* TappableControl.swift */,
 			);
 			path = FiveUI;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				070683C5259CFBE6004B7A78 /* Theme.swift in Sources */,
+				07C38CCD259FCED400A9AFCD /* TappableControl.swift in Sources */,
 				070683CC259CFC20004B7A78 /* ColorPalette.swift in Sources */,
 				0706841B259D4C47004B7A78 /* BaseControl.swift in Sources */,
 				0706840A259D364D004B7A78 /* BaseView.swift in Sources */,

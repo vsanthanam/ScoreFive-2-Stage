@@ -26,11 +26,11 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
     
     init(presenter: FivePresentable,
          mutableActiveGameStream: MutableActiveGameStreaming,
-         gameStorageProvider: GameStorageProviding,
+         gameStorageWorker: GameStorageWorking,
          homeBuilder: HomeBuildable,
          gameBuilder: GameBuildable) {
         self.mutableActiveGameStream = mutableActiveGameStream
-        self.gameStorageProvider = gameStorageProvider
+        self.gameStorageWorker = gameStorageWorker
         self.homeBuilder = homeBuilder
         self.gameBuilder = gameBuilder
         super.init(presenter: presenter)
@@ -41,7 +41,8 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
     
     override func didBecomeActive() {
         super.didBecomeActive()
-        let records = (try? gameStorageProvider.fetchGameRecords()) ?? []
+        gameStorageWorker.start(on: self)
+        let records = (try? gameStorageWorker.fetchGameRecords()) ?? []
         if records.count == 1,
            let record = records.first,
            record.inProgress {
@@ -70,7 +71,7 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
     // MARK: - Private
     
     private let mutableActiveGameStream: MutableActiveGameStreaming
-    private let gameStorageProvider: GameStorageProviding
+    private let gameStorageWorker: GameStorageWorking
     private let homeBuilder: HomeBuildable
     private let gameBuilder: GameBuildable
     

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ScoreKeeping
 import ShortRibs
 
 /// @mockable
@@ -14,6 +15,7 @@ protocol GamePresentable: GameViewControllable {
     func showNewRound(_ viewController: ViewControllable)
     func closeNewRound()
     func showScoreCard(_ viewController: ScoreCardViewControllable)
+    func updateHeaderTitles(_ titles: [String])
 }
 
 /// @mockable
@@ -24,8 +26,12 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
     // MARK: - Initializers
     
     init(presenter: GamePresentable,
+         gameStorageManager: GameStorageManaging,
+         activeGameStream: ActiveGameStreaming,
          newRoundBuilder: NewRoundBuildable,
          scoreCardBuilder: ScoreCardBuildable) {
+        self.gameStorageManager = gameStorageManager
+        self.activeGameStream = activeGameStream
         self.newRoundBuilder = newRoundBuilder
         self.scoreCardBuilder = scoreCardBuilder
         super.init(presenter: presenter)
@@ -41,10 +47,13 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
     override func didBecomeActive() {
         super.didBecomeActive()
         attachScoreCard()
+        startUpdatingHeaderTitles()
     }
     
     // MARK: - Private
     
+    private let gameStorageManager: GameStorageManaging
+    private let activeGameStream: ActiveGameStreaming
     private let newRoundBuilder: NewRoundBuildable
     private let scoreCardBuilder: ScoreCardBuildable
     
@@ -76,5 +85,26 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
             presenter.showScoreCard(scoreCard.viewController)
             currentScoreCard = scoreCard
         }
+    }
+    
+    private func startUpdatingHeaderTitles() {
+        activeGameStream.activeGameIdentifier
+            .filterNil()
+            .map { [gameStorageManager] identifier in
+                gameStorageManager.scoreCard(for: identifier)
+            }
+            .switchToLatest()
+            .replaceError(with: nil)
+            .removeDuplicates()
+            .filterNil()
+            .sink { card in
+                let titles = card.orderedPlayers
+                    .map(\.name)
+                    .map { name in
+                        String(name.prefix(1))
+                    }
+                self.presenter.updateHeaderTitles(titles)
+            }
+            .cancelOnDeactivate(interactor: self)
     }
 }

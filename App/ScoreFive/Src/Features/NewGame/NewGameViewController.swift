@@ -110,6 +110,10 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
     
     // MARK: - Private
     
+    private let spacerView = BaseView()
+    private let headerView = HeaderView()
+    private let newGameButton = NewGameButton()
+    
     private lazy var collectionView: UICollectionView = {
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
         config.showsSeparators = false
@@ -120,8 +124,6 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         return collectionView
     }()
     
-    private let spacerView = BaseView()
-    private let headerView = HeaderView()
     private var enteredScoreLimit: String? = nil
     private var enteredPlayerNames: [String?] = [nil, nil]
     
@@ -141,6 +143,9 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         collectionView.register(NewGamePlayerNameCell.self, forCellWithReuseIdentifier: .newPlayerCellIdentifier)
         collectionView.register(NewGameAddPlayerCell.self, forCellWithReuseIdentifier: .addPlayerCellIdentifier)
         specializedView.addSubview(collectionView)
+        
+        newGameButton.addTarget(self, action: #selector(didTapNewGame), for: .touchUpInside)
+        specializedView.addSubview(newGameButton)
         
         spacerView.snp.makeConstraints { make in
             make
@@ -169,10 +174,19 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
                 .inset(16.0)
             make
                 .bottom
-                .equalToSuperview()
+                .equalTo(newGameButton.snp.top)
             make
                 .top
                 .equalTo(headerView.snp.bottom)
+        }
+        
+        newGameButton.snp.makeConstraints { make in
+            make
+                .leading
+                .trailing
+                .bottom
+                .equalTo(specializedView.safeAreaLayoutGuide)
+                .inset(16.0)
         }
     }
         
@@ -215,6 +229,12 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         }, completion: { [weak self] _ in
             self?.collectionView.reloadData()
         })
+    }
+    
+    @objc
+    private func didTapNewGame() {
+        let scoreLimit = Int(enteredScoreLimit ?? "250") ?? 250
+        listener?.didTapNewGame(with: enteredPlayerNames, scoreLimit: scoreLimit)
     }
 }
 

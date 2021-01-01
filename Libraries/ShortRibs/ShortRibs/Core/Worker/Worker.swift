@@ -9,25 +9,24 @@
 import Foundation
 import Combine
 
-/// A protocol that defines the interface of a scope that a worker can be bound to.
-///
+/// A protocol defining an object that a `Worker` can work on
 /// @mockable
 public protocol WorkerScope: AnyObject {
     
-    /// Whether or not the scope is active
+    /// Whether or not the workable scope is active
     var isActive: Bool { get }
     
-    /// A publisher  of the `isActive` state
+    /// A stream of `isActive`
     var isActiveStream: AnyPublisher<Bool, Never> { get }
+    
 }
 
-/// A protocol defining the public interface of a `Worker` accessible to `Interactor`s
-///
+/// A protocol describing a worker
 /// @mockable
 public protocol Working: AnyObject {
     
-    /// Start the worker on a given scope
-    /// - Parameter scope: A scope to bind the worker to
+    /// Start the worker
+    /// - Parameter workable: The `workable` scope to bind the worker too
     func start(on scope: WorkerScope)
     
     /// Stop the worker
@@ -36,101 +35,64 @@ public protocol Working: AnyObject {
     /// Whether or not the worker has been started
     var isStarted: Bool { get }
     
-    /// A publisher of the `isActive` state
+    /// A stream of `isStarted`
     var isStartedStream: AnyPublisher<Bool, Never> { get }
-    
 }
 
-/// A worker is an object that starts and stops based on some provided scope
 open class Worker: Working {
     
     // MARK: - Initializer
     
-    /// Initialize a `Worker`
+    /// Create a `Worker`
+    /// - Note: In subclasses, constructor inject static dependencies.
     public init() {}
     
-    // MARK: - Abstract Methods
+    // MARK: - API
     
-    /// An abstract method, invoked just after the worker starts
-    /// - Parameter scope: The scope that the worker is bound to
-    open func didStart(on scope: WorkerScope) {}
+    /// Called when the worker starts
+    /// - Parameter workable: The workable scope that the worker is bound to
+    open func didStart(on scope: WorkerScope) {
+        // Optional Abstract Method
+    }
     
-    /// An abbstract method, invoked ust bef
-    open func didStop() {}
+    /// Called when the worker stops
+    open func didStop() {
+        // Optional Abstract Method
+    }
     
     // MARK: - Working
     
-    public func start(on scope: WorkerScope) {
+    @Published
+    public final private(set) var isStarted: Bool = false
+    
+    public final var isStartedStream: AnyPublisher<Bool, Never> {
+        $isStarted.eraseToAnyPublisher()
+    }
+    
+    public final func start(on scope: WorkerScope) {
         guard !isStarted else {
             return
         }
         
         stop()
         
-        shouldStart = true
+        isStarted = true
         bind(to: AnyWeakScope(scope))
     }
     
-    public func stop() {
-        guard shouldStart else {
+    public final func stop() {
+        guard isStarted else {
             return
         }
         
-        shouldStart = false
-        performStop()
+        isStarted = false
+        
+        internalStop()
     }
     
-    public final var isStarted: Bool {
-        isStartedSubject.value
-    }
+    // MARK: - Internal
     
-    public final var isStartedStream: AnyPublisher<Bool, Never> {
-        isStartedSubject
-            .removeDuplicates()
-            .eraseToAnyPublisher()
-    }
-    
-    // MARK: - Private
-    
-    @AutoCancel
-    private var scopeBinding: Cancellable?
-    
-    private var shouldStart: Bool = false
-    
-    private var storage: Set<AnyCancellable>?
-    
-    private var isStartedSubject = CurrentValueSubject<Bool, Never>(false)
-    
-    private func bind(to scope: WorkerScope) {
-        scopeBinding = scope.isActiveStream
-            .removeDuplicates()
-            .sink { [weak self] isActive in
-                if isActive {
-                    if let self = self, self.isStarted {
-                        self.performStart(scope)
-                    }
-                } else {
-                    self?.performStop()
-                }
-            }
-    }
-    
-    private func performStart(_ scope: WorkerScope) {
-        storage = Set<AnyCancellable>()
-        isStartedSubject.send(true)
-        didStart(on: scope)
-    }
-    
-    private func performStop() {
-        guard let storage = storage else {
-            return
-        }
-        storage.forEach { stream in stream.cancel() }
-        isStartedSubject.send(false)
-        didStop()
-    }
-    
-    fileprivate func store(cancellable: Cancellable) -> Bool {
+    func store(cancellable: Cancellable) -> Bool {
         guard storage != nil else {
             return false
         }
@@ -138,47 +100,70 @@ open class Worker: Working {
         return true
     }
     
-    private final class AnyWeakScope: WorkerScope {
+    // MARK: - Private
+    
+    private var binding: Cancellable?
+    private var storage: Set<AnyCancellable>?
+    
+    private func bind(to scope: WorkerScope) {
+        unbind()
         
-        init(_ scope: WorkerScope) {
-            self.scope = scope
-        }
-        
-        var isActive: Bool {
-            scope?.isActive ?? false
-        }
-        
-        var isActiveStream: AnyPublisher<Bool, Never> {
-            scope?.isActiveStream ?? Just<Bool>(false).eraseToAnyPublisher()
-        }
-        
-        private weak var scope: WorkerScope?
+        binding = scope.isActiveStream
+            .sink { [weak self] isActive in
+                if isActive {
+                    if self?.isStarted == true {
+                        self?.internalStart(on: scope)
+                    }
+                } else {
+                    self?.internalStop()
+                }
+            }
     }
     
-    // MARK: - Deinit
+    private func unbind() {
+        binding?.cancel()
+        self.binding = nil
+    }
+    
+    private func internalStart(on workable: WorkerScope) {
+        storage = Set<AnyCancellable>()
+        didStart(on: workable)
+    }
+    
+    private func internalStop() {
+        guard let storage = storage else {
+            return
+        }
+        storage.forEach { stream in stream.cancel() }
+        
+        didStop()
+    }
     
     deinit {
         stop()
-    }
-}
-
-extension Publisher where Failure == Never {
-    
-    public func confine(to worker: Working) -> AnyPublisher<Output, Failure> {
-        combineLatest(worker.isStartedStream) { element, isStarted in
-            (element, isStarted)
-        }
-        .filter { element, isStarted in
-            isStarted
-        }
-        .map { element, isActive in
-            element
-        }
-        .eraseToAnyPublisher()
+        unbind()
     }
     
+    private final class AnyWeakScope: WorkerScope {
+        
+        private weak var workable: WorkerScope?
+        
+        var isActive: Bool {
+            workable?.isActive ?? false
+        }
+        
+        
+        var isActiveStream: AnyPublisher<Bool, Never> {
+            workable?.isActiveStream ?? Just<Bool>(false).eraseToAnyPublisher()
+        }
+        
+        init(_ workable: WorkerScope) {
+            self.workable = workable
+        }
+        
+    }
+    
 }
-
 extension Cancellable {
     
     @discardableResult

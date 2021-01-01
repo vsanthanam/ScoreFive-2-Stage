@@ -9,7 +9,10 @@ import Foundation
 import ShortRibs
 import NeedleFoundation
 
-protocol GameDependency: Dependency {}
+protocol GameDependency: Dependency {
+    var gameStorageManager: GameStorageManaging { get }
+    var activeGameStream: ActiveGameStreaming { get }
+}
 
 class GameComponent: Component<GameDependency> {
     
@@ -45,6 +48,8 @@ final class GameBuilder: ComponentizedBuilder<GameComponent, PresentableInteract
         let listener = dynamicBuildDependency
         let viewController = GameViewController()
         let interactor = GameInteractor(presenter: viewController,
+                                        gameStorageManager: component.gameStorageManager,
+                                        activeGameStream: component.activeGameStream,
                                         newRoundBuilder: component.newRoundBuilder,
                                         scoreCardBuilder: component.scoreCardBuilder)
         viewController.listener = interactor

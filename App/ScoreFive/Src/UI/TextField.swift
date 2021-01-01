@@ -132,7 +132,7 @@ class TextField: BaseControl {
     // MARK: - Private
     
     private let input = Input()
-    private let border = UIView()
+    private let border = BaseView()
     
     private func setUp() {
         input.borderStyle = .none
@@ -148,7 +148,7 @@ class TextField: BaseControl {
         input.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        border.backgroundColor = .contentPrimary
+        border.backgroundColor = .contentTertiary
         addSubview(border)
         border.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()

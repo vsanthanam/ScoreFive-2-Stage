@@ -164,6 +164,16 @@ class GamePresentableMock: GamePresentable {
         }
         
     }
+
+    private(set) var updateHeaderTitlesCallCount = 0
+    var updateHeaderTitlesHandler: (([String]) -> ())?
+    func updateHeaderTitles(_ titles: [String])  {
+        updateHeaderTitlesCallCount += 1
+        if let updateHeaderTitlesHandler = updateHeaderTitlesHandler {
+            updateHeaderTitlesHandler(titles)
+        }
+        
+    }
 }
 
 class MainPresentableMock: MainPresentable {
@@ -909,12 +919,6 @@ class FiveListenerMock: FiveListener {
 
 }
 
-class GameListenerMock: GameListener {
-    init() { }
-
-
-}
-
 class NewRoundBuildableMock: NewRoundBuildable {
     init() { }
 
@@ -928,6 +932,12 @@ class NewRoundBuildableMock: NewRoundBuildable {
         }
         return PresentableInteractableMock()
     }
+}
+
+class GameListenerMock: GameListener {
+    init() { }
+
+
 }
 
 class NewGameBuildableMock: NewGameBuildable {
@@ -1137,6 +1147,36 @@ class MainBuildableMock: MainBuildable {
     }
 }
 
+class ScoreCardBuildableMock: ScoreCardBuildable {
+    init() { }
+
+
+    private(set) var buildCallCount = 0
+    var buildHandler: ((ScoreCardListener) -> (ScoreCardInteractable))?
+    func build(withListener listener: ScoreCardListener) -> ScoreCardInteractable {
+        buildCallCount += 1
+        if let buildHandler = buildHandler {
+            return buildHandler(listener)
+        }
+        return ScoreCardInteractableMock()
+    }
+}
+
+class HomeBuildableMock: HomeBuildable {
+    init() { }
+
+
+    private(set) var buildCallCount = 0
+    var buildHandler: ((HomeListener) -> (PresentableInteractable))?
+    func build(withListener listener: HomeListener) -> PresentableInteractable {
+        buildCallCount += 1
+        if let buildHandler = buildHandler {
+            return buildHandler(listener)
+        }
+        return PresentableInteractableMock()
+    }
+}
+
 class GameInteractableMock: GameInteractable {
     init() { }
     init(viewControllable: ViewControllable = ViewControllableMock(), isActive: Bool = false, isActiveStream: AnyPublisher<Bool, Never>) {
@@ -1177,36 +1217,6 @@ class GameInteractableMock: GameInteractable {
             deactivateHandler()
         }
         
-    }
-}
-
-class ScoreCardBuildableMock: ScoreCardBuildable {
-    init() { }
-
-
-    private(set) var buildCallCount = 0
-    var buildHandler: ((ScoreCardListener) -> (ScoreCardInteractable))?
-    func build(withListener listener: ScoreCardListener) -> ScoreCardInteractable {
-        buildCallCount += 1
-        if let buildHandler = buildHandler {
-            return buildHandler(listener)
-        }
-        return ScoreCardInteractableMock()
-    }
-}
-
-class HomeBuildableMock: HomeBuildable {
-    init() { }
-
-
-    private(set) var buildCallCount = 0
-    var buildHandler: ((HomeListener) -> (PresentableInteractable))?
-    func build(withListener listener: HomeListener) -> PresentableInteractable {
-        buildCallCount += 1
-        if let buildHandler = buildHandler {
-            return buildHandler(listener)
-        }
-        return PresentableInteractableMock()
     }
 }
 

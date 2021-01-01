@@ -25,6 +25,10 @@ final class MainViewController: ScopeViewController, MainPresentable, MainViewCo
         view.backgroundColor = .backgroundPrimary
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        fiveViewController?.uiviewController.preferredStatusBarStyle ?? .default
+    }
+    
     // MARK: - MainPresentable
     
     weak var listener: MainPresentableListener?
@@ -38,7 +42,11 @@ final class MainViewController: ScopeViewController, MainPresentable, MainViewCo
     
     // MARK: - Private
     
-    private var fiveViewController: ViewControllable?
+    private var fiveViewController: ViewControllable? {
+        didSet {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
     
     private func embedFiveViewController(_ viewController: ViewControllable) {
         assert(fiveViewController == nil)

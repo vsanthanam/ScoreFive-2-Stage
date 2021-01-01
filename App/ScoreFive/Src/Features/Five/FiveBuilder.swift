@@ -22,7 +22,7 @@ class FiveComponent: Component<FiveDependency> {
     }
     
     var gameStorageManager: GameStorageManaging {
-        shared { GameStorageManager(persistentContainer: dependency.persistentContainer) }
+        gameStorageWorker
     }
     
     var activeGameStream: ActiveGameStreaming {
@@ -33,6 +33,10 @@ class FiveComponent: Component<FiveDependency> {
     
     fileprivate var mutableActiveGameStream: MutableActiveGameStreaming {
         shared { ActiveGameStream() }
+    }
+    
+    fileprivate var gameStorageWorker: GameStorageWorking {
+        shared { GameStorageWorker(persistentContainer: dependency.persistentContainer) }
     }
     
     // MARK: - Children
@@ -67,7 +71,7 @@ final class FiveBuilder: ComponentizedBuilder<FiveComponent, PresentableInteract
         let viewController = FiveViewController()
         let interactor = FiveInteractor(presenter: viewController,
                                         mutableActiveGameStream: component.mutableActiveGameStream,
-                                        gameStorageProvider: component.gameStorageProvider,
+                                        gameStorageWorker: component.gameStorageWorker,
                                         homeBuilder: component.homeBuilder,
                                         gameBuilder: component.gameBuilder)
         interactor.listener = listener

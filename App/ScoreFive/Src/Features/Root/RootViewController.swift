@@ -26,6 +26,10 @@ final class RootViewController: ScopeViewController, RootPresentable, RootViewCo
         view.backgroundColor = .backgroundPrimary
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        mainViewController?.uiviewController.preferredStatusBarStyle ?? .default
+    }
+    
     // MARK: - RootPresentable
     
     weak var listener: RootPresentableListener?
@@ -39,7 +43,11 @@ final class RootViewController: ScopeViewController, RootPresentable, RootViewCo
     
     // MARK: - Private
     
-    private var mainViewController: ViewControllable?
+    private var mainViewController: ViewControllable? {
+        didSet {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
     
     private func embedMainViewController(_ viewController: ViewControllable) {
         assert(mainViewController == nil)

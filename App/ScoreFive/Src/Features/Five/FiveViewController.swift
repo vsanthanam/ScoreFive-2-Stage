@@ -24,6 +24,10 @@ final class FiveViewController: ScopeViewController, FivePresentable, FiveViewCo
         view.backgroundColor = .backgroundPrimary
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        activeChild?.uiviewController.preferredStatusBarStyle ?? .default
+    }
+    
     // MARK: - FivePresentable
     
     weak var listener: FivePresentableListener?
@@ -40,7 +44,11 @@ final class FiveViewController: ScopeViewController, FivePresentable, FiveViewCo
     
     // MARK: - Private
     
-    private var activeChild: ViewControllable?
+    private var activeChild: ViewControllable? {
+        didSet {
+            setNeedsStatusBarAppearanceUpdate()
+        }
+    }
     
     private func embedActiveChild(_ viewController: ViewControllable) {
         addChild(viewController.uiviewController)
