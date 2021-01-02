@@ -121,61 +121,6 @@ public class InteractableMock: Interactable {
     }
 }
 
-class GamePresentableMock: GamePresentable {
-    init() { }
-    init(listener: GamePresentableListener? = nil, uiviewController: UIViewController = UIViewController()) {
-        self.listener = listener
-        self.uiviewController = uiviewController
-    }
-
-
-    private(set) var listenerSetCallCount = 0
-    var listener: GamePresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
-
-    public private(set) var uiviewControllerSetCallCount = 0
-    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
-
-    private(set) var showNewRoundCallCount = 0
-    var showNewRoundHandler: ((ViewControllable) -> ())?
-    func showNewRound(_ viewController: ViewControllable)  {
-        showNewRoundCallCount += 1
-        if let showNewRoundHandler = showNewRoundHandler {
-            showNewRoundHandler(viewController)
-        }
-        
-    }
-
-    private(set) var closeNewRoundCallCount = 0
-    var closeNewRoundHandler: (() -> ())?
-    func closeNewRound()  {
-        closeNewRoundCallCount += 1
-        if let closeNewRoundHandler = closeNewRoundHandler {
-            closeNewRoundHandler()
-        }
-        
-    }
-
-    private(set) var showScoreCardCallCount = 0
-    var showScoreCardHandler: ((ScoreCardViewControllable) -> ())?
-    func showScoreCard(_ viewController: ScoreCardViewControllable)  {
-        showScoreCardCallCount += 1
-        if let showScoreCardHandler = showScoreCardHandler {
-            showScoreCardHandler(viewController)
-        }
-        
-    }
-
-    private(set) var updateHeaderTitlesCallCount = 0
-    var updateHeaderTitlesHandler: (([String]) -> ())?
-    func updateHeaderTitles(_ titles: [String])  {
-        updateHeaderTitlesCallCount += 1
-        if let updateHeaderTitlesHandler = updateHeaderTitlesHandler {
-            updateHeaderTitlesHandler(titles)
-        }
-        
-    }
-}
-
 class MainPresentableMock: MainPresentable {
     init() { }
     init(listener: MainPresentableListener? = nil, uiviewController: UIViewController = UIViewController()) {
@@ -272,6 +217,61 @@ class GameViewControllableMock: GameViewControllable {
 
     public private(set) var uiviewControllerSetCallCount = 0
     public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
+}
+
+class GamePresentableMock: GamePresentable {
+    init() { }
+    init(uiviewController: UIViewController = UIViewController(), listener: GamePresentableListener? = nil) {
+        self.uiviewController = uiviewController
+        self.listener = listener
+    }
+
+
+    public private(set) var uiviewControllerSetCallCount = 0
+    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
+
+    private(set) var listenerSetCallCount = 0
+    var listener: GamePresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
+
+    private(set) var showNewRoundCallCount = 0
+    var showNewRoundHandler: ((ViewControllable) -> ())?
+    func showNewRound(_ viewController: ViewControllable)  {
+        showNewRoundCallCount += 1
+        if let showNewRoundHandler = showNewRoundHandler {
+            showNewRoundHandler(viewController)
+        }
+        
+    }
+
+    private(set) var closeNewRoundCallCount = 0
+    var closeNewRoundHandler: (() -> ())?
+    func closeNewRound()  {
+        closeNewRoundCallCount += 1
+        if let closeNewRoundHandler = closeNewRoundHandler {
+            closeNewRoundHandler()
+        }
+        
+    }
+
+    private(set) var showScoreCardCallCount = 0
+    var showScoreCardHandler: ((ScoreCardViewControllable) -> ())?
+    func showScoreCard(_ viewController: ScoreCardViewControllable)  {
+        showScoreCardCallCount += 1
+        if let showScoreCardHandler = showScoreCardHandler {
+            showScoreCardHandler(viewController)
+        }
+        
+    }
+
+    private(set) var updateHeaderTitlesCallCount = 0
+    var updateHeaderTitlesHandler: (([String]) -> ())?
+    func updateHeaderTitles(_ titles: [String])  {
+        updateHeaderTitlesCallCount += 1
+        if let updateHeaderTitlesHandler = updateHeaderTitlesHandler {
+            updateHeaderTitlesHandler(titles)
+        }
+        
+    }
 }
 
 class HomePresentableMock: HomePresentable {
@@ -919,42 +919,6 @@ class FiveListenerMock: FiveListener {
 
 }
 
-class NewRoundBuildableMock: NewRoundBuildable {
-    init() { }
-
-
-    private(set) var buildCallCount = 0
-    var buildHandler: ((NewRoundListener, Int?) -> (PresentableInteractable))?
-    func build(withListener listener: NewRoundListener, replacingIndex: Int?) -> PresentableInteractable {
-        buildCallCount += 1
-        if let buildHandler = buildHandler {
-            return buildHandler(listener, replacingIndex)
-        }
-        return PresentableInteractableMock()
-    }
-}
-
-class GameListenerMock: GameListener {
-    init() { }
-
-
-}
-
-class NewGameBuildableMock: NewGameBuildable {
-    init() { }
-
-
-    private(set) var buildCallCount = 0
-    var buildHandler: ((NewGameListener) -> (PresentableInteractable))?
-    func build(withListener listener: NewGameListener) -> PresentableInteractable {
-        buildCallCount += 1
-        if let buildHandler = buildHandler {
-            return buildHandler(listener)
-        }
-        return PresentableInteractableMock()
-    }
-}
-
 public class WorkingMock: Working {
     public init() { }
     public init(isStarted: Bool = false, isStartedStream: AnyPublisher<Bool, Never>) {
@@ -994,6 +958,36 @@ public class WorkingMock: Working {
     }
 }
 
+class NewRoundBuildableMock: NewRoundBuildable {
+    init() { }
+
+
+    private(set) var buildCallCount = 0
+    var buildHandler: ((NewRoundListener, Int?) -> (PresentableInteractable))?
+    func build(withListener listener: NewRoundListener, replacingIndex: Int?) -> PresentableInteractable {
+        buildCallCount += 1
+        if let buildHandler = buildHandler {
+            return buildHandler(listener, replacingIndex)
+        }
+        return PresentableInteractableMock()
+    }
+}
+
+class NewGameBuildableMock: NewGameBuildable {
+    init() { }
+
+
+    private(set) var buildCallCount = 0
+    var buildHandler: ((NewGameListener) -> (PresentableInteractable))?
+    func build(withListener listener: NewGameListener) -> PresentableInteractable {
+        buildCallCount += 1
+        if let buildHandler = buildHandler {
+            return buildHandler(listener)
+        }
+        return PresentableInteractableMock()
+    }
+}
+
 class HomeInteractableMock: HomeInteractable {
     init() { }
     init(viewControllable: ViewControllable = ViewControllableMock(), isActive: Bool = false, isActiveStream: AnyPublisher<Bool, Never>) {
@@ -1029,6 +1023,13 @@ class HomeInteractableMock: HomeInteractable {
         
     }
 
+    public private(set) var isActiveStreamSetCallCount = 0
+    private var _isActiveStream: AnyPublisher<Bool, Never>!  { didSet { isActiveStreamSetCallCount += 1 } }
+    public var isActiveStream: AnyPublisher<Bool, Never> {
+        get { return _isActiveStream }
+        set { _isActiveStream = newValue }
+    }
+
     private(set) var newGameDidAbortCallCount = 0
     var newGameDidAbortHandler: (() -> ())?
     func newGameDidAbort()  {
@@ -1037,13 +1038,6 @@ class HomeInteractableMock: HomeInteractable {
             newGameDidAbortHandler()
         }
         
-    }
-
-    public private(set) var isActiveStreamSetCallCount = 0
-    private var _isActiveStream: AnyPublisher<Bool, Never>!  { didSet { isActiveStreamSetCallCount += 1 } }
-    public var isActiveStream: AnyPublisher<Bool, Never> {
-        get { return _isActiveStream }
-        set { _isActiveStream = newValue }
     }
 
     public private(set) var deactivateCallCount = 0
@@ -1055,6 +1049,12 @@ class HomeInteractableMock: HomeInteractable {
         }
         
     }
+}
+
+class GameListenerMock: GameListener {
+    init() { }
+
+
 }
 
 class GameStorageManagingMock: GameStorageManaging {
@@ -1220,6 +1220,115 @@ class GameInteractableMock: GameInteractable {
     }
 }
 
+class GameStorageWorkingMock: GameStorageWorking {
+    init() { }
+    init(isStarted: Bool = false, isStartedStream: AnyPublisher<Bool, Never>) {
+        self.isStarted = isStarted
+        self._isStartedStream = isStartedStream
+    }
+
+
+    private(set) var fetchScoreCardCallCount = 0
+    var fetchScoreCardHandler: ((UUID) throws -> (ScoreCard?))?
+    func fetchScoreCard(for identifier: UUID) throws -> ScoreCard? {
+        fetchScoreCardCallCount += 1
+        if let fetchScoreCardHandler = fetchScoreCardHandler {
+            return try fetchScoreCardHandler(identifier)
+        }
+        return nil
+    }
+
+    private(set) var scoreCardCallCount = 0
+    var scoreCardHandler: ((UUID) -> (AnyPublisher<ScoreCard?, Never>))?
+    func scoreCard(for identifier: UUID) -> AnyPublisher<ScoreCard?, Never> {
+        scoreCardCallCount += 1
+        if let scoreCardHandler = scoreCardHandler {
+            return scoreCardHandler(identifier)
+        }
+        fatalError("scoreCardHandler returns can't have a default value thus its handler must be set")
+    }
+
+    private(set) var fetchGameRecordsCallCount = 0
+    var fetchGameRecordsHandler: (() throws -> ([GameRecord]))?
+    func fetchGameRecords() throws -> [GameRecord] {
+        fetchGameRecordsCallCount += 1
+        if let fetchGameRecordsHandler = fetchGameRecordsHandler {
+            return try fetchGameRecordsHandler()
+        }
+        return [GameRecord]()
+    }
+
+    private(set) var fetchInProgressGameRecordsCallCount = 0
+    var fetchInProgressGameRecordsHandler: (() throws -> ([GameRecord]))?
+    func fetchInProgressGameRecords() throws -> [GameRecord] {
+        fetchInProgressGameRecordsCallCount += 1
+        if let fetchInProgressGameRecordsHandler = fetchInProgressGameRecordsHandler {
+            return try fetchInProgressGameRecordsHandler()
+        }
+        return [GameRecord]()
+    }
+
+    public private(set) var startCallCount = 0
+    public var startHandler: ((WorkerScope) -> ())?
+    public func start(on scope: WorkerScope)  {
+        startCallCount += 1
+        if let startHandler = startHandler {
+            startHandler(scope)
+        }
+        
+    }
+
+    private(set) var newGameCallCount = 0
+    var newGameHandler: ((ScoreCard) throws -> (GameRecord))?
+    func newGame(from scoreCard: ScoreCard) throws -> GameRecord {
+        newGameCallCount += 1
+        if let newGameHandler = newGameHandler {
+            return try newGameHandler(scoreCard)
+        }
+        fatalError("newGameHandler returns can't have a default value thus its handler must be set")
+    }
+
+    private(set) var saveCallCount = 0
+    var saveHandler: ((ScoreCard, UUID) throws -> ())?
+    func save(scoreCard: ScoreCard, with identifier: UUID) throws  {
+        saveCallCount += 1
+        if let saveHandler = saveHandler {
+            try saveHandler(scoreCard, identifier)
+        }
+        
+    }
+
+    public private(set) var stopCallCount = 0
+    public var stopHandler: (() -> ())?
+    public func stop()  {
+        stopCallCount += 1
+        if let stopHandler = stopHandler {
+            stopHandler()
+        }
+        
+    }
+
+    private(set) var saveAllGamesCallCount = 0
+    var saveAllGamesHandler: (() throws -> ())?
+    func saveAllGames() throws  {
+        saveAllGamesCallCount += 1
+        if let saveAllGamesHandler = saveAllGamesHandler {
+            try saveAllGamesHandler()
+        }
+        
+    }
+
+    public private(set) var isStartedSetCallCount = 0
+    public var isStarted: Bool = false { didSet { isStartedSetCallCount += 1 } }
+
+    public private(set) var isStartedStreamSetCallCount = 0
+    private var _isStartedStream: AnyPublisher<Bool, Never>!  { didSet { isStartedStreamSetCallCount += 1 } }
+    public var isStartedStream: AnyPublisher<Bool, Never> {
+        get { return _isStartedStream }
+        set { _isStartedStream = newValue }
+    }
+}
+
 class GameBuildableMock: GameBuildable {
     init() { }
 
@@ -1318,6 +1427,13 @@ class FiveInteractableMock: FiveInteractable {
     public private(set) var isActiveSetCallCount = 0
     public var isActive: Bool = false { didSet { isActiveSetCallCount += 1 } }
 
+    public private(set) var isActiveStreamSetCallCount = 0
+    private var _isActiveStream: AnyPublisher<Bool, Never>!  { didSet { isActiveStreamSetCallCount += 1 } }
+    public var isActiveStream: AnyPublisher<Bool, Never> {
+        get { return _isActiveStream }
+        set { _isActiveStream = newValue }
+    }
+
     private(set) var homeWantToOpenGameCallCount = 0
     var homeWantToOpenGameHandler: ((UUID) -> ())?
     func homeWantToOpenGame(withIdentifier: UUID)  {
@@ -1326,13 +1442,6 @@ class FiveInteractableMock: FiveInteractable {
             homeWantToOpenGameHandler(withIdentifier)
         }
         
-    }
-
-    public private(set) var isActiveStreamSetCallCount = 0
-    private var _isActiveStream: AnyPublisher<Bool, Never>!  { didSet { isActiveStreamSetCallCount += 1 } }
-    public var isActiveStream: AnyPublisher<Bool, Never> {
-        get { return _isActiveStream }
-        set { _isActiveStream = newValue }
     }
 
     public private(set) var deactivateCallCount = 0

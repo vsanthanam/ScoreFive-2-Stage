@@ -16,10 +16,13 @@ protocol GamePresentable: GameViewControllable {
     func closeNewRound()
     func showScoreCard(_ viewController: ScoreCardViewControllable)
     func updateHeaderTitles(_ titles: [String])
+    func updateTotalScores(_ scores: [String])
 }
 
 /// @mockable
-protocol GameListener: AnyObject {}
+protocol GameListener: AnyObject {
+    func gameWantToResign()
+}
 
 final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteractable, GamePresentableListener {
     
@@ -48,6 +51,27 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         super.didBecomeActive()
         attachScoreCard()
         startUpdatingHeaderTitles()
+        startUpdatingTotalScores()
+    }
+    
+    // MARK: - GamePresentableListener
+    
+    func wantNewRound() {
+        routeToNewRound()
+    }
+    
+    func didClose() {
+        listener?.gameWantToResign()
+    }
+    
+    // MARK: - ScoreCardListener
+    
+    func scoreCardDidDeleteRound(at index: Int) {
+        if let identifier = activeGameStream.currentActiveGameIdentifier,
+           var card = try? gameStorageManager.fetchScoreCard(for: identifier) {
+            card.removeRound(at: index)
+            try? gameStorageManager.save(scoreCard: card, with: identifier)
+        }
     }
     
     // MARK: - Private
@@ -104,6 +128,25 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
                         String(name.prefix(1))
                     }
                 self.presenter.updateHeaderTitles(titles)
+            }
+            .cancelOnDeactivate(interactor: self)
+    }
+    
+    func startUpdatingTotalScores() {
+        activeGameStream.activeGameIdentifier
+            .filterNil()
+            .map { [gameStorageManager] identifier in
+                gameStorageManager.scoreCard(for: identifier)
+            }
+            .switchToLatest()
+            .removeDuplicates()
+            .filterNil()
+            .sink { card in
+                let scores = card.orderedPlayers
+                    .map { player in
+                        String(card.totalScore(for: player))
+                    }
+                self.presenter.updateTotalScores(scores)
             }
             .cancelOnDeactivate(interactor: self)
     }

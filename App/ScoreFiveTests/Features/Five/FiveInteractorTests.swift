@@ -15,7 +15,7 @@ final class FiveInteractorTests: XCTestCase {
     
     let presenter = FivePresentableMock()
     let mutableActiveGameStream = MutableActiveGameStreamingMock()
-    let gameStorageProvider = GameStorageProvidingMock()
+    let gameStorageWorker = GameStorageWorkingMock()
     let homeBuilder = HomeBuildableMock()
     let gameBuilder = GameBuildableMock()
     let activeGameSubject = PassthroughSubject<UUID?, Never>()
@@ -26,7 +26,7 @@ final class FiveInteractorTests: XCTestCase {
         super.setUp()
         interactor = .init(presenter: presenter,
                            mutableActiveGameStream: mutableActiveGameStream,
-                           gameStorageProvider: gameStorageProvider,
+                           gameStorageWorker: gameStorageWorker,
                            homeBuilder: homeBuilder,
                            gameBuilder: gameBuilder)
         mutableActiveGameStream.activeGameIdentifier = activeGameSubject.eraseToAnyPublisher()
@@ -34,6 +34,12 @@ final class FiveInteractorTests: XCTestCase {
     
     func test_init_setsPresenterListener() {
         XCTAssertTrue(presenter.listener === self.interactor)
+    }
+    
+    func test_activate_startsWorker() {
+        XCTAssertEqual(gameStorageWorker.startCallCount, 0)
+        interactor.activate()
+        XCTAssertEqual(gameStorageWorker.startCallCount, 1)
     }
     
     func test_nilActiveGame_routesToHome() {

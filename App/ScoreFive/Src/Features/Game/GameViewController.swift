@@ -13,7 +13,9 @@ import UIKit
 protocol GameViewControllable: ViewControllable {}
 
 /// @mockable
-protocol GamePresentableListener: AnyObject {}
+protocol GamePresentableListener: AnyObject {
+    func wantNewRound()
+}
 
 final class GameViewController: ScopeViewController, GamePresentable, GameViewControllable {
     
@@ -25,7 +27,14 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
+        switch traitCollection.userInterfaceStyle {
+        case .dark:
+            return .darkContent
+        case .light, .unspecified:
+            return .lightContent
+        @unknown default:
+            return .lightContent
+        }
     }
     
     // MARK: - GamePresentable
@@ -72,11 +81,17 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         gameHeader.apply(names: titles)
     }
     
+    func updateTotalScores(_ scores: [String]) {
+        gameFooter.apply(scores: scores)
+    }
+    
     // MARK: - Private
     
     private let topSpacer = ScopeView()
     private let bottomSpacer = ScopeView()
     private let gameHeader = GameHeaderView()
+    private let gameFooter = GameFooterView()
+    private let addRoundButton = AddRoundButton()
     private let scoreCardLayoutGuide = UILayoutGuide()
     
     private var newRoundViewController: ViewControllable?
@@ -87,10 +102,16 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         
         topSpacer.backgroundColor = .backgroundInversePrimary
         specializedView.addSubview(topSpacer)
+        
+        addRoundButton.addTarget(self, action: #selector(didTapAddRound), for: .touchUpInside)
+        specializedView.addSubview(addRoundButton)
+        
         bottomSpacer.backgroundColor = .contentAccentPrimary
         specializedView.addSubview(bottomSpacer)
         
         specializedView.addSubview(gameHeader)
+        
+        specializedView.addSubview(gameFooter)
         
         topSpacer.snp.makeConstraints { make in
             make
@@ -123,7 +144,28 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
                 .equalTo(gameHeader.snp.bottom)
             make
                 .bottom
-                .equalTo(bottomSpacer.snp.top)
+                .equalTo(gameFooter.snp.top)
+        }
+        
+        gameHeader.setContentHuggingPriority(.required, for: .vertical)
+        gameFooter.snp.makeConstraints { make in
+            make
+                .leading
+                .trailing
+                .equalToSuperview()
+            make
+                .bottom
+                .equalTo(addRoundButton.snp.top)
+        }
+        
+        addRoundButton.snp.makeConstraints { make in
+            make
+                .leading
+                .trailing
+                .equalToSuperview()
+            make
+                .bottom
+                .equalTo(specializedView.safeAreaLayoutGuide.snp.bottom)
         }
         
         bottomSpacer.snp.makeConstraints { make in
@@ -136,5 +178,10 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
                 .top
                 .equalTo(specializedView.safeAreaLayoutGuide.snp.bottom)
         }
+    }
+    
+    @objc
+    private func didTapAddRound() {
+        listener?.wantNewRound()
     }
 }

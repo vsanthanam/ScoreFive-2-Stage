@@ -36,7 +36,7 @@ final class ScoreCardBuilder: ComponentizedBuilder<ScoreCardComponent, ScoreCard
     
     override final func build(with component: ScoreCardComponent, _ dynamicBuildDependency: ScoreCardDynamicBuildDependency) -> ScoreCardInteractable {
         let listener = dynamicBuildDependency
-        let viewController = ScoreCardViewController(ScoreCardView.init)
+        let viewController = ScoreCardViewController()
         let interactor = ScoreCardInteractor(presenter: viewController,
                                              gameStorageProvider: component.gameStorageProvider,
                                              activeGameStream: component.activeGameStream)

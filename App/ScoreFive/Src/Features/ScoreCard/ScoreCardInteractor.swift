@@ -13,11 +13,13 @@ import ShortRibs
 /// @mockable
 protocol ScoreCardPresentable: ScoreCardViewControllable {
     var listener: ScoreCardPresentableListener? { get set }
-    func update(scoreCard: ScoreCard)
+    func reload()
 }
 
 /// @mockable
-protocol ScoreCardListener: AnyObject {}
+protocol ScoreCardListener: AnyObject {
+    func scoreCardDidDeleteRound(at index: Int)
+}
 
 final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, ScoreCardInteractable, ScoreCardPresentableListener {
     
@@ -36,10 +38,43 @@ final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, Sc
     
     weak var listener: ScoreCardListener?
     
+    // MARK: - Interactor
+    
+    override func didBecomeActive() {
+        super.didBecomeActive()
+        startObservingScoreCardChanges()
+    }
+    
     // MARK: - ScoreCardInteractabble
     
     var viewController: ScoreCardViewControllable {
         presenter
+    }
+    
+    // MARK: - ScoreCardPresentableListener
+    
+    var numberOfRounds: Int {
+        currentScoreCard?.numberOfRounds ?? 0
+    }
+    
+    var orderedPlayers: [Player] {
+        currentScoreCard?.orderedPlayers ?? []
+    }
+    
+    func round(at index: Int) -> Round? {
+        currentScoreCard?[index]
+    }
+    
+    func canRemoveRow(at index: Int) -> Bool {
+        currentScoreCard?.canRemoveRound(at: index) ?? false
+    }
+    
+    func didRemoveRow(at index: Int) {
+        listener?.scoreCardDidDeleteRound(at: index)
+    }
+    
+    func index(at index: Int) -> String? {
+        return String(index)
     }
     
     // MARK: - Private
@@ -47,21 +82,24 @@ final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, Sc
     private let gameStorageProvider: GameStorageProviding
     private let activeGameStream: ActiveGameStreaming
     
-    private var scoreCard: ScoreCard?
+    private var automaticReload: Bool = true
+    
+    private var currentScoreCard: ScoreCard? {
+        didSet {
+            presenter.reload()
+        }
+    }
     
     private func startObservingScoreCardChanges() {
-        
-        func cardStream(for identifier: UUID) -> AnyPublisher<ScoreCard?, Never> {
-            gameStorageProvider.scoreCard(for: identifier)
-        }
-        
         activeGameStream.activeGameIdentifier
             .filterNil()
-            .map(cardStream(for:))
+            .map { [gameStorageProvider] identifier in
+                gameStorageProvider.scoreCard(for: identifier)
+            }
             .switchToLatest()
             .filterNil()
             .toOptional()
-            .assign(to: \.scoreCard, on: self)
+            .assign(to: \.currentScoreCard, on: self)
             .cancelOnDeactivate(interactor: self)
     }
 }

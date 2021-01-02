@@ -1,5 +1,5 @@
 //
-//  GameHeaderView.swift
+//  GameFooterView.swift
 //  ScoreFive
 //
 //  Created by Varun Santhanam on 1/1/21.
@@ -9,7 +9,7 @@ import FiveUI
 import Foundation
 import UIKit
 
-final class GameHeaderView: BaseView {
+final class GameFooterView: BaseView {
     
     // MARK: - Initializers
     
@@ -21,9 +21,9 @@ final class GameHeaderView: BaseView {
     
     // MARK: - API
     
-    func apply(names: [String]) {
+    func apply(scores: [String]) {
         stack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        names.forEach { name in
+        scores.forEach { name in
             let view = IndexView()
             view.title = name
             stack.addArrangedSubview(view)
@@ -33,12 +33,33 @@ final class GameHeaderView: BaseView {
     // MARK: - Private
     
     private let stack: UIStackView
+    private let ruleView = BaseView()
+    private let separator = BaseView()
     
     private func setUp() {
-        backgroundColor = .backgroundInversePrimary
+        backgroundColor = .backgroundPrimary
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         addSubview(stack)
+        
+        ruleView.backgroundColor = .controlDisabled
+        addSubview(ruleView)
+        
+        separator.backgroundColor = .controlDisabled
+        addSubview(separator)
+        
+        separator.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(0.5)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1.0)
+        }
+                
+        ruleView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview().inset(53.5)
+            make.width.equalTo(1.0)
+        }
+    
         stack.snp.makeConstraints { make in
             make
                 .top
@@ -50,6 +71,8 @@ final class GameHeaderView: BaseView {
                 .equalToSuperview()
                 .inset(54.0)
         }
+        
+        bringSubviewToFront(ruleView)
     }
     
     private class IndexView: BaseView {
@@ -67,10 +90,10 @@ final class GameHeaderView: BaseView {
         private let label = UILabel()
         
         private func setUp() {
-            backgroundColor = .backgroundInversePrimary
+            backgroundColor = .backgroundPrimary
             label.font = .systemFont(ofSize: 17.0, weight: .bold)
             label.textAlignment = .center
-            label.textColor = .contentInversePrimary
+            label.textColor = .contentPrimary
             addSubview(label)
             label.snp.makeConstraints { make in
                 make

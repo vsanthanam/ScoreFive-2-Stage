@@ -27,6 +27,7 @@ protocol GameStorageManaging: GameStorageProviding {
     func saveAllGames() throws
 }
 
+/// @mockable
 protocol GameStorageWorking: Working, GameStorageManaging {}
 
 final class GameStorageWorker: Worker, GameStorageWorking {

@@ -68,6 +68,12 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
         mutableActiveGameStream.activateGame(with: identifier)
     }
     
+    // MARK: - GameListener
+    
+    func gameWantToResign() {
+        mutableActiveGameStream.deactiveateCurrentGame()
+    }
+    
     // MARK: - Private
     
     private let mutableActiveGameStream: MutableActiveGameStreaming
