@@ -90,7 +90,7 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
                 make
                     .bottom
                     .equalToSuperview()
-                    .offset(-0.5)
+                    .offset(0.5)
                 make
                     .height
                     .equalTo(1.0)

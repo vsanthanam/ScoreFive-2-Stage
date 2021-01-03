@@ -84,11 +84,23 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
     private var currentNewRound: PresentableInteractable?
     private var currentScoreCard: ScoreCardInteractable?
     
-    private func routeToNewRound(replacingIndex: Int? = nil) {
+    private func routeToNewRound() {
         if let current = currentNewRound {
             detach(child: current)
         }
-        let newRound = newRoundBuilder.build(withListener: self, replacingIndex: replacingIndex)
+        let newRound = newRoundBuilder.build(withListener: self)
+        attach(child: newRound)
+        presenter.showNewRound(newRound.viewControllable)
+        currentNewRound = newRound
+    }
+    
+    private func routeToNewRound(replacing index: Int, previousValue: Round) {
+        if let current = currentNewRound {
+            detach(child: current)
+        }
+        let newRound = newRoundBuilder.build(withListener: self,
+                                             replacingIndex: index,
+                                             previousValue: previousValue)
         attach(child: newRound)
         presenter.showNewRound(newRound.viewControllable)
         currentNewRound = newRound

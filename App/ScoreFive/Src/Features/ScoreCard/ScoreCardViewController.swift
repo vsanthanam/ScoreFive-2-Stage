@@ -92,10 +92,18 @@ final class ScoreCardViewController: ScopeViewController, ScoreCardPresentable, 
         }
         
         ruleView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview().inset(53.5)
-            make.width.equalTo(1.0)
+            make
+                .top
+                .bottom
+                .equalToSuperview()
+            make
+                .leading
+                .equalToSuperview().inset(53.5)
+            make
+                .width
+                .equalTo(1.0)
         }
+        
         collectionView.bringSubviewToFront(ruleView)
     }
     

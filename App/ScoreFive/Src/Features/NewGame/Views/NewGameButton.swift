@@ -29,8 +29,10 @@ final class NewGameButton: TappableControl {
     private let label = UILabel()
     
     private func setUp() {
+        layer.cornerRadius = 12.0
         label.text = "Start Game"
         label.textColor = .contentOnColorPrimary
+        label.font = .systemFont(ofSize: 17.0, weight: .semibold)
         addSubview(label)
         label.snp.makeConstraints { make in
             make
@@ -40,7 +42,7 @@ final class NewGameButton: TappableControl {
                 .top
                 .bottom
                 .equalToSuperview()
-                .inset(12.0)
+                .inset(16.0)
         }
         updateColors()
     }

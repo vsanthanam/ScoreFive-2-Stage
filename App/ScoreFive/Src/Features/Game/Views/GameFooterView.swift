@@ -49,15 +49,31 @@ final class GameFooterView: BaseView {
         addSubview(separator)
         
         separator.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(0.5)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(1.0)
+            make
+                .top
+                .equalToSuperview()
+                .offset(-0.5)
+            make
+                .leading
+                .trailing
+                .equalToSuperview()
+            make
+                .height
+                .equalTo(1.0)
         }
                 
         ruleView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.equalToSuperview().inset(53.5)
-            make.width.equalTo(1.0)
+            make
+                .top
+                .bottom
+                .equalToSuperview()
+            make
+                .leading
+                .equalToSuperview()
+                .inset(53.5)
+            make
+                .width
+                .equalTo(1.0)
         }
     
         stack.snp.makeConstraints { make in

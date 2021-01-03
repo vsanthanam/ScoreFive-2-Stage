@@ -36,7 +36,7 @@ final class NewGamePlayerNameCell: ListCell<NewGamePlayerNameCell.ContentConfigu
         
         // MARK: - Private
         
-        private let input = TextField()
+        private let input = UITextField()
         
         private var editingAction: UIAction? {
             didSet {
@@ -58,14 +58,9 @@ final class NewGamePlayerNameCell: ListCell<NewGamePlayerNameCell.ContentConfigu
             addSubview(input)
             input.snp.makeConstraints { make in
                 make
-                    .leading
-                    .trailing
+                    .edges
                     .equalToSuperview()
-                make
-                    .top
-                    .bottom
-                    .equalToSuperview()
-                    .inset(8.0)
+                    .inset(16.0)
             }
         }
     }

@@ -36,7 +36,7 @@ final class NewGameScoreLimitCell: ListCell<NewGameScoreLimitCell.ContentConfigu
         
         // MARK: - Private
         
-        private let input = TextField()
+        private let input = UITextField()
         
         private var editingAction: UIAction? {
             didSet {
@@ -50,22 +50,12 @@ final class NewGameScoreLimitCell: ListCell<NewGameScoreLimitCell.ContentConfigu
         }
         
         private func setUp() {
-            widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width - 32).isActive = true // 30 is my added up left and right Inset
-            topAnchor.constraint(equalTo: topAnchor).isActive = true
-            leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
             input.font = .systemFont(ofSize: 36.0)
             input.keyboardType = .numberPad
             addSubview(input)
             input.snp.makeConstraints { make in
                 make
-                    .leading
-                    .trailing
-                    .equalToSuperview()
-                make
-                    .top
-                    .bottom
+                    .edges
                     .equalToSuperview()
                     .inset(16.0)
             }

@@ -24,33 +24,19 @@ final class NewGameAddPlayerCell: Cell<NewGameAddPlayerCell.ContentConfiguration
         
         override func apply(configuration: ContentConfiguration) {
             label.text = configuration.title
-            button.backgroundColor = configuration.backgroundColor
+            backgroundColor = configuration.backgroundColor
         }
         
         // MARK: - Private
         
-        private let button = BaseView()
         private let label = UILabel()
         
         private func setUp() {
-            backgroundColor = .transparent
-            button.backgroundColor = .contentPrimary
-            addSubview(button)
+            backgroundColor = .contentPrimary
             
             label.textColor = .contentInversePrimary
-            button.addSubview(label)
-            
-            button.snp.makeConstraints { make in
-                make
-                    .leading
-                    .trailing
-                    .equalToSuperview()
-                make
-                    .top
-                    .bottom
-                    .equalToSuperview()
-                    .inset(8.0)
-            }
+            label.font = .systemFont(ofSize: 17.0, weight: .semibold)
+            addSubview(label)
             
             label.snp.makeConstraints { make in
                 make
@@ -60,7 +46,7 @@ final class NewGameAddPlayerCell: Cell<NewGameAddPlayerCell.ContentConfiguration
                     .top
                     .bottom
                     .equalToSuperview()
-                    .inset(12.0)
+                    .inset(16.0)
             }
         }
     }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ScoreKeeping
 import ShortRibs
 
 /// @mockable
@@ -21,8 +22,10 @@ final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewR
     // MARK: - Initializers
     
     init(presenter: NewRoundPresentable,
-         replacingIndex: Int?) {
+         replacingIndex: Int?,
+         previousValue: Round?) {
         self.replacingIndex = replacingIndex
+        self.round = previousValue ?? Round()
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -34,4 +37,6 @@ final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewR
     // MARK: - Private
     
     private let replacingIndex: Int?
+    
+    private var round: Round
 }

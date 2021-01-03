@@ -19,14 +19,13 @@ protocol NewGamePresentableListener: AnyObject {
     func didTapNewGame(with playerNames: [String?], scoreLimit: Int)
 }
 
-final class NewGameViewController: ScopeViewController, NewGamePresentable, NewGameViewControllable, NewGameScoreLimitCellDelegate, NewGamePlayerNameCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+final class NewGameViewController: ScopeViewController, NewGamePresentable, NewGameViewControllable, NewGameScoreLimitCellDelegate, NewGamePlayerNameCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UINavigationBarDelegate {
     
     // MARK: - Initializers
     
     override init(_ viewBuilder: @escaping () -> ScopeView) {
         super.init(viewBuilder)
         isModalInPresentation = true
-        modalPresentationStyle = .fullScreen
     }
     
     // MARK: - UIViewController
@@ -36,7 +35,7 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         setUp()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle { .lightContent }
+    override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
     
     // MARK: - NewGamePresentable
     
@@ -95,6 +94,24 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         collectionView.deselectItem(at: indexPath, animated: true)
         addPlayer()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: .headerIdentifier, for: indexPath) as! NewGameSectionHeaderView
+            if indexPath.section == 0 {
+                header.title = "Score Limit"
+            }
+            return header
+        } else if kind == UICollectionView.elementKindSectionFooter {
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: .footerIdentifier, for: indexPath) as! NewGameSectionFooterView
+            if indexPath.section == 1 {
+                footer.title = "Add between 2 and 8 players"
+            }
+            return footer
+        }
+        
+        fatalError()
+    }
 
     // MARK: - NewGameScoreLimitCellDelegate
     
@@ -108,18 +125,33 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         enteredPlayerNames[index] = input
     }
     
+    // MARK: - UINavigationBarDelegate
+    
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        .topAttached
+    }
+    
     // MARK: - Private
     
-    private let spacerView = BaseView()
-    private let headerView = HeaderView()
+    private let header = UINavigationBar()
     private let newGameButton = NewGameButton()
     
-    private lazy var collectionView: UICollectionView = {
-        var config = UICollectionLayoutListConfiguration(appearance: .plain)
-        config.showsSeparators = false
-        config.backgroundColor = .backgroundPrimary
-        config.trailingSwipeActionsConfigurationProvider = trailingSwipeActionsConfigurationProvider
-        let layout = UICollectionViewCompositionalLayout.list(using: config)
+    private lazy var collectionView: UICollectionView = { [weak self] in
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { index, environment in
+            var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+            config.backgroundColor = .backgroundSecondary
+            
+            if index == 0 {
+                config.headerMode = .supplementary
+            }
+            
+            if index == 1 {
+                config.footerMode = .supplementary
+                config.trailingSwipeActionsConfigurationProvider = self?.trailingSwipeActionsConfigurationProvider
+            }
+            
+            return NSCollectionLayoutSection.list(using: config, layoutEnvironment: environment)
+        })
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         return collectionView
     }()
@@ -128,42 +160,53 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
     private var enteredPlayerNames: [String?] = [nil, nil]
     
     private func setUp() {
-        specializedView.backgroundColor = .backgroundPrimary
+        specializedView.backgroundColor = .backgroundSecondary
         
-        spacerView.backgroundColor = .backgroundInversePrimary
-        specializedView.addSubview(spacerView)
+        let navigationItem = UINavigationItem(title: "New Game")
+        navigationItem.largeTitleDisplayMode = .always
+        header.setItems([navigationItem], animated: false)
+        header.delegate = self
+        header.prefersLargeTitles = true
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .backgroundPrimary
+        let style = NSMutableParagraphStyle()
+        style.firstLineHeadIndent = 10 // This is added to the default margin
+        appearance.largeTitleTextAttributes = [.paragraphStyle : style]
+        header.scrollEdgeAppearance = appearance
+        specializedView.addSubview(header)
         
-        headerView.title = "New Game"
-        specializedView.addSubview(headerView)
+        header.delegate = self
+        specializedView.addSubview(header)
         
-        collectionView.backgroundColor = .backgroundPrimary
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(NewGameScoreLimitCell.self, forCellWithReuseIdentifier: .scoreLimitCellIdentifier)
-        collectionView.register(NewGamePlayerNameCell.self, forCellWithReuseIdentifier: .newPlayerCellIdentifier)
-        collectionView.register(NewGameAddPlayerCell.self, forCellWithReuseIdentifier: .addPlayerCellIdentifier)
+        collectionView.contentInset = .init(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
+        collectionView.register(NewGameSectionHeaderView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: .headerIdentifier)
+        collectionView.register(NewGameSectionFooterView.self,
+                                forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                withReuseIdentifier: .footerIdentifier)
+        collectionView.register(NewGameScoreLimitCell.self,
+                                forCellWithReuseIdentifier: .scoreLimitCellIdentifier)
+        collectionView.register(NewGamePlayerNameCell.self,
+                                forCellWithReuseIdentifier: .newPlayerCellIdentifier)
+        collectionView.register(NewGameAddPlayerCell.self,
+                                forCellWithReuseIdentifier: .addPlayerCellIdentifier)
         specializedView.addSubview(collectionView)
         
         newGameButton.addTarget(self, action: #selector(didTapNewGame), for: .touchUpInside)
         specializedView.addSubview(newGameButton)
         
-        spacerView.snp.makeConstraints { make in
+        header.snp.makeConstraints { make in
             make
                 .top
+                .equalTo(specializedView.safeAreaLayoutGuide)
+            make
                 .leading
                 .trailing
                 .equalToSuperview()
-            make
-                .bottom
-                .equalTo(specializedView.safeAreaLayoutGuide.snp.top)
-        }
-        
-        headerView.snp.makeConstraints { make in
-            make
-                .top
-                .leading
-                .trailing
-                .equalTo(specializedView.safeAreaLayoutGuide)
         }
         
         collectionView.snp.makeConstraints { make in
@@ -171,22 +214,25 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
                 .leading
                 .trailing
                 .equalTo(specializedView.safeAreaLayoutGuide)
-                .inset(16.0)
             make
                 .bottom
-                .equalTo(newGameButton.snp.top)
+                .equalTo(specializedView.safeAreaLayoutGuide)
+                .inset(12.0)
             make
                 .top
-                .equalTo(headerView.snp.bottom)
+                .equalTo(header.snp.bottom)
         }
         
         newGameButton.snp.makeConstraints { make in
             make
                 .leading
                 .trailing
+                .equalTo(specializedView.safeAreaLayoutGuide)
+                .inset(18.0)
+            make
                 .bottom
                 .equalTo(specializedView.safeAreaLayoutGuide)
-                .inset(16.0)
+                .inset(8.0)
         }
     }
         
@@ -243,11 +289,6 @@ fileprivate extension String {
     static var scoreLimitCellIdentifier: String { "score-limit-cell-identifier" }
     static var newPlayerCellIdentifier: String { "new-player-limit-cell-identifier" }
     static var addPlayerCellIdentifier: String { "add-player-cell-identifier" }
-}
-
-extension UICollectionView {
-    var widestCellWidth: CGFloat {
-        let insets = contentInset.left + contentInset.right
-        return bounds.width - insets
-    }
+    static var headerIdentifier: String { "header-identifier" }
+    static var footerIdentifier: String { "footer-identifier" }
 }

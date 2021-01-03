@@ -59,7 +59,8 @@
 		072F8264259C0908005EE56B /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8261259C0908005EE56B /* HomeBuilder.swift */; };
 		072F8265259C0908005EE56B /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8262259C0908005EE56B /* HomeInteractor.swift */; };
 		077178B3259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077178B2259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift */; };
-		077178B6259FB37D00DD5E84 /* NewGameSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077178B5259FB37D00DD5E84 /* NewGameSectionHeader.swift */; };
+		07B6647925A24BDC00A994A8 /* NewGameSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B6647825A24BDC00A994A8 /* NewGameSectionHeaderView.swift */; };
+		07B6647D25A2528C00A994A8 /* NewGameSectionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B6647C25A2528B00A994A8 /* NewGameSectionFooterView.swift */; };
 		07C38CD1259FCEFA00A9AFCD /* NewGameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C38CD0259FCEFA00A9AFCD /* NewGameButton.swift */; };
 		07C38CD5259FD8E900A9AFCD /* GameHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C38CD4259FD8E900A9AFCD /* GameHeaderView.swift */; };
 		07C38CDA259FEA6F00A9AFCD /* AddRoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C38CD9259FEA6F00A9AFCD /* AddRoundButton.swift */; };
@@ -147,7 +148,8 @@
 		072F8261259C0908005EE56B /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		072F8262259C0908005EE56B /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		077178B2259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePlayerNameCell.swift; sourceTree = "<group>"; };
-		077178B5259FB37D00DD5E84 /* NewGameSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameSectionHeader.swift; sourceTree = "<group>"; };
+		07B6647825A24BDC00A994A8 /* NewGameSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameSectionHeaderView.swift; sourceTree = "<group>"; };
+		07B6647C25A2528B00A994A8 /* NewGameSectionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameSectionFooterView.swift; sourceTree = "<group>"; };
 		07C38CD0259FCEFA00A9AFCD /* NewGameButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameButton.swift; sourceTree = "<group>"; };
 		07C38CD4259FD8E900A9AFCD /* GameHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHeaderView.swift; sourceTree = "<group>"; };
 		07C38CD9259FEA6F00A9AFCD /* AddRoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoundButton.swift; sourceTree = "<group>"; };
@@ -243,8 +245,9 @@
 				070683FE259D22F8004B7A78 /* NewGameAddPlayerCell.swift */,
 				07068402259D27A4004B7A78 /* NewGameScoreLimitCell.swift */,
 				077178B2259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift */,
-				077178B5259FB37D00DD5E84 /* NewGameSectionHeader.swift */,
 				07C38CD0259FCEFA00A9AFCD /* NewGameButton.swift */,
+				07B6647825A24BDC00A994A8 /* NewGameSectionHeaderView.swift */,
+				07B6647C25A2528B00A994A8 /* NewGameSectionFooterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -620,10 +623,10 @@
 				072F8263259C0908005EE56B /* HomeViewController.swift in Sources */,
 				07068417259D3878004B7A78 /* HeaderView.swift in Sources */,
 				07C38CD1259FCEFA00A9AFCD /* NewGameButton.swift in Sources */,
+				07B6647D25A2528C00A994A8 /* NewGameSectionFooterView.swift in Sources */,
 				07068398259C33F9004B7A78 /* NewRoundBuilder.swift in Sources */,
 				070683EA259D072C004B7A78 /* ScoreCardInteractor.swift in Sources */,
 				072F8192259A523F005EE56B /* MainViewController.swift in Sources */,
-				077178B6259FB37D00DD5E84 /* NewGameSectionHeader.swift in Sources */,
 				07C38CDA259FEA6F00A9AFCD /* AddRoundButton.swift in Sources */,
 				07C38CD5259FD8E900A9AFCD /* GameHeaderView.swift in Sources */,
 				072F81BD259A5FC3005EE56B /* FiveBuilder.swift in Sources */,
@@ -642,6 +645,7 @@
 				072F8264259C0908005EE56B /* HomeBuilder.swift in Sources */,
 				07068397259C33F9004B7A78 /* NewRoundViewController.swift in Sources */,
 				070683DE259D02CA004B7A78 /* Optionals.swift in Sources */,
+				07B6647925A24BDC00A994A8 /* NewGameSectionHeaderView.swift in Sources */,
 				070683FF259D22F8004B7A78 /* NewGameAddPlayerCell.swift in Sources */,
 				07068387259C1251004B7A78 /* GameBuilder.swift in Sources */,
 				072F825B259C0565005EE56B /* ActiveGameStream.swift in Sources */,
