@@ -24,8 +24,6 @@
 		070683EA259D072C004B7A78 /* ScoreCardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683E6259D072C004B7A78 /* ScoreCardInteractor.swift */; };
 		070683FF259D22F8004B7A78 /* NewGameAddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683FE259D22F8004B7A78 /* NewGameAddPlayerCell.swift */; };
 		07068403259D27A4004B7A78 /* NewGameScoreLimitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068402259D27A4004B7A78 /* NewGameScoreLimitCell.swift */; };
-		07068417259D3878004B7A78 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068416259D3878004B7A78 /* HeaderView.swift */; };
-		0706841F259E55C1004B7A78 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706841E259E55C1004B7A78 /* TextField.swift */; };
 		072F8162259A4D48005EE56B /* NeedleFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; };
 		072F8163259A4D48005EE56B /* NeedleFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		072F8168259A4D4D005EE56B /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8167259A4D4D005EE56B /* SnapKit.framework */; };
@@ -117,8 +115,6 @@
 		070683E6259D072C004B7A78 /* ScoreCardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCardInteractor.swift; sourceTree = "<group>"; };
 		070683FE259D22F8004B7A78 /* NewGameAddPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameAddPlayerCell.swift; sourceTree = "<group>"; };
 		07068402259D27A4004B7A78 /* NewGameScoreLimitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameScoreLimitCell.swift; sourceTree = "<group>"; };
-		07068416259D3878004B7A78 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		0706841E259E55C1004B7A78 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		072F8161259A4D48005EE56B /* NeedleFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NeedleFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072F8167259A4D4D005EE56B /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072F816C259A4D57005EE56B /* ShortRibs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ShortRibs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -260,15 +256,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		07068415259D3870004B7A78 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				0706841E259E55C1004B7A78 /* TextField.swift */,
-				07068416259D3878004B7A78 /* HeaderView.swift */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
 		072F8160259A4D48005EE56B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -284,7 +271,6 @@
 		072F8177259A4DEB005EE56B /* Src */ = {
 			isa = PBXGroup;
 			children = (
-				07068415259D3870004B7A78 /* UI */,
 				070683DC259D0274004B7A78 /* Extensions */,
 				072F822C259AA20F005EE56B /* Models */,
 				072F817A259A4E84005EE56B /* Features */,
@@ -621,7 +607,6 @@
 				072F8193259A523F005EE56B /* MainBuilder.swift in Sources */,
 				07C38CDE259FEE6000A9AFCD /* GameRoundCell.swift in Sources */,
 				072F8263259C0908005EE56B /* HomeViewController.swift in Sources */,
-				07068417259D3878004B7A78 /* HeaderView.swift in Sources */,
 				07C38CD1259FCEFA00A9AFCD /* NewGameButton.swift in Sources */,
 				07B6647D25A2528C00A994A8 /* NewGameSectionFooterView.swift in Sources */,
 				07068398259C33F9004B7A78 /* NewRoundBuilder.swift in Sources */,
@@ -630,7 +615,6 @@
 				07C38CDA259FEA6F00A9AFCD /* AddRoundButton.swift in Sources */,
 				07C38CD5259FD8E900A9AFCD /* GameHeaderView.swift in Sources */,
 				072F81BD259A5FC3005EE56B /* FiveBuilder.swift in Sources */,
-				0706841F259E55C1004B7A78 /* TextField.swift in Sources */,
 				07E6F00B259980E300AEF80A /* ScoreFiveAppDelegate.swift in Sources */,
 				072F8265259C0908005EE56B /* HomeInteractor.swift in Sources */,
 				077178B3259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift in Sources */,
