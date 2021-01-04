@@ -50,6 +50,7 @@ final class NewGamePlayerNameCell: ListCell<NewGamePlayerNameCell.ContentConfigu
         }
         
         private func setUp() {
+            backgroundColor = .contentPrimary
             input.clearButtonMode = .whileEditing
             input.returnKeyType = .done
             input.addAction(UIAction { [unowned input] _ in

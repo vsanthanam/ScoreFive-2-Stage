@@ -173,9 +173,7 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         let style = NSMutableParagraphStyle()
         style.firstLineHeadIndent = 10 // This is added to the default margin
         appearance.largeTitleTextAttributes = [.paragraphStyle : style]
-        header.scrollEdgeAppearance = appearance
-        specializedView.addSubview(header)
-        
+        header.scrollEdgeAppearance = appearance        
         header.delegate = self
         specializedView.addSubview(header)
         

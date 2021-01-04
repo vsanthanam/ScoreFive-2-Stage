@@ -54,5 +54,4 @@ final class NewGameButton: TappableControl {
             backgroundColor = .contentAccentPrimary
         }
     }
-    
 }

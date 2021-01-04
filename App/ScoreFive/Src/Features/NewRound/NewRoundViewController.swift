@@ -14,16 +14,17 @@ import UIKit
 protocol NewRoundViewControllable: ViewControllable {}
 
 /// @mockable
-protocol NewRoundPresentableListener: AnyObject {}
+protocol NewRoundPresentableListener: AnyObject {
+    func didTapClose()
+}
 
-final class NewRoundViewController: ScopeViewController, NewRoundPresentable, NewRoundViewControllable {
+final class NewRoundViewController: ScopeViewController, NewRoundPresentable, NewRoundViewControllable, UINavigationBarDelegate {
     
     // MARK: - Initializers
     
     override init(_ viewBuilder: @escaping () -> ScopeView) {
         super.init(viewBuilder)
         isModalInPresentation = true
-        modalPresentationStyle = .fullScreen
     }
     
     // MARK: - UIViewController
@@ -33,36 +34,49 @@ final class NewRoundViewController: ScopeViewController, NewRoundPresentable, Ne
         setUp()
     }
     
+    // MARK: - UINavigationBarDelegate
+    
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        .topAttached
+    }
+    
     // MARK: - NewRoundPresentable
     
     weak var listener: NewRoundPresentableListener?
     
     // MARK: - Private
     
-    private let topInset = BaseView()
-    private let headerView = HeaderView()
+    private let header = UINavigationBar()
     
     private func setUp() {
         specializedView.backgroundColor = .backgroundPrimary
         
-        topInset.backgroundColor = .backgroundInversePrimary
-        specializedView.addSubview(topInset)
+        let navigationItem = UINavigationItem(title: "Add Scores")
+        navigationItem.largeTitleDisplayMode = .always
         
-        headerView.title = "Add Scores"
-        specializedView.addSubview(headerView)
+        let config = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .bold)
+        let image = UIImage(systemName: "xmark", withConfiguration: config)
         
-        topInset.snp.makeConstraints { make in
-            make
-                .top
-                .leading
-                .trailing
-                .equalToSuperview()
-            make
-                .bottom
-                .equalTo(specializedView.safeAreaLayoutGuide.snp.top)
-        }
+        let closeItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
+        closeItem.tintColor = .contentPrimary
+        navigationItem.leftBarButtonItem = closeItem
         
-        headerView.snp.makeConstraints { make in
+        header.setItems([navigationItem], animated: false)
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .backgroundPrimary
+        
+        let style = NSMutableParagraphStyle()
+        style.firstLineHeadIndent = 10 // This is added to the default margin
+        appearance.largeTitleTextAttributes = [.paragraphStyle : style]
+        
+        header.scrollEdgeAppearance = appearance
+        header.delegate = self
+        header.prefersLargeTitles = true
+        specializedView.addSubview(header)
+  
+        header.snp.makeConstraints { make in
             make
                 .leading
                 .trailing
@@ -71,5 +85,10 @@ final class NewRoundViewController: ScopeViewController, NewRoundPresentable, Ne
                 .top
                 .equalTo(specializedView.safeAreaLayoutGuide)
         }
+    }
+    
+    @objc
+    private func close() {
+        listener?.didTapClose()
     }
 }

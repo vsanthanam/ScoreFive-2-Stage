@@ -84,7 +84,7 @@ final class GameStorageWorker: Worker, GameStorageWorking {
         let game = GameRecordMO(context: persistentContainer.viewContext)
         try game.updateScoreCard(scoreCard: scoreCard)
         game.rawIdentifier = .init()
-        try persistentContainer.viewContext.save()
+        try saveAllGames()
         return game
     }
     
@@ -96,7 +96,7 @@ final class GameStorageWorker: Worker, GameStorageWorking {
     
     func saveAllGames() throws {
         try persistentContainer.viewContext.save()
-        let games = try? fetchGameRecords()
+        let games = try fetchGameRecords()
         saveSubject.send(games)
     }
     

@@ -35,7 +35,7 @@ final class GameHeaderView: BaseView {
     private let stack: UIStackView
     
     private func setUp() {
-        backgroundColor = .backgroundInversePrimary
+        backgroundColor = .backgroundPrimary
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         addSubview(stack)
@@ -67,10 +67,10 @@ final class GameHeaderView: BaseView {
         private let label = UILabel()
         
         private func setUp() {
-            backgroundColor = .backgroundInversePrimary
+            backgroundColor = .backgroundPrimary
             label.font = .systemFont(ofSize: 17.0, weight: .bold)
             label.textAlignment = .center
-            label.textColor = .contentInversePrimary
+            label.textColor = .contentPrimary
             addSubview(label)
             label.snp.makeConstraints { make in
                 make

@@ -37,7 +37,10 @@ final class ScoreCardViewController: ScopeViewController, ScoreCardPresentable, 
     weak var listener: ScoreCardPresentableListener?
     
     func reload() {
-        collectionView.reloadData()
+        confineTo(viewEvents: [.viewDidAppear],
+                  once: true) { [collectionView] in
+            collectionView.reloadData()
+        }
     }
     
     // MARK: - UICollectionViewDataSource

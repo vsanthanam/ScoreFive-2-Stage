@@ -74,6 +74,12 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         }
     }
     
+    // MARK: - NewGameListener
+    
+    func newRoundDidCancel() {
+        routeAwayFromNewRound()
+    }
+    
     // MARK: - Private
     
     private let gameStorageManager: GameStorageManaging
@@ -131,9 +137,9 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
             }
             .switchToLatest()
             .replaceError(with: nil)
-            .removeDuplicates()
             .filterNil()
             .sink { card in
+                print(card)
                 let titles = card.orderedPlayers
                     .map(\.name)
                     .map { name in
@@ -151,9 +157,9 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
                 gameStorageManager.scoreCard(for: identifier)
             }
             .switchToLatest()
-            .removeDuplicates()
             .filterNil()
             .sink { card in
+                print(card)
                 let scores = card.orderedPlayers
                     .map { player in
                         String(card.totalScore(for: player))

@@ -8,7 +8,7 @@
 import UIKit
 import ShortRibs
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class ScoreFiveSceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - UIWindowSceneDelegate
     
@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-        try? (UIApplication.shared.delegate as! AppDelegate).persistentContainer.save()
+        try? (UIApplication.shared.delegate as! ScoreFiveAppDelegate).persistentContainer.save()
     }
 
     // MARK: - Private
@@ -57,7 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func launchScene() {
         let builder = RootBuilder()
         root = builder.build(onWindow: window!,
-                             persistentContainer: (UIApplication.shared.delegate as! AppDelegate).persistentContainer)
+                             persistentContainer: (UIApplication.shared.delegate as! ScoreFiveAppDelegate).persistentContainer)
         window!.makeKeyAndVisible()
         root!.activate()
     }

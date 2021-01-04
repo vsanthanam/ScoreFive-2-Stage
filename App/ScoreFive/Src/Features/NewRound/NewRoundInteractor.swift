@@ -15,7 +15,9 @@ protocol NewRoundPresentable: NewRoundViewControllable {
 }
 
 /// @mockable
-protocol NewRoundListener: AnyObject {}
+protocol NewRoundListener: AnyObject {
+    func newRoundDidCancel()
+}
 
 final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewRoundInteractable, NewRoundPresentableListener {
     
@@ -33,6 +35,12 @@ final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewR
     // MARK: - API
     
     weak var listener: NewRoundListener?
+    
+    // MARK: - NewRoundPresentableListener
+    
+    func didTapClose() {
+        listener?.newRoundDidCancel()
+    }
     
     // MARK: - Private
     

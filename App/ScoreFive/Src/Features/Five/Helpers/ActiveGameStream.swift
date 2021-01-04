@@ -26,7 +26,7 @@ final class ActiveGameStream: MutableActiveGameStreaming {
     // MARK: - ActiveGameStreaming
     
     @Published
-    var currentActiveGameIdentifier: UUID?
+    var currentActiveGameIdentifier: UUID? = nil
     
     var activeGameIdentifier: AnyPublisher<UUID?, Never> {
         $currentActiveGameIdentifier
@@ -43,5 +43,4 @@ final class ActiveGameStream: MutableActiveGameStreaming {
     func deactiveateCurrentGame() {
         currentActiveGameIdentifier = nil
     }
-    
 }

@@ -17,7 +17,7 @@ protocol GamePresentableListener: AnyObject {
     func wantNewRound()
 }
 
-final class GameViewController: ScopeViewController, GamePresentable, GameViewControllable {
+final class GameViewController: ScopeViewController, GamePresentable, GameViewControllable, UINavigationBarDelegate {
     
     // MARK: - UIViewController
     
@@ -29,11 +29,11 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     override var preferredStatusBarStyle: UIStatusBarStyle {
         switch traitCollection.userInterfaceStyle {
         case .dark:
-            return .darkContent
+            return .lightContent
         case .light, .unspecified:
-            return .lightContent
+            return .darkContent
         @unknown default:
-            return .lightContent
+            return .darkContent
         }
     }
     
@@ -42,16 +42,14 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     weak var listener: GamePresentableListener?
     
     func showNewRound(_ viewController: ViewControllable) {
-        confineTo(viewEvents: [.viewDidAppear], once: true) {
-            if let current = self.newRoundViewController {
-                current.uiviewController.dismiss(animated: true) { [weak self] in
-                    self?.newRoundViewController = nil
-                    self?.showNewRound(viewController)
-                }
-            } else {
-                self.present(viewController.uiviewController, animated: true) { [weak self] in
-                    self?.newRoundViewController = viewController
-                }
+        if let current = self.newRoundViewController {
+            current.uiviewController.dismiss(animated: true) { [weak self] in
+                self?.newRoundViewController = nil
+                self?.showNewRound(viewController)
+            }
+        } else {
+            self.present(viewController.uiviewController, animated: true) { [weak self] in
+                self?.newRoundViewController = viewController
             }
         }
     }
@@ -78,16 +76,20 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     }
     
     func updateHeaderTitles(_ titles: [String]) {
-        gameHeader.apply(names: titles)
+        confineTo(viewEvents: [.viewDidAppear], once: true) { [weak self] in
+            self?.gameHeader.apply(names: titles)
+        }
     }
     
     func updateTotalScores(_ scores: [String]) {
-        gameFooter.apply(scores: scores)
+        confineTo(viewEvents: [.viewDidAppear], once: true) { [weak self] in
+            self?.gameFooter.apply(scores: scores)
+        }
     }
     
     // MARK: - Private
     
-    private let topSpacer = ScopeView()
+    private let header = UINavigationBar()
     private let bottomSpacer = ScopeView()
     private let gameHeader = GameHeaderView()
     private let gameFooter = GameFooterView()
@@ -98,10 +100,17 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     private var scoreCardViewController: ScoreCardViewControllable?
     
     private func setUp() {
-        view.addLayoutGuide(scoreCardLayoutGuide)
+        let navigationItem = UINavigationItem(title: "Score Card")
+        navigationItem.largeTitleDisplayMode = .never
+        header.setItems([navigationItem], animated: false)
+        header.delegate = self
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .backgroundPrimary
+        header.standardAppearance = appearance
+        specializedView.addSubview(header)
         
-        topSpacer.backgroundColor = .backgroundInversePrimary
-        specializedView.addSubview(topSpacer)
+        specializedView.addLayoutGuide(scoreCardLayoutGuide)
         
         addRoundButton.addTarget(self, action: #selector(didTapAddRound), for: .touchUpInside)
         specializedView.addSubview(addRoundButton)
@@ -113,21 +122,20 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         
         specializedView.addSubview(gameFooter)
         
-        topSpacer.snp.makeConstraints { make in
+        header.snp.makeConstraints { make in
+            make
+                .top
+                .equalTo(specializedView.safeAreaLayoutGuide)
             make
                 .leading
                 .trailing
-                .top
                 .equalToSuperview()
-            make
-                .bottom
-                .equalTo(specializedView.safeAreaLayoutGuide.snp.top)
         }
         
         gameHeader.snp.makeConstraints { make in
             make
                 .top
-                .equalTo(specializedView.safeAreaLayoutGuide)
+                .equalTo(header.snp.bottom)
             make
                 .leading
                 .trailing

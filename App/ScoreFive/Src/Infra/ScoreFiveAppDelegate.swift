@@ -11,7 +11,7 @@ import NeedleFoundation
 import ShortRibs
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - UIApplicationDelegate
     

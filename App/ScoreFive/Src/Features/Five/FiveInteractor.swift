@@ -85,8 +85,9 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
     
     private func startUpdatingActiveChild() {
         mutableActiveGameStream.activeGameIdentifier
-            .map { uuid  in
-                uuid != nil
+            .map { uuid -> Bool in
+                print(uuid as Any)
+                return uuid != nil
             }
             .removeDuplicates()
             .sink { isActive in
