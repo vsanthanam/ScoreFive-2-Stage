@@ -63,7 +63,7 @@ final class RootBuilder: ComponentizedBuilder<RootComponent, PresentableInteract
     
     @available(*, unavailable)
     required init(componentBuilder: @escaping RootBuilder.ComponentBuilder) {
-        fatalError()
+        fatalError("RootComponent provides its own component & parent")
     }
     
     // MARK: - ComponentizedBuilder

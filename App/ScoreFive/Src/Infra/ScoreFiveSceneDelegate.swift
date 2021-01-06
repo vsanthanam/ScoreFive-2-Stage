@@ -15,16 +15,14 @@ class ScoreFiveSceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         window = .init(windowScene: scene)
         launchScene()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        root!.deactivate()
+        assert(root != nil)
+        root?.deactivate()
         root = nil
     }
 
@@ -55,10 +53,13 @@ class ScoreFiveSceneDelegate: UIResponder, UIWindowSceneDelegate {
     private var root: PresentableInteractable?
     
     private func launchScene() {
+        guard let window = window else {
+            fatalError("Scene window missing!")
+        }
         let builder = RootBuilder()
-        root = builder.build(onWindow: window!,
-                             persistentContainer: (UIApplication.shared.delegate as! ScoreFiveAppDelegate).persistentContainer)
-        window!.makeKeyAndVisible()
+        root = builder.build(onWindow: window,
+                             persistentContainer: ScoreFiveAppDelegate.shared.persistentContainer)
+        window.makeKeyAndVisible()
         root!.activate()
     }
 }

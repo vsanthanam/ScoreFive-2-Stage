@@ -54,7 +54,9 @@ final class ScoreCardViewController: ScopeViewController, ScoreCardPresentable, 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: .roundCellIdentifier, for: indexPath) as! GameRoundCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: .roundCellIdentifier, for: indexPath) as? GameRoundCell else {
+            fatalError()
+        }
         var config = GameRoundCell.newConfiguration()
         config.orderedPlayers = listener?.orderedPlayers ?? []
         config.round = listener?.round(at: indexPath.row)

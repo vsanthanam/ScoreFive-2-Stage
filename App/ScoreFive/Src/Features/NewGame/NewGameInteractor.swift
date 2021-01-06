@@ -38,13 +38,13 @@ final class NewGameInteractor: PresentableInteractor<NewGamePresentable>, NewGam
     // MARK: - NewGamePresentableListener
     
     func didTapNewGame(with playerNames: [String?], scoreLimit: Int) {
-        let (_, names) = playerNames.reduce((0, [])) { (total, name) in
+        let (_, names) = playerNames.reduce((0, [])) { (total: (Int, [String]), name: String?) in
             let (current, list) = total
             let actualName = name ?? "Player \(current + 1)"
             let newNames = list + [actualName]
             return (current + 1, newNames)
         }
-        let players = names.map { Player(name: $0 as! String) }
+        let players = names.map { Player(name: $0) }
         let scoreCard = ScoreCard(scoreLimit: scoreLimit, orderedPlayers: players)
         do {
             let record = try gameStorageManager.newGame(from: scoreCard)

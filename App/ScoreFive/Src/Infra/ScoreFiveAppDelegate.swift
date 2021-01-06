@@ -34,6 +34,13 @@ class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - API
+    
+    static var shared: ScoreFiveAppDelegate {
+        guard let delegate = UIApplication.shared.delegate as? ScoreFiveAppDelegate else {
+            fatalError("Invalid App Delegate Class")
+        }
+        return delegate
+    }
 
     lazy var persistentContainer: PersistentContaining  = {
         guard let url = Bundle.main.url(forResource: "ScoreFive", withExtension: "momd") else {

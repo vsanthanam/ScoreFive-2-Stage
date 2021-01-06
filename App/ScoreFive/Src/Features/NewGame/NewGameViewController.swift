@@ -59,25 +59,28 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 0 && indexPath.row == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: .scoreLimitCellIdentifier,
-                                                     for: indexPath) as! NewGameScoreLimitCell
+        if indexPath.section == 0,
+           indexPath.row == 0,
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: .scoreLimitCellIdentifier,
+                                                         for: indexPath) as? NewGameScoreLimitCell {
             var config = NewGameScoreLimitCell.newConfiguration()
             config.defaultScore = "250"
             config.enteredScore = enteredScoreLimit
             config.delegate = self
             cell.contentConfiguration = config
             return cell
-        } else if indexPath.section == 1 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: .newPlayerCellIdentifier, for: indexPath) as! NewGamePlayerNameCell
+        } else if indexPath.section == 1,
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: .newPlayerCellIdentifier,
+                                                                for: indexPath) as? NewGamePlayerNameCell {
             var config = NewGamePlayerNameCell.newConfiguration()
             config.delegate = self
             config.playerIndex = indexPath.row
             config.enteredPlayerName = enteredPlayerNames[indexPath.row]
             cell.contentConfiguration = config
             return cell
-        } else if indexPath.section == 2 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: .addPlayerCellIdentifier, for: indexPath) as! NewGameAddPlayerCell
+        } else if indexPath.section == 2,
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: .addPlayerCellIdentifier,
+                                                                for: indexPath) as? NewGameAddPlayerCell {
             var config = NewGameAddPlayerCell.newConfiguration()
             config.title = "Add Player"
             cell.contentConfiguration = config
@@ -96,14 +99,18 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: .headerIdentifier, for: indexPath) as! NewGameSectionHeaderView
+        if kind == UICollectionView.elementKindSectionHeader,
+           let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                                        withReuseIdentifier: .headerIdentifier,
+                                                                        for: indexPath) as? NewGameSectionHeaderView {
             if indexPath.section == 0 {
                 header.title = "Score Limit"
             }
             return header
-        } else if kind == UICollectionView.elementKindSectionFooter {
-            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: .footerIdentifier, for: indexPath) as! NewGameSectionFooterView
+        } else if kind == UICollectionView.elementKindSectionFooter,
+                  let footer = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter,
+                                                                               withReuseIdentifier: .footerIdentifier,
+                                                                               for: indexPath) as? NewGameSectionFooterView {
             if indexPath.section == 1 {
                 footer.title = "Add between 2 and 8 players"
             }

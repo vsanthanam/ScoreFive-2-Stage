@@ -139,7 +139,6 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
             .replaceError(with: nil)
             .filterNil()
             .sink { card in
-                print(card)
                 let titles = card.orderedPlayers
                     .map(\.name)
                     .map { name in
@@ -159,7 +158,6 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
             .switchToLatest()
             .filterNil()
             .sink { card in
-                print(card)
                 let scores = card.orderedPlayers
                     .map { player in
                         String(card.totalScore(for: player))
