@@ -10,7 +10,7 @@ import Foundation
 @testable import ShortRibs
 import XCTest
 
-final class RootViewControllerTests: XCTestCase {
+final class RootViewControllerTests: TestCase {
 
     let listener = RootPresentableListenerMock()
     let viewController = RootViewController()

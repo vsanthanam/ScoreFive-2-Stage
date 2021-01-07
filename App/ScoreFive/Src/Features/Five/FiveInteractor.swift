@@ -56,12 +56,6 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
 
     weak var listener: FiveListener?
 
-    // MARK: - FiveInteractable
-
-    var viewController: ViewControllable {
-        presenter
-    }
-
     // MARK: - HomeListener
 
     func homeWantToOpenGame(withIdentifier identifier: UUID) {

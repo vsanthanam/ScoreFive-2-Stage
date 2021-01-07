@@ -10,7 +10,7 @@ import Foundation
 @testable import ShortRibs
 import XCTest
 
-final class RootInteractorTests: XCTestCase {
+final class RootInteractorTests: TestCase {
 
     let presenter = RootPresentableMock()
     let mainBuilder = MainBuildableMock()

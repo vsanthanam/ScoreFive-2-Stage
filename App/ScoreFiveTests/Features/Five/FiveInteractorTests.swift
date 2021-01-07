@@ -11,7 +11,7 @@ import Foundation
 @testable import ShortRibs
 import XCTest
 
-final class FiveInteractorTests: XCTestCase {
+final class FiveInteractorTests: TestCase {
 
     let presenter = FivePresentableMock()
     let mutableActiveGameStream = MutableActiveGameStreamingMock()
@@ -59,5 +59,21 @@ final class FiveInteractorTests: XCTestCase {
         XCTAssertEqual(homeBuilder.buildCallCount, 1)
         XCTAssertEqual(presenter.showHomeCallCount, 1)
         XCTAssertEqual(interactor.children.count, 1)
+    }
+    
+    func test_gameWantToResign_updatesStream() {
+        XCTAssertEqual(mutableActiveGameStream.deactiveateCurrentGameCallCount, 0)
+        interactor.gameWantToResign()
+        XCTAssertEqual(mutableActiveGameStream.deactiveateCurrentGameCallCount, 1)
+    }
+    
+    func test_homeWantToOpenGam_updatesStream() {
+        let testIdentifier = UUID()
+        mutableActiveGameStream.activateGameHandler = { identifier in
+            XCTAssertEqual(testIdentifier, identifier)
+        }
+        XCTAssertEqual(mutableActiveGameStream.activateGameCallCount, 0)
+        interactor.homeWantToOpenGame(withIdentifier: testIdentifier)
+        XCTAssertEqual(mutableActiveGameStream.activateGameCallCount, 1)
     }
 }

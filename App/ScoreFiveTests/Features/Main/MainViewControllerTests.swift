@@ -10,7 +10,7 @@ import Foundation
 @testable import ShortRibs
 import XCTest
 
-final class MainViewControllerTests: XCTestCase {
+final class MainViewControllerTests: TestCase {
 
     let listener = MainPresentableListenerMock()
     let viewController = MainViewController()

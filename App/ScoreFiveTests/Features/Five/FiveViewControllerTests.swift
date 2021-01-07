@@ -12,7 +12,7 @@ import Foundation
 @testable import ShortRibs
 import XCTest
 
-final class FiveViewControllerTests: XCTestCase {
+final class FiveViewControllerTests: TestCase {
 
     let listener = FivePresentableListenerMock()
     let viewController = FiveViewController()

@@ -57,6 +57,8 @@
 		072F8264259C0908005EE56B /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8261259C0908005EE56B /* HomeBuilder.swift */; };
 		072F8265259C0908005EE56B /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8262259C0908005EE56B /* HomeInteractor.swift */; };
 		077178B3259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077178B2259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift */; };
+		07A45E6225A6E408000929D1 /* ActiveGameStreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45E6125A6E408000929D1 /* ActiveGameStreamTests.swift */; };
+		07A45E6625A6E500000929D1 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45E6525A6E500000929D1 /* TestCase.swift */; };
 		07B6647925A24BDC00A994A8 /* NewGameSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B6647825A24BDC00A994A8 /* NewGameSectionHeaderView.swift */; };
 		07B6647D25A2528C00A994A8 /* NewGameSectionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B6647C25A2528B00A994A8 /* NewGameSectionFooterView.swift */; };
 		07C38CD1259FCEFA00A9AFCD /* NewGameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C38CD0259FCEFA00A9AFCD /* NewGameButton.swift */; };
@@ -144,6 +146,8 @@
 		072F8261259C0908005EE56B /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		072F8262259C0908005EE56B /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		077178B2259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePlayerNameCell.swift; sourceTree = "<group>"; };
+		07A45E6125A6E408000929D1 /* ActiveGameStreamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveGameStreamTests.swift; sourceTree = "<group>"; };
+		07A45E6525A6E500000929D1 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		07B6647825A24BDC00A994A8 /* NewGameSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameSectionHeaderView.swift; sourceTree = "<group>"; };
 		07B6647C25A2528B00A994A8 /* NewGameSectionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameSectionFooterView.swift; sourceTree = "<group>"; };
 		07C38CD0259FCEFA00A9AFCD /* NewGameButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameButton.swift; sourceTree = "<group>"; };
@@ -385,6 +389,7 @@
 		072F81D2259A6587005EE56B /* Five */ = {
 			isa = PBXGroup;
 			children = (
+				07A45E6025A6E3FB000929D1 /* Helpers */,
 				072F81D3259A658F005EE56B /* FiveInteractorTests.swift */,
 				072F81D7259A65E1005EE56B /* FiveViewControllerTests.swift */,
 			);
@@ -407,6 +412,14 @@
 				072F8262259C0908005EE56B /* HomeInteractor.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		07A45E6025A6E3FB000929D1 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				07A45E6125A6E408000929D1 /* ActiveGameStreamTests.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		07C38CD3259FD8DD00A9AFCD /* Views */ = {
@@ -451,9 +464,10 @@
 		07E6F020259980E500AEF80A /* ScoreFiveTests */ = {
 			isa = PBXGroup;
 			children = (
+				07E6F023259980E500AEF80A /* Info.plist */,
 				072F81AC259A5D7E005EE56B /* Features */,
 				072F81A8259A5D76005EE56B /* Mocks.swift */,
-				07E6F023259980E500AEF80A /* Info.plist */,
+				07A45E6525A6E500000929D1 /* TestCase.swift */,
 			);
 			path = ScoreFiveTests;
 			sourceTree = "<group>";
@@ -465,7 +479,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07E6F031259980E500AEF80A /* Build configuration list for PBXNativeTarget "ScoreFive" */;
 			buildPhases = (
-				07A45E5D25A6CB81000929D1 /* Run SwiftFormat */,
 				072F8186259A5175005EE56B /* Generate Dependency Graph */,
 				07E6F003259980E300AEF80A /* Sources */,
 				07E6F004259980E300AEF80A /* Frameworks */,
@@ -595,24 +608,6 @@
 			shellPath = /bin/sh;
 			shellScript = "mockolo -s ScoreFive/Src ../Libraries -d ScoreFiveTests/Mocks.swift -i ShortRibs ScoreFive\n";
 		};
-		07A45E5D25A6CB81000929D1 /* Run SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run SwiftFormat";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "swiftformat ../\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -672,7 +667,9 @@
 				072F81D4259A658F005EE56B /* FiveInteractorTests.swift in Sources */,
 				072F81B2259A5D9E005EE56B /* RootInteractorTests.swift in Sources */,
 				072F81D8259A65E1005EE56B /* FiveViewControllerTests.swift in Sources */,
+				07A45E6225A6E408000929D1 /* ActiveGameStreamTests.swift in Sources */,
 				072F81A9259A5D76005EE56B /* Mocks.swift in Sources */,
+				07A45E6625A6E500000929D1 /* TestCase.swift in Sources */,
 				072F81B6259A5EBA005EE56B /* RootViewControllerTests.swift in Sources */,
 				072F81CC259A63E3005EE56B /* MainInteractorTests.swift in Sources */,
 				072F81D0259A6451005EE56B /* MainViewControllerTests.swift in Sources */,

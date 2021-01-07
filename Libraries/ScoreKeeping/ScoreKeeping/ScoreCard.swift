@@ -71,6 +71,20 @@ public struct ScoreCard: Codable, Equatable, Hashable {
         rounds.count
     }
 
+    public var percentComplete: Double {
+        let reducedTotal = orderedPlayers
+            .map(totalScore(for:))
+            .map { score in
+                score >= scoreLimit ? scoreLimit : score
+            }
+            .sorted()
+            .dropFirst()
+            .reduce(0) { total, next in
+                total + next
+            }
+        return Double(reducedTotal) / Double(orderedPlayers.count - 1)
+    }
+
     /// The rounds in this game
     public private(set) var rounds = [Round]()
 
