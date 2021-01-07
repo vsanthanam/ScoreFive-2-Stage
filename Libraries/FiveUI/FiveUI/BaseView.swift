@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 
 open class BaseView: UIView {
-    
+
     public init() {
         super.init(frame: .zero)
     }
-    
+
     @available(*, unavailable)
     public required init?(coder: NSCoder) {
         fatalError()
     }
-    
+
 }

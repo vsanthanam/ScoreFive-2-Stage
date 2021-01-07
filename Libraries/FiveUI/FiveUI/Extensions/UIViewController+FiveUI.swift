@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 public extension UIViewController {
-    
+
     /// A generic interface to use a UIAlertController to display an error
     /// - Parameters:
     ///   - error: the error

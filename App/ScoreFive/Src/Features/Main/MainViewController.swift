@@ -17,37 +17,37 @@ protocol MainViewControllable: ViewControllable {}
 protocol MainPresentableListener: AnyObject {}
 
 final class MainViewController: ScopeViewController, MainPresentable, MainViewControllable {
-    
+
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundPrimary
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         fiveViewController?.uiviewController.preferredStatusBarStyle ?? .default
     }
-    
+
     // MARK: - MainPresentable
-    
+
     weak var listener: MainPresentableListener?
-    
+
     func showFive(_ viewController: ViewControllable) {
         if fiveViewController != nil {
             removeFiveViewController()
         }
         embedFiveViewController(viewController)
     }
-    
+
     // MARK: - Private
-    
+
     private var fiveViewController: ViewControllable? {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
-    
+
     private func embedFiveViewController(_ viewController: ViewControllable) {
         assert(fiveViewController == nil)
         addChild(viewController.uiviewController)
@@ -60,7 +60,7 @@ final class MainViewController: ScopeViewController, MainPresentable, MainViewCo
         viewController.uiviewController.didMove(toParent: self)
         fiveViewController = viewController
     }
-    
+
     private func removeFiveViewController() {
         assert(fiveViewController != nil)
         fiveViewController?.uiviewController.willMove(toParent: self)

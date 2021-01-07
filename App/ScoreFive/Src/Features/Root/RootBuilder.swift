@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import ShortRibs
 import NeedleFoundation
+import ShortRibs
 import UIKit
 
 typealias RootDynamicComponentDependency = (
@@ -15,27 +15,27 @@ typealias RootDynamicComponentDependency = (
 )
 
 final class RootComponent: BootstrapComponent {
-    
+
     // MARK: - Initializers
-    
+
     init(dynamicDependency: RootDynamicComponentDependency) {
         self.dynamicDependency = dynamicDependency
     }
-    
+
     // MARK: - Published Dependencies
-    
+
     var persistentContainer: PersistentContaining {
         dynamicDependency
     }
-    
+
     // MARK: - Children
-    
+
     fileprivate var mainBuilder: MainBuildable {
         MainBuilder { MainComponent(parent: self) }
     }
-    
+
     // MARK: - Private
-    
+
     private let dynamicDependency: RootDynamicComponentDependency
 }
 
@@ -52,22 +52,22 @@ protocol RootBuildable: AnyObject {
 }
 
 final class RootBuilder: ComponentizedBuilder<RootComponent, PresentableInteractable, RootDynamicBuildDependency, RootDynamicComponentDependency>, RootBuildable {
-    
+
     // MARK: - Initializers
-    
+
     init() {
         super.init { dynamicDepenency in
             .init(dynamicDependency: dynamicDepenency)
         }
     }
-    
+
     @available(*, unavailable)
     required init(componentBuilder: @escaping RootBuilder.ComponentBuilder) {
         fatalError("RootComponent provides its own component & parent")
     }
-    
+
     // MARK: - ComponentizedBuilder
-    
+
     override final func build(with component: RootComponent, _ dynamicBuildDependency: RootDynamicBuildDependency) -> PresentableInteractable {
         let window = dynamicBuildDependency
         let viewController = RootViewController()
@@ -76,12 +76,12 @@ final class RootBuilder: ComponentizedBuilder<RootComponent, PresentableInteract
         window.rootViewController = viewController
         return interactor
     }
-    
+
     // MARK: - RootBuildable
-    
+
     func build(onWindow window: UIWindow, persistentContainer: PersistentContaining) -> PresentableInteractable {
         build(withDynamicBuildDependency: window,
               dynamicComponentDependency: persistentContainer)
     }
-    
+
 }

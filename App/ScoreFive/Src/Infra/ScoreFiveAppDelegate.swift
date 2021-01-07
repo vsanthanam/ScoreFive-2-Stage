@@ -6,15 +6,15 @@
 //
 
 import CoreData
-import UIKit
 import NeedleFoundation
 import ShortRibs
+import UIKit
 
 @main
 class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - UIApplicationDelegate
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         registerProviderFactories()
@@ -34,7 +34,7 @@ class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - API
-    
+
     static var shared: ScoreFiveAppDelegate {
         guard let delegate = UIApplication.shared.delegate as? ScoreFiveAppDelegate else {
             fatalError("Invalid App Delegate Class")
@@ -42,7 +42,7 @@ class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
         return delegate
     }
 
-    lazy var persistentContainer: PersistentContaining  = {
+    lazy var persistentContainer: PersistentContaining = {
         guard let url = Bundle.main.url(forResource: "ScoreFive", withExtension: "momd") else {
             fatalError("Missing persistent storage data model")
         }

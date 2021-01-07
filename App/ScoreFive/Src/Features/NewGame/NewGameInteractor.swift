@@ -21,22 +21,22 @@ protocol NewGameListener: AnyObject {
 }
 
 final class NewGameInteractor: PresentableInteractor<NewGamePresentable>, NewGameInteractable, NewGamePresentableListener {
-    
+
     // MARK: - Initializers
-    
+
     init(presenter: NewGamePresentable,
          gameStorageManager: GameStorageManaging) {
         self.gameStorageManager = gameStorageManager
         super.init(presenter: presenter)
         presenter.listener = self
     }
-    
+
     // MARK: - API
-    
+
     weak var listener: NewGameListener?
-    
+
     // MARK: - NewGamePresentableListener
-    
+
     func didTapNewGame(with playerNames: [String?], scoreLimit: Int) {
         let (_, names) = playerNames.reduce((0, [])) { (total: (Int, [String]), name: String?) in
             let (current, list) = total
@@ -53,8 +53,8 @@ final class NewGameInteractor: PresentableInteractor<NewGamePresentable>, NewGam
             listener?.newGameDidAbort()
         }
     }
-    
+
     // MARK: - Private
-    
+
     private let gameStorageManager: GameStorageManaging
 }

@@ -10,24 +10,24 @@ import Foundation
 import UIKit
 
 final class AddRoundButton: TappableControl {
-    
+
     override init() {
         super.init()
         setUp()
     }
-    
+
     // MARK: - UIControl
-    
+
     override var isHighlighted: Bool {
         didSet {
             updateColors()
         }
     }
-    
+
     // MARK: - Private
-    
+
     private let label = UILabel()
-    
+
     private func setUp() {
         label.text = "Add Scores"
         label.textColor = .contentOnColorPrimary
@@ -45,7 +45,7 @@ final class AddRoundButton: TappableControl {
         }
         updateColors()
     }
-    
+
     private func updateColors() {
         if isHighlighted {
             backgroundColor = .contentAccentSecondary

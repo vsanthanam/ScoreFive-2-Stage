@@ -9,23 +9,22 @@ import Foundation
 import UIKit
 
 open class TappableControl: BaseControl {
-    
+
     // MARK: - UIControl
-    
-    open override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+
+    override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         isHighlighted = true
         return true
     }
 
-
-    open override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
+    override open func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         let point = touch.location(in: self)
         isHighlighted = bounds.contains(point)
         return true
     }
 
-    open override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
+    override open func endTracking(_ touch: UITouch?, with event: UIEvent?) {
         isHighlighted = false
     }
-        
+
 }

@@ -19,10 +19,10 @@ open class CellContentView<T>: UIView, UIContentView where T: CellContentConfigu
     // MARK: - Initializers
 
     public init(configuration: T) {
-        self.specializedConfiguration = configuration
+        specializedConfiguration = configuration
         super.init(frame: .zero)
     }
-    
+
     @available(*, unavailable)
     public required init?(coder: NSCoder) {
         fatalError("Don't Use Interface Builder 😡")
@@ -58,12 +58,12 @@ open class ListCell<ContentConfiguration, ContentView>: CollectionViewListCell w
 }
 
 open class CollectionViewListCell: UICollectionViewListCell {
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
     }
 
     @available(*, unavailable)
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("Don't Use Interface Builder 😡")
     }
 }
@@ -75,32 +75,32 @@ open class Cell<ContentConfiguration, ContentView>: CollectionViewCell where Con
 }
 
 open class CollectionViewCell: UICollectionViewCell {
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
     }
 
     @available(*, unavailable)
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("Don't Use Interface Builder 😡")
     }
 }
 
 open class TableViewCell: UITableViewCell {
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
-    
+
     @available(*, unavailable)
-    required public init?(coder: NSCoder) {
+    public required init?(coder: NSCoder) {
         fatalError("Don't Use Interface Builder 😡")
     }
 }
 
 open class TableCell<ContentConfiguration, ContentView>: TableViewCell where ContentConfiguration: CellContentConfiguration, ContentView: CellContentView<ContentConfiguration> {
-    
+
     public class func newConfiguration() -> ContentConfiguration {
         .init()
     }
-    
+
 }

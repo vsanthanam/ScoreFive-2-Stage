@@ -5,8 +5,8 @@
 //  Created by Varun Santhanam on 12/30/20.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 /// Represent an optional value
 ///
@@ -14,7 +14,7 @@ import Combine
 /// .Next events with Optional payload
 protocol OptionalType {
     associatedtype Wrapped
-    var asOptional:  Wrapped? { get }
+    var asOptional: Wrapped? { get }
 }
 
 /// Implementation of the OptionalType protocol by the Optional type

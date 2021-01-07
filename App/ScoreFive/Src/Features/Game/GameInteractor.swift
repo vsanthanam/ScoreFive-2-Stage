@@ -25,9 +25,9 @@ protocol GameListener: AnyObject {
 }
 
 final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteractable, GamePresentableListener {
-    
+
     // MARK: - Initializers
-    
+
     init(presenter: GamePresentable,
          gameStorageManager: GameStorageManaging,
          activeGameStream: ActiveGameStreaming,
@@ -40,56 +40,56 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         super.init(presenter: presenter)
         presenter.listener = self
     }
-    
+
     // MARK: - API
-    
+
     weak var listener: GameListener?
-    
+
     // MARK: - Interactor
-    
+
     override func didBecomeActive() {
         super.didBecomeActive()
         attachScoreCard()
         startUpdatingHeaderTitles()
         startUpdatingTotalScores()
     }
-    
+
     // MARK: - GamePresentableListener
-    
+
     func wantNewRound() {
         routeToNewRound()
     }
-    
+
     func didClose() {
         listener?.gameWantToResign()
     }
-    
+
     // MARK: - ScoreCardListener
-    
+
     func scoreCardDidDeleteRound(at index: Int) {
         if let identifier = activeGameStream.currentActiveGameIdentifier,
-           var card = try? gameStorageManager.fetchScoreCard(for: identifier) {
+            var card = try? gameStorageManager.fetchScoreCard(for: identifier) {
             card.removeRound(at: index)
             try? gameStorageManager.save(scoreCard: card, with: identifier)
         }
     }
-    
+
     // MARK: - NewGameListener
-    
+
     func newRoundDidCancel() {
         routeAwayFromNewRound()
     }
-    
+
     // MARK: - Private
-    
+
     private let gameStorageManager: GameStorageManaging
     private let activeGameStream: ActiveGameStreaming
     private let newRoundBuilder: NewRoundBuildable
     private let scoreCardBuilder: ScoreCardBuildable
-    
+
     private var currentNewRound: PresentableInteractable?
     private var currentScoreCard: ScoreCardInteractable?
-    
+
     private func routeToNewRound() {
         if let current = currentNewRound {
             detach(child: current)
@@ -99,7 +99,7 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         presenter.showNewRound(newRound.viewControllable)
         currentNewRound = newRound
     }
-    
+
     private func routeToNewRound(replacing index: Int, previousValue: Round) {
         if let current = currentNewRound {
             detach(child: current)
@@ -111,7 +111,7 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         presenter.showNewRound(newRound.viewControllable)
         currentNewRound = newRound
     }
-    
+
     private func routeAwayFromNewRound() {
         if let current = currentNewRound {
             detach(child: current)
@@ -119,7 +119,7 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
             currentNewRound = nil
         }
     }
-    
+
     private func attachScoreCard() {
         if currentScoreCard == nil {
             let scoreCard = scoreCardBuilder.build(withListener: self)
@@ -128,7 +128,7 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
             currentScoreCard = scoreCard
         }
     }
-    
+
     private func startUpdatingHeaderTitles() {
         activeGameStream.activeGameIdentifier
             .filterNil()
@@ -148,7 +148,7 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
             }
             .cancelOnDeactivate(interactor: self)
     }
-    
+
     func startUpdatingTotalScores() {
         activeGameStream.activeGameIdentifier
             .filterNil()

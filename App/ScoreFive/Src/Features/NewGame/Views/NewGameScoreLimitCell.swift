@@ -14,18 +14,18 @@ protocol NewGameScoreLimitCellDelegate: AnyObject {
 }
 
 final class NewGameScoreLimitCell: ListCell<NewGameScoreLimitCell.ContentConfiguration, NewGameScoreLimitCell.ContentView> {
-    
+
     final class ContentView: CellContentView<ContentConfiguration> {
-        
+
         // MARK: - Initializers
-        
+
         override init(configuration: ContentConfiguration) {
             super.init(configuration: configuration)
             setUp()
         }
-        
+
         // MARK: - CellContentView
-        
+
         override func apply(configuration: ContentConfiguration) {
             input.placeholder = configuration.defaultScore
             input.text = configuration.enteredScore
@@ -33,11 +33,11 @@ final class NewGameScoreLimitCell: ListCell<NewGameScoreLimitCell.ContentConfigu
                 self.specializedConfiguration.delegate?.didInputScoreLimit(input: input.text)
             }
         }
-        
+
         // MARK: - Private
-        
+
         private let input = UITextField()
-        
+
         private var editingAction: UIAction? {
             didSet {
                 if let oldAction = oldValue {
@@ -48,7 +48,7 @@ final class NewGameScoreLimitCell: ListCell<NewGameScoreLimitCell.ContentConfigu
                 }
             }
         }
-        
+
         private func setUp() {
             backgroundColor = .contentPrimary
             input.font = .systemFont(ofSize: 36.0)
@@ -62,22 +62,22 @@ final class NewGameScoreLimitCell: ListCell<NewGameScoreLimitCell.ContentConfigu
             }
         }
     }
-    
+
     struct ContentConfiguration: CellContentConfiguration {
-        
+
         // MARK: - API
-        
+
         var defaultScore: String?
         var enteredScore: String?
-        
+
         weak var delegate: NewGameScoreLimitCellDelegate?
-        
+
         // MARK: - UIContentConfiguration
-        
+
         func makeContentView() -> UIView & UIContentView {
             ContentView(configuration: self)
         }
-        
+
         func updated(for state: UIConfigurationState) -> ContentConfiguration {
             self
         }

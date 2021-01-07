@@ -11,7 +11,6 @@ import Foundation
 import ScoreKeeping
 import ShortRibs
 
-
 /// @mockable
 protocol GameStorageProviding: AnyObject {
     func fetchScoreCard(for identifier: UUID) throws -> ScoreCard?
@@ -31,37 +30,37 @@ protocol GameStorageManaging: GameStorageProviding {
 protocol GameStorageWorking: Working, GameStorageManaging {}
 
 final class GameStorageWorker: Worker, GameStorageWorking {
-    
+
     // MARK: - Initializers
-    
+
     init(persistentContainer: PersistentContaining) {
         self.persistentContainer = persistentContainer
     }
-    
+
     // MARK: - Worker
-    
+
     override func didStart(on scope: WorkerScope) {
         super.didStart(on: scope)
         try? saveAllGames()
     }
-    
+
     // MARK: - GameStorageProviding
-    
+
     func fetchScoreCard(for identifier: UUID) throws -> ScoreCard? {
         try fetchGame(for: identifier)?.getScoreCard()
     }
-    
+
     func fetchGameRecords() throws -> [GameRecord] {
         let request = buildFetchRequest()
         return try persistentContainer.viewContext.fetch(request)
     }
-    
+
     func fetchInProgressGameRecords() throws -> [GameRecord] {
         let predicate = NSPredicate(format: "inProgress == YES")
         let request = buildFetchRequest(withPredicate: predicate)
         return try persistentContainer.viewContext.fetch(request)
     }
-    
+
     func scoreCard(for identifier: UUID) -> AnyPublisher<ScoreCard?, Never> {
         saveSubject
             .filterNil()
@@ -77,9 +76,9 @@ final class GameStorageWorker: Worker, GameStorageWorking {
             .replaceError(with: nil)
             .eraseToAnyPublisher()
     }
-    
+
     // MARK: - GameStorageManaging
-    
+
     func newGame(from scoreCard: ScoreCard) throws -> GameRecord {
         let game = GameRecordMO(context: persistentContainer.viewContext)
         try game.updateScoreCard(scoreCard: scoreCard)
@@ -87,24 +86,24 @@ final class GameStorageWorker: Worker, GameStorageWorking {
         try saveAllGames()
         return game
     }
-    
+
     func save(scoreCard: ScoreCard, with identifier: UUID) throws {
         let game = try fetchGame(for: identifier)
         try game?.updateScoreCard(scoreCard: scoreCard)
         try saveAllGames()
     }
-    
+
     func saveAllGames() throws {
         try persistentContainer.viewContext.save()
         let games = try fetchGameRecords()
         saveSubject.send(games)
     }
-    
+
     // MARK: - Private
-    
+
     private let persistentContainer: PersistentContaining
     private let saveSubject = CurrentValueSubject<[GameRecord]?, Never>([])
-    
+
     private func fetchGame(for identifier: UUID) throws -> GameRecord? {
         let filter = NSPredicate(format: "rawIdentifier == %@", identifier as CVarArg)
         let request = buildFetchRequest(withPredicate: filter)
@@ -114,14 +113,14 @@ final class GameStorageWorker: Worker, GameStorageWorking {
         }
         return results.first
     }
-    
+
     private func buildFetchRequest(withPredicate predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor] = []) -> NSFetchRequest<GameRecordMO> {
         let request: NSFetchRequest<GameRecordMO> = GameRecordMO.fetchRequest()
         request.predicate = predicate
         request.sortDescriptors = sortDescriptors
         return request
     }
-    
+
     enum GameStorageError: Error {
         case unknown
     }

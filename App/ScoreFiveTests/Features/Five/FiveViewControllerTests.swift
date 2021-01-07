@@ -13,10 +13,10 @@ import Foundation
 import XCTest
 
 final class FiveViewControllerTests: XCTestCase {
-    
+
     let listener = FivePresentableListenerMock()
     let viewController = FiveViewController()
-    
+
     override func setUp() {
         viewController.listener = listener
     }

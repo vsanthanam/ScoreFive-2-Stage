@@ -465,6 +465,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07E6F031259980E500AEF80A /* Build configuration list for PBXNativeTarget "ScoreFive" */;
 			buildPhases = (
+				07A45E5D25A6CB81000929D1 /* Run SwiftFormat */,
 				072F8186259A5175005EE56B /* Generate Dependency Graph */,
 				07E6F003259980E300AEF80A /* Sources */,
 				07E6F004259980E300AEF80A /* Frameworks */,
@@ -593,6 +594,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "mockolo -s ScoreFive/Src ../Libraries -d ScoreFiveTests/Mocks.swift -i ShortRibs ScoreFive\n";
+		};
+		07A45E5D25A6CB81000929D1 /* Run SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftFormat";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swiftformat ../\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

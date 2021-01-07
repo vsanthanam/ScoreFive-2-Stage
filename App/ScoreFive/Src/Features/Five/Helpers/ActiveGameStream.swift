@@ -5,9 +5,9 @@
 //  Created by Varun Santhanam on 12/29/20.
 //
 
+import Combine
 import Foundation
 import ScoreKeeping
-import Combine
 
 /// @mockable
 protocol ActiveGameStreaming: AnyObject {
@@ -22,24 +22,24 @@ protocol MutableActiveGameStreaming: ActiveGameStreaming {
 }
 
 final class ActiveGameStream: MutableActiveGameStreaming {
-    
+
     // MARK: - ActiveGameStreaming
-    
+
     @Published
     var currentActiveGameIdentifier: UUID? = nil
-    
+
     var activeGameIdentifier: AnyPublisher<UUID?, Never> {
         $currentActiveGameIdentifier
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
-    
+
     // MARK: - MutableActiveGameStreaming
-    
+
     func activateGame(with uuid: UUID) {
         currentActiveGameIdentifier = uuid
     }
-    
+
     func deactiveateCurrentGame() {
         currentActiveGameIdentifier = nil
     }

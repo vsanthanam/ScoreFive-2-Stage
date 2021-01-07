@@ -10,24 +10,24 @@ import Foundation
 import UIKit
 
 final class NewGameButton: TappableControl {
-    
+
     override init() {
         super.init()
         setUp()
     }
-    
+
     // MARK: - UIControl
-    
+
     override var isHighlighted: Bool {
         didSet {
             updateColors()
         }
     }
-    
+
     // MARK: - Private
-    
+
     private let label = UILabel()
-    
+
     private func setUp() {
         layer.cornerRadius = 12.0
         label.text = "Start Game"
@@ -46,7 +46,7 @@ final class NewGameButton: TappableControl {
         }
         updateColors()
     }
-    
+
     private func updateColors() {
         if isHighlighted {
             backgroundColor = .contentAccentSecondary

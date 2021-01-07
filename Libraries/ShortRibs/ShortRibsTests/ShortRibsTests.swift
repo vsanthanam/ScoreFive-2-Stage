@@ -5,8 +5,8 @@
 //  Created by Varun Santhanam on 12/27/20.
 //
 
-import XCTest
 @testable import ShortRibs
+import XCTest
 
 class ShortRibsTests: XCTestCase {
 
@@ -25,7 +25,7 @@ class ShortRibsTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }

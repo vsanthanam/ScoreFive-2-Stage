@@ -7,8 +7,8 @@
 
 import Combine
 import Foundation
-import ShortRibs
 import ScoreKeeping
+import ShortRibs
 
 /// @mockable
 protocol FivePresentable: FiveViewControllable {
@@ -21,9 +21,9 @@ protocol FivePresentable: FiveViewControllable {
 protocol FiveListener: AnyObject {}
 
 final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteractable, FivePresentableListener {
-    
+
     // MARK: - Initializers
-    
+
     init(presenter: FivePresentable,
          mutableActiveGameStream: MutableActiveGameStreaming,
          gameStorageWorker: GameStorageWorking,
@@ -36,53 +36,53 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
         super.init(presenter: presenter)
         presenter.listener = self
     }
-    
+
     // MARK: - Interactor
-    
+
     override func didBecomeActive() {
         super.didBecomeActive()
         gameStorageWorker.start(on: self)
         let records = (try? gameStorageWorker.fetchGameRecords()) ?? []
         if records.count == 1,
-           let record = records.first,
-           record.inProgress {
+            let record = records.first,
+            record.inProgress {
             mutableActiveGameStream
                 .activateGame(with: record.uniqueIdentifier)
         }
         startUpdatingActiveChild()
     }
-    
+
     // MARK: - API
-    
+
     weak var listener: FiveListener?
-    
+
     // MARK: - FiveInteractable
-    
+
     var viewController: ViewControllable {
         presenter
     }
-    
+
     // MARK: - HomeListener
-    
+
     func homeWantToOpenGame(withIdentifier identifier: UUID) {
         mutableActiveGameStream.activateGame(with: identifier)
     }
-    
+
     // MARK: - GameListener
-    
+
     func gameWantToResign() {
         mutableActiveGameStream.deactiveateCurrentGame()
     }
-    
+
     // MARK: - Private
-    
+
     private let mutableActiveGameStream: MutableActiveGameStreaming
     private let gameStorageWorker: GameStorageWorking
     private let homeBuilder: HomeBuildable
     private let gameBuilder: GameBuildable
-    
+
     private var activeChild: PresentableInteractable?
-    
+
     private func startUpdatingActiveChild() {
         mutableActiveGameStream.activeGameIdentifier
             .map { uuid in
@@ -98,7 +98,7 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
             }
             .cancelOnDeactivate(interactor: self)
     }
-    
+
     private func routeToHome() {
         if let current = activeChild {
             detach(child: current)
@@ -108,7 +108,7 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
         presenter.showHome(home.viewControllable)
         activeChild = home
     }
-    
+
     private func routeToGame() {
         if let current = activeChild {
             detach(child: current)

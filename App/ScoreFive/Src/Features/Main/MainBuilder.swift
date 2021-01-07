@@ -6,17 +6,17 @@
 //
 
 import Foundation
-import ShortRibs
 import NeedleFoundation
+import ShortRibs
 
 protocol MainDependency: Dependency {}
 
 final class MainComponent: Component<MainDependency> {
-    
+
     fileprivate var fiveBuilder: FiveBuildable {
         FiveBuilder { FiveComponent(parent: self) }
     }
-    
+
 }
 
 /// @mockable
@@ -32,9 +32,9 @@ protocol MainBuildable: AnyObject {
 }
 
 final class MainBuilder: ComponentizedBuilder<MainComponent, PresentableInteractable, MainDynamicBuildDependency, Void>, MainBuildable {
-    
+
     // MARK: - ComponentizedBuilder
-    
+
     override final func build(with component: MainComponent, _ dynamicBuildDependency: MainDynamicBuildDependency) -> PresentableInteractable {
         let listener = dynamicBuildDependency
         let viewController = MainViewController()
@@ -43,12 +43,12 @@ final class MainBuilder: ComponentizedBuilder<MainComponent, PresentableInteract
         interactor.listener = listener
         return interactor
     }
-    
+
     // MARK: - MainBuildable
-    
+
     func build(withListener listener: MainListener) -> PresentableInteractable {
         build(withDynamicBuildDependency: listener,
               dynamicComponentDependency: ())
     }
-    
+
 }

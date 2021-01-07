@@ -8,17 +8,17 @@
 import Foundation
 
 open class MultiStageBuilder<Component, Interactor, DynamicBuildDependency>: Buildable {
-    
+
     // MARK: - Initializer
-    
+
     public required init(componentBuilder: @escaping ComponentBuilder) {
         self.componentBuilder = componentBuilder
     }
-    
+
     // MARK: - API
-    
+
     public typealias ComponentBuilder = () -> Component
-    
+
     public var componentForCurrentBuildPass: Component {
         if let currentComponent = currentComponent {
             return currentComponent
@@ -31,11 +31,11 @@ open class MultiStageBuilder<Component, Interactor, DynamicBuildDependency>: Bui
             return currentComponent
         }
     }
-    
+
     open func finalStageBuild(with component: Component, _ dynamicDependency: DynamicBuildDependency) -> Interactor {
         fatalError("Abstract Method Not Implemented!")
     }
-    
+
     public final func finalStageBuild(withDynamicDependency dynamicDependency: DynamicBuildDependency) -> Interactor {
         let interactor = finalStageBuild(with: componentForCurrentBuildPass, dynamicDependency)
         defer {
@@ -43,30 +43,30 @@ open class MultiStageBuilder<Component, Interactor, DynamicBuildDependency>: Bui
         }
         return interactor
     }
-    
+
     // MARK: - Private
-    
+
     private let componentBuilder: ComponentBuilder
     private var currentComponent: Component?
     private weak var lastComponent: AnyObject?
 }
 
 open class SimpleMultiStageBuilder<Component, Interactor>: MultiStageBuilder<Component, Interactor, Void> {
-    
+
     // MARK: - API
-    
+
     open func finalStageBuild(with component: Component) -> Interactor {
         fatalError("Abstract Method Not Implemented!")
     }
-    
+
     public final func finalStageBuild() -> Interactor {
         finalStageBuild(withDynamicDependency: ())
     }
-    
+
     // MARK: - MuliStageBuilder
-    
-    public override func finalStageBuild(with component: Component, _ dynamicDependency: Void) -> Interactor {
+
+    override public func finalStageBuild(with component: Component, _ dynamicDependency: Void) -> Interactor {
         finalStageBuild(with: component)
     }
-    
+
 }

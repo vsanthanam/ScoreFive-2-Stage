@@ -10,17 +10,17 @@ import Foundation
 import UIKit
 
 final class GameFooterView: BaseView {
-    
+
     // MARK: - Initializers
-    
+
     override init() {
         stack = .init()
         super.init()
         setUp()
     }
-    
+
     // MARK: - API
-    
+
     func apply(scores: [String]) {
         stack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         scores.forEach { name in
@@ -29,25 +29,25 @@ final class GameFooterView: BaseView {
             stack.addArrangedSubview(view)
         }
     }
-    
+
     // MARK: - Private
-    
+
     private let stack: UIStackView
     private let ruleView = BaseView()
     private let separator = BaseView()
-    
+
     private func setUp() {
         backgroundColor = .backgroundPrimary
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         addSubview(stack)
-        
+
         ruleView.backgroundColor = .controlDisabled
         addSubview(ruleView)
-        
+
         separator.backgroundColor = .controlDisabled
         addSubview(separator)
-        
+
         separator.snp.makeConstraints { make in
             make
                 .top
@@ -61,7 +61,7 @@ final class GameFooterView: BaseView {
                 .height
                 .equalTo(1.0)
         }
-                
+
         ruleView.snp.makeConstraints { make in
             make
                 .top
@@ -75,7 +75,7 @@ final class GameFooterView: BaseView {
                 .width
                 .equalTo(1.0)
         }
-    
+
         stack.snp.makeConstraints { make in
             make
                 .top
@@ -87,24 +87,24 @@ final class GameFooterView: BaseView {
                 .equalToSuperview()
                 .inset(54.0)
         }
-        
+
         bringSubviewToFront(ruleView)
     }
-    
+
     private class IndexView: BaseView {
-        
+
         override init() {
             super.init()
             setUp()
         }
-        
+
         var title: String? {
             get { label.text }
             set { label.text = newValue }
         }
-        
+
         private let label = UILabel()
-        
+
         private func setUp() {
             backgroundColor = .backgroundPrimary
             label.font = .systemFont(ofSize: 17.0, weight: .bold)

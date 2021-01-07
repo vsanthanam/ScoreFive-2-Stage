@@ -9,115 +9,115 @@ import Foundation
 import UIKit
 
 extension UIColor {
-    
+
     // MARK: - Semantic Colors
-    
+
     public static var transparent: UIColor {
         ColorPalette.Transparent
     }
-    
+
     public static var shadowColor: UIColor {
         dynamicDarkPrimary
     }
-    
+
     public static var backgroundPrimary: UIColor {
         dynamicLightPrimary
     }
-    
+
     public static var backgroundSecondary: UIColor {
         dynamicLightSecondary
     }
-    
+
     public static var backgroundTertiary: UIColor {
         dynamicLightTertiary
     }
-    
+
     public static var backgroundInversePrimary: UIColor {
         dynamicDarkPrimary
     }
-    
+
     public static var backgroundInverseSecondary: UIColor {
         dynamicDarkSecondary
     }
-    
+
     public static var backgrondInverserTertiary: UIColor {
         dynamicDarkTertiary
     }
-    
+
     public static var contentPrimary: UIColor {
         dynamicDarkPrimary
     }
-    
+
     public static var contentSecondary: UIColor {
         dynamicDarkSecondary
     }
-    
+
     public static var contentTertiary: UIColor {
         dynamicDarkTertiary
     }
-    
+
     public static var contentInversePrimary: UIColor {
         dynamicLightPrimary
     }
-    
+
     public static var contentInverseSecondary: UIColor {
         dynamicLightSecondary
     }
-    
+
     public static var contentInverseTertiary: UIColor {
         dynamicLightTertiary
     }
-    
+
     public static var contentOnColorPrimary: UIColor {
         staticLightPrimary
     }
-    
+
     public static var contentOnColorSecondary: UIColor {
         staticLightSecondary
     }
-    
+
     public static var contentOnColorInversePrimary: UIColor {
         staticDarkPrimary
     }
-    
+
     public static var contentOnColorInverseSecondary: UIColor {
         staticDarkSecondary
     }
-    
+
     public static var contentOnColorInverseTertiary: UIColor {
         staticDarkTertiary
     }
-    
+
     public static var contentAccentPrimary: UIColor {
         staticThemePrimary
     }
-    
+
     public static var contentAccentSecondary: UIColor {
         staticThemeSecondary
     }
-    
+
     public static var controlDisabled: UIColor {
         ColorPalette.Grey500
     }
-    
+
     // MARK: - Implementation Colors
-    
+
     private static let staticDarkPrimary: UIColor = ColorPalette.Black
-    
+
     private static let staticDarkSecondary: UIColor = ColorPalette.Grey800
-    
+
     private static let staticDarkTertiary: UIColor = ColorPalette.Grey600
-    
+
     private static let staticLightPrimary: UIColor = ColorPalette.White
-    
+
     private static let staticLightSecondary: UIColor = ColorPalette.Grey200
-    
+
     private static let staticLightTertiary: UIColor = ColorPalette.Grey400
-    
+
     private static var staticThemePrimary: UIColor = ColorPalette.Blue500
-    
+
     private static var staticThemeSecondary: UIColor = ColorPalette.Blue700
-    
+
     private static var dynamicDarkPrimary: UIColor {
         .init { traitCollection in
             switch traitCollection.themeStyle {
@@ -126,7 +126,7 @@ extension UIColor {
             }
         }
     }
-    
+
     private static var dynamicDarkSecondary: UIColor {
         .init { traitCollection in
             switch traitCollection.themeStyle {
@@ -135,7 +135,7 @@ extension UIColor {
             }
         }
     }
-    
+
     private static var dynamicDarkTertiary: UIColor {
         .init { traitCollection in
             switch traitCollection.themeStyle {
@@ -144,7 +144,7 @@ extension UIColor {
             }
         }
     }
-    
+
     private static var dynamicLightPrimary: UIColor {
         .init { traitCollection in
             switch traitCollection.themeStyle {
@@ -153,7 +153,7 @@ extension UIColor {
             }
         }
     }
-    
+
     private static var dynamicLightSecondary: UIColor {
         .init { traitCollection in
             switch traitCollection.themeStyle {
@@ -162,7 +162,7 @@ extension UIColor {
             }
         }
     }
-    
+
     private static var dynamicLightTertiary: UIColor {
         .init { traitCollection in
             switch traitCollection.themeStyle {
@@ -173,12 +173,12 @@ extension UIColor {
     }
 }
 
-fileprivate enum ThemeStyle {
+private enum ThemeStyle {
     case light
     case dark
 }
 
-fileprivate extension UIUserInterfaceStyle {
+private extension UIUserInterfaceStyle {
     var asThemeStyle: ThemeStyle {
         switch self {
         case .light:
@@ -193,7 +193,7 @@ fileprivate extension UIUserInterfaceStyle {
     }
 }
 
-fileprivate extension UITraitCollection {
+private extension UITraitCollection {
     var themeStyle: ThemeStyle {
         userInterfaceStyle.asThemeStyle
     }

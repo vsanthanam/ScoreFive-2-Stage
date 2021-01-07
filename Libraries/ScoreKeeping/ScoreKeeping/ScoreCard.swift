@@ -14,7 +14,7 @@ import Foundation
 public struct ScoreCard: Codable, Equatable, Hashable {
 
     // MARK: - Initializers
-    
+
     /// Create a `ScoreCard`
     /// - Parameters:
     ///   - scoreLimit: The score limit used to eliminate players. Defaults to 250.
@@ -28,15 +28,15 @@ public struct ScoreCard: Codable, Equatable, Hashable {
         self.scoreLimit = scoreLimit
         self.orderedPlayers = orderedPlayers
     }
-    
+
     // MARK: - API
-    
+
     /// The score limit used to eliminate players
     public private(set) var scoreLimit: Int
-    
+
     /// All the players in the game, in order of who goes firest
     public let orderedPlayers: [Player]
-    
+
     /// All the players remaining in the game, in order of who goes first
     public var activePlayers: [Player] {
         orderedPlayers
@@ -44,7 +44,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
                 totalScore(for: player) < scoreLimit
             }
     }
-    
+
     /// All the players in the game, from winning to losing
     public var rankedPlayers: [Player] {
         orderedPlayers
@@ -52,7 +52,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
                 totalScore(for: lhs) < totalScore(for: rhs)
             }
     }
-    
+
     /// All the players remaining the game, from winning to losing
     public var activePlayersRanked: [Player] {
         rankedPlayers
@@ -60,20 +60,20 @@ public struct ScoreCard: Codable, Equatable, Hashable {
                 totalScore(for: player) < scoreLimit
             }
     }
-    
+
     /// Whether or not the game is in progress and can accept new rounds
     public var canAddRounds: Bool {
         activePlayers.count > 1
     }
-    
+
     /// The number of rounds in this score card
     public var numberOfRounds: Int {
         rounds.count
     }
-    
+
     /// The rounds in this game
     public private(set) var rounds = [Round]()
-    
+
     /// The total score for a player
     /// - Parameter player: The player
     /// - Returns: The total score for the player
@@ -81,7 +81,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     public func totalScore(for player: Player) -> Int {
         totalScore(forPlayer: player, atIndex: rounds.count - 1)
     }
-    
+
     /// Get the round at the specified index
     /// - Parameter index: The specified index
     /// - Returns: The round at that index
@@ -92,7 +92,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
         }
         return rounds[index]
     }
-    
+
     /// Whether or not a round can be replaced with a new round
     /// - Parameters:
     ///   - index: The index of the round you want to replace
@@ -115,7 +115,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
         }
         return activePlayers == copy.activePlayers
     }
-    
+
     /// Whether or not a round can be safely removed.
     /// - Parameter index: The index of the round you want to remove
     /// - Returns: Whether or not the removal is permissable
@@ -123,7 +123,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     public func canRemoveRound(at index: Int) -> Bool {
         canReplaceRound(at: index, with: nil)
     }
-    
+
     /// Remove the round at the specified index
     /// - Parameter index: The index used to remove the round
     /// - Note: This method prodiuces a run-time failure if no such index exists, or if the desired removal is not permissable.
@@ -140,13 +140,13 @@ public struct ScoreCard: Codable, Equatable, Hashable {
             precondition(previouslyActivePlayers == activePlayers, "Round removal must not change active players")
         }
     }
-    
+
     public func cardByRemovingRound(at index: Int) -> ScoreCard {
         var copy = self
         copy.removeRound(at: index)
         return copy
     }
-    
+
     /// Replace the round at the given index
     /// - Parameters:
     ///   - index: The index to replace
@@ -159,26 +159,26 @@ public struct ScoreCard: Codable, Equatable, Hashable {
         }
         rounds[index] = newRound
     }
-    
+
     public func cardByReplacingRound(at index: Int, with newRound: Round) -> ScoreCard {
         var copy = self
         copy.replaceRound(at: index, with: newRound)
         return copy
     }
-    
+
     /// Update the score limit
     /// - Parameter scoreLimit: The new score limit
     /// - Note: This method produces a run-time failure if this new score limit eliminates any existing players. The new score limit can revive previously eliminated players, however.
     public mutating func updateScoreLimit(_ scoreLimit: Int) {
         fatalError("This method hasn't been implemented yet.")
     }
-    
+
     public func cardWithUpdatedScoreLimit(_ scoreLimit: Int) -> ScoreCard {
         var copy = self
         copy.updateScoreLimit(scoreLimit)
         return copy
     }
-    
+
     /// Add a new round
     /// - Parameter round: The new round to add
     /// - Note: This method produces a run-time failure if this round doesn't contain the right players or doesn't contain at least 1 winner and 1 loser.
@@ -191,24 +191,24 @@ public struct ScoreCard: Codable, Equatable, Hashable {
         rounds.append(round)
         precondition(activePlayers.count >= 1, "Round must leave at least one player standing after being added")
     }
-    
+
     // MARK: - Subscript
-    
+
     public subscript(player: Player) -> Int {
         totalScore(for: player)
     }
-    
+
     public subscript(index: Int) -> Round {
         round(at: index)
     }
-    
+
     private func partialGame(atIndex index: Int) -> ScoreCard {
         precondition(index < rounds.count, "This round hasn't happend yet")
         var partial = ScoreCard(scoreLimit: scoreLimit, orderedPlayers: orderedPlayers)
         partial.rounds = .init(rounds.prefix(index + 1))
         return partial
     }
-    
+
     private func totalScore(forPlayer player: Player, atIndex index: Int) -> Int {
         precondition(index < rounds.count, "This round hasn't happened yet")
         precondition(orderedPlayers.contains(player), "This score card does not contain this player")
@@ -223,12 +223,12 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     }
 }
 
-fileprivate extension Round {
-    
+private extension Round {
+
     func containsScore(for player: Player) -> Bool {
         score(for: player) != nil
     }
-    
+
     var containedScores: [Int] {
         players
             .map(score(for:))

@@ -20,31 +20,31 @@ protocol NewRoundListener: AnyObject {
 }
 
 final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewRoundInteractable, NewRoundPresentableListener {
-    
+
     // MARK: - Initializers
-    
+
     init(presenter: NewRoundPresentable,
          replacingIndex: Int?,
          previousValue: Round?) {
         self.replacingIndex = replacingIndex
-        self.round = previousValue ?? Round()
+        round = previousValue ?? Round()
         super.init(presenter: presenter)
         presenter.listener = self
     }
-    
+
     // MARK: - API
-    
+
     weak var listener: NewRoundListener?
-    
+
     // MARK: - NewRoundPresentableListener
-    
+
     func didTapClose() {
         listener?.newRoundDidCancel()
     }
-    
+
     // MARK: - Private
-    
+
     private let replacingIndex: Int?
-    
+
     private var round: Round
 }

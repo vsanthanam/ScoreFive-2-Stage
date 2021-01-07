@@ -15,34 +15,34 @@ protocol RootPresentable: RootViewControllable {
 }
 
 final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteractable, RootPresentableListener {
-    
+
     // MARK: - Initializers
-    
+
     init(presenter: RootPresentable,
          mainBuilder: MainBuildable) {
         self.mainBuilder = mainBuilder
         super.init(presenter: presenter)
         presenter.listener = self
     }
-    
+
     // MARK: - Interactor
-    
+
     override func didBecomeActive() {
         super.didBecomeActive()
         routeToMain()
     }
-    
+
     // MARK: - RootInteractable
-    
+
     var viewController: ViewControllable {
         presenter
     }
-    
+
     // MARK: - Private
-    
+
     private let mainBuilder: MainBuildable
     private var currentMain: PresentableInteractable?
- 
+
     private func routeToMain() {
         if let current = currentMain {
             detach(child: current)

@@ -6,92 +6,92 @@
 //  Created by Varun Santhanam on 12/6/20.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 /// A protocol defining an object that a `Worker` can work on
 /// @mockable
 public protocol WorkerScope: AnyObject {
-    
+
     /// Whether or not the workable scope is active
     var isActive: Bool { get }
-    
+
     /// A stream of `isActive`
     var isActiveStream: AnyPublisher<Bool, Never> { get }
-    
+
 }
 
 /// A protocol describing a worker
 /// @mockable
 public protocol Working: AnyObject {
-    
+
     /// Start the worker
     /// - Parameter workable: The `workable` scope to bind the worker too
     func start(on scope: WorkerScope)
-    
+
     /// Stop the worker
     func stop()
-    
+
     /// Whether or not the worker has been started
     var isStarted: Bool { get }
-    
+
     /// A stream of `isStarted`
     var isStartedStream: AnyPublisher<Bool, Never> { get }
 }
 
 open class Worker: Working {
-    
+
     // MARK: - Initializer
-    
+
     /// Create a `Worker`
     /// - Note: In subclasses, constructor inject static dependencies.
     public init() {}
-    
+
     // MARK: - API
-    
+
     /// Called when the worker starts
     /// - Parameter workable: The workable scope that the worker is bound to
     open func didStart(on scope: WorkerScope) {
         // Optional Abstract Method
     }
-    
+
     /// Called when the worker stops
     open func didStop() {
         // Optional Abstract Method
     }
-    
+
     // MARK: - Working
-    
+
     @Published
-    public final private(set) var isStarted: Bool = false
-    
+    public private(set) final var isStarted: Bool = false
+
     public final var isStartedStream: AnyPublisher<Bool, Never> {
         $isStarted.eraseToAnyPublisher()
     }
-    
+
     public final func start(on scope: WorkerScope) {
         guard !isStarted else {
             return
         }
-        
+
         stop()
-        
+
         isStarted = true
         bind(to: AnyWeakScope(scope))
     }
-    
+
     public final func stop() {
         guard isStarted else {
             return
         }
-        
+
         isStarted = false
-        
+
         internalStop()
     }
-    
+
     // MARK: - Internal
-    
+
     func store(cancellable: Cancellable) -> Bool {
         guard storage != nil else {
             return false
@@ -99,15 +99,15 @@ open class Worker: Working {
         cancellable.store(in: &storage!)
         return true
     }
-    
+
     // MARK: - Private
-    
+
     private var binding: Cancellable?
     private var storage: Set<AnyCancellable>?
-    
+
     private func bind(to scope: WorkerScope) {
         unbind()
-        
+
         binding = scope.isActiveStream
             .sink { [weak self] isActive in
                 if isActive {
@@ -119,53 +119,53 @@ open class Worker: Working {
                 }
             }
     }
-    
+
     private func unbind() {
         binding?.cancel()
-        self.binding = nil
+        binding = nil
     }
-    
+
     private func internalStart(on workable: WorkerScope) {
         storage = Set<AnyCancellable>()
         didStart(on: workable)
     }
-    
+
     private func internalStop() {
         guard let storage = storage else {
             return
         }
         storage.forEach { stream in stream.cancel() }
-        
+
         didStop()
     }
-    
+
     deinit {
         stop()
         unbind()
     }
-    
+
     private final class AnyWeakScope: WorkerScope {
-        
+
         private weak var workable: WorkerScope?
-        
+
         var isActive: Bool {
             workable?.isActive ?? false
         }
-        
-        
+
         var isActiveStream: AnyPublisher<Bool, Never> {
             workable?.isActiveStream ?? Just<Bool>(false).eraseToAnyPublisher()
         }
-        
+
         init(_ workable: WorkerScope) {
             self.workable = workable
         }
-        
+
     }
-    
+
 }
+
 extension Cancellable {
-    
+
     @discardableResult
     public func cancelOnStop(worker: Worker) -> Cancellable {
         if !worker.store(cancellable: self) {
@@ -173,5 +173,5 @@ extension Cancellable {
         }
         return self
     }
-    
+
 }

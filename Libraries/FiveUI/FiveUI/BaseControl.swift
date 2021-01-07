@@ -9,14 +9,14 @@ import Foundation
 import UIKit
 
 open class BaseControl: UIControl {
-    
+
     public init() {
         super.init(frame: .zero)
     }
-    
+
     @available(*, unavailable)
     public required init?(coder: NSCoder) {
         fatalError()
     }
-    
+
 }

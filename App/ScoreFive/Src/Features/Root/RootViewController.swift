@@ -8,8 +8,8 @@
 import FiveUI
 import Foundation
 import ShortRibs
-import UIKit
 import SnapKit
+import UIKit
 
 /// @mockable
 protocol RootViewControllable: ViewControllable {}
@@ -18,37 +18,37 @@ protocol RootViewControllable: ViewControllable {}
 protocol RootPresentableListener: AnyObject {}
 
 final class RootViewController: ScopeViewController, RootPresentable, RootViewControllable {
-    
+
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundPrimary
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         mainViewController?.uiviewController.preferredStatusBarStyle ?? .default
     }
-    
+
     // MARK: - RootPresentable
-    
+
     weak var listener: RootPresentableListener?
-    
+
     func showMain(_ viewControllable: ViewControllable) {
         if mainViewController != nil {
             removeMainViewController()
         }
         embedMainViewController(viewControllable)
     }
-    
+
     // MARK: - Private
-    
+
     private var mainViewController: ViewControllable? {
         didSet {
             setNeedsStatusBarAppearanceUpdate()
         }
     }
-    
+
     private func embedMainViewController(_ viewController: ViewControllable) {
         assert(mainViewController == nil)
         addChild(viewController.uiviewController)
@@ -61,7 +61,7 @@ final class RootViewController: ScopeViewController, RootPresentable, RootViewCo
         viewController.uiviewController.didMove(toParent: self)
         mainViewController = viewController
     }
-    
+
     private func removeMainViewController() {
         assert(mainViewController != nil)
         mainViewController?.uiviewController.willMove(toParent: nil)

@@ -11,18 +11,18 @@ import Foundation
 import XCTest
 
 final class MainViewControllerTests: XCTestCase {
-    
+
     let listener = MainPresentableListenerMock()
     let viewController = MainViewController()
-    
+
     override func setUp() {
         viewController.listener = listener
     }
-    
+
     func test_showMain() {
         let vc1 = ViewControllableMock(uiviewController: .init())
         let vc2 = ViewControllableMock(uiviewController: .init())
-        
+
         XCTAssertEqual(viewController.children.count, 0)
         viewController.showFive(vc1)
         XCTAssertEqual(viewController.children.count, 1)

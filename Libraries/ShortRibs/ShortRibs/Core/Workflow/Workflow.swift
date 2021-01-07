@@ -1,4 +1,4 @@
-  //
+//
 //  Workflow.swift
 //  ShortRibs
 //
@@ -13,30 +13,30 @@ enum WorkflowError: Error {
 }
 
 open class Workflow<ActionableItemType> {
-    
+
     // MARK: - Initializers
-    
+
     public init() {}
-    
+
     // MARK: - Abstract Methods
-    
+
     open func didComplete() {}
-    
+
     open func didFork() {}
-    
+
     open func didReceiveError(_ error: Error) {}
-    
+
     // MARK: - API
-    
+
     public final func onStep<NextActionableItemType, NextValueType>(_ onStep: @escaping (ActionableItemType) -> AnyPublisher<(NextActionableItemType, NextValueType), Error>) -> Step<ActionableItemType, NextActionableItemType, NextValueType> {
         Step(workflow: self, publisher: subject.first().eraseToAnyPublisher())
             .onStep { (actionableItem: ActionableItemType, _) in
                 onStep(actionableItem)
             }
     }
-    
+
     public final func subscribe(_ actionableItem: ActionableItemType) -> Set<AnyCancellable> {
-        guard compositeCancellable.count > 0 else {
+        guard !compositeCancellable.isEmpty else {
             assertionFailure("Attempt to subscribe to \(self) before it is comitted.")
             return Set<AnyCancellable>()
         }
@@ -45,14 +45,13 @@ open class Workflow<ActionableItemType> {
         return compositeCancellable
     }
 
-    
     // MARK: - Private
-    
+
     private let subject = PassthroughSubject<(ActionableItemType, Void), Error>()
-    
+
     fileprivate var compositeCancellable = Set<AnyCancellable>()
     fileprivate var didInvokeComplete = false
-    
+
     fileprivate func didCompleteIfNotYet() {
         // Since a workflow may be forked to produce multiple subscribed combinee chains, we should
         // ensure the didComplete method is only invoked once per Workflow instance. See `Step.commit`
@@ -65,11 +64,10 @@ open class Workflow<ActionableItemType> {
     }
 }
 
-
 open class Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
 
     // MARK: - API
-    
+
     /// Executes the given closure for this step.
     ///
     /// - parameter onStep: The closure to execute for the `Step`.
@@ -112,11 +110,11 @@ open class Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
     ///
     /// - parameter onError: The closure to execute when an error occurs.
     /// - returns: This step.
-    public final func onError(_ onError: @escaping ((Error) -> ())) -> Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
+    public final func onError(_ onError: @escaping ((Error) -> Void)) -> Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
         publisher = publisher
             .handleEvents(receiveCompletion: { completion in
                 switch completion {
-                case .failure(let error):
+                case let .failure(error):
                     onError(error)
                 default:
                     break
@@ -136,7 +134,7 @@ open class Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
         let cancellable = publisher
             .handleEvents(receiveCompletion: { completion in
                 switch completion {
-                case .failure(let error):
+                case let .failure(error):
                     self.workflow.didReceiveError(error)
                 case .finished:
                     self.workflow.didCompleteIfNotYet()
@@ -155,15 +153,15 @@ open class Step<WorkflowActionableItemType, ActionableItemType, ValueType> {
         publisher
             .eraseToAnyPublisher()
     }
-    
+
     // MARK: - Private
-    
+
     fileprivate init(workflow: Workflow<WorkflowActionableItemType>,
                      publisher: AnyPublisher<(ActionableItemType, ValueType), Error>) {
         self.workflow = workflow
         self.publisher = publisher
     }
-    
+
     private let workflow: Workflow<WorkflowActionableItemType>
     private var publisher: AnyPublisher<(ActionableItemType, ValueType), Error>
 }
@@ -202,11 +200,11 @@ extension Cancellable {
     }
 }
 
-extension Publisher  {
-    
+extension Publisher {
+
     public func subscribe() -> Cancellable {
         sink(receiveCompletion: { _ in },
              receiveValue: { _ in })
     }
-    
+
 }

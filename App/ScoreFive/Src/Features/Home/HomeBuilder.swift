@@ -6,21 +6,21 @@
 //
 
 import Foundation
-import ShortRibs
 import NeedleFoundation
+import ShortRibs
 
 protocol HomeDependency: Dependency {
     var gameStorageManager: GameStorageManaging { get }
 }
 
 class HomeComponent: Component<HomeDependency> {
-    
+
     // MARK: - Children
-    
+
     fileprivate var newGameBuilder: NewGameBuildable {
         NewGameBuilder { NewGameComponent(parent: self) }
     }
-    
+
 }
 
 /// @mockable
@@ -36,9 +36,9 @@ protocol HomeBuildable: AnyObject {
 }
 
 final class HomeBuilder: ComponentizedBuilder<HomeComponent, PresentableInteractable, HomeDynamicBuildDependency, Void>, HomeBuildable {
-    
+
     // MARK: - ComponentizedBuilder
-    
+
     override final func build(with component: HomeComponent, _ dynamicBuildDependency: HomeDynamicBuildDependency) -> PresentableInteractable {
         let listener = dynamicBuildDependency
         let viewController = HomeViewController()
@@ -48,12 +48,12 @@ final class HomeBuilder: ComponentizedBuilder<HomeComponent, PresentableInteract
         interactor.listener = listener
         return interactor
     }
-    
+
     // MARK: - HomeBuildable
-    
+
     func build(withListener listener: HomeListener) -> PresentableInteractable {
         build(withDynamicBuildDependency: listener,
               dynamicComponentDependency: ())
     }
-    
+
 }

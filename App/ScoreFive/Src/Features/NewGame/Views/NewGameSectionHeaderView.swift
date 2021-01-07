@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 
 final class NewGameSectionHeaderView: UICollectionReusableView {
-    
+
     var title: String? {
         get { label.text }
         set { label.text = newValue?.uppercased() }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .transparent
@@ -25,9 +25,9 @@ final class NewGameSectionHeaderView: UICollectionReusableView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private let label = UILabel()
-    
+
     private func setUp() {
         addSubview(label)
         label.font = .systemFont(ofSize: 15.0)
@@ -45,5 +45,3 @@ final class NewGameSectionHeaderView: UICollectionReusableView {
         }
     }
 }
-    
-    

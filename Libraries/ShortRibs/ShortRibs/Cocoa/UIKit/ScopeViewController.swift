@@ -5,9 +5,9 @@
 //  Created by Varun Santhanam on 12/8/20.
 //
 
+import Combine
 import Foundation
 import UIKit
-import Combine
 
 /// @mockable
 public protocol ViewControllable: AnyObject {
@@ -15,52 +15,52 @@ public protocol ViewControllable: AnyObject {
 }
 
 open class BaseScopeViewController<T>: UIViewController, ViewControllable where T: ScopeView {
- 
+
     // MARK: - Initializers
-    
+
     /// Initialize a `ScopeViewController` with a view builder
     /// - Parameter viewBuilder: The closure used to build the view on `loadView`
     public init(_ viewBuilder: @escaping () -> T) {
         self.viewBuilder = viewBuilder
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     // MARK: - API
-    
+
     /// `BaseScopeViewController` lifecycle events
     /// Observe `lifecycleStream` to get this info in real time.
     public enum LifecycleEvent {
-        
+
         /// Fired on `loadView()`
         case loadView
-        
+
         /// Fired on `viewDidLoad()`
         case viewDidLoad
-        
+
         /// Fired on `viewWillAppear(_:)`
         case viewWillAppear
-        
+
         /// Fired on `viewWillLayoutSubviews`
         case viewWillLayoutSubviews
-        
+
         /// Fired on `viewDidLayoutSubviews`
         case viewDidLayoutSubviews
-        
+
         /// Fired on `viewDidAppear(_:)`
         case viewDidAppear
-        
+
         /// Fired on `viewWillDisappear(_:)`
         case viewWillDisappear
-        
+
         /// Fired on `viewDidDisappear(_:)`
         case viewDidDisappear
     }
-    
+
     /// The typed, read-only interface for th view managed by this view controller
     public final var specializedView: T {
         unsafeDowncast(view, to: T.self)
     }
-    
+
     /// A `Publisher` to observe lifecycle events
     /// - seeAlso: `BaseScopeViewController.LifecycleEvent`
     public final var lifecycleStream: AnyPublisher<LifecycleEvent, Never> {
@@ -70,7 +70,7 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
             }
             .eraseToAnyPublisher()
     }
-    
+
     /// Confine some closure to a set of lifecycle events
     /// - Parameters:
     ///   - viewEvents: Events
@@ -80,7 +80,7 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
                                                         .viewWillAppear,
                                                         .viewWillDisappear],
                         once: Bool = false,
-                        closure: @escaping () -> ()) {
+                        closure: @escaping () -> Void) {
         confineTo(viewEvents: viewEvents,
                   value: (),
                   once: once,
@@ -98,7 +98,7 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
                                                            .viewWillDisappear],
                            value: T,
                            once: Bool = false,
-                           closure: @escaping (T) -> ()) {
+                           closure: @escaping (T) -> Void) {
         var confined = Just<T>(value)
             .eraseToAnyPublisher()
             .confineTo(viewEvents: viewEvents,
@@ -108,26 +108,26 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
                 .first()
                 .eraseToAnyPublisher()
         }
-        
+
         confined
             .sink { value in
                 closure(value)
             }
             .cancelOnDeinit(self)
     }
-    
+
     /// Executed within `loadView`, just after `view` has a value.
     /// Override this method instead of overriding `loadView`
     open func onViewLoad() {}
-        
+
     // MARK: - UIViewController
-    
+
     @available(*, unavailable)
     public required init?(coder: NSCoder) {
         fatalError("Don't use interface builder 😡")
     }
-    
-    open override var view: UIView! {
+
+    override open var view: UIView! {
         get {
             super.view
         }
@@ -135,65 +135,65 @@ open class BaseScopeViewController<T>: UIViewController, ViewControllable where 
             assertionFailure("You cannot assign the `view` of a `ScopeViewController`")
         }
     }
-    
-    public final override func loadView() {
+
+    override public final func loadView() {
         super.view = viewBuilder()
         onViewLoad()
         lifecycleSubject.send(.loadView)
     }
-    
-    open override func viewDidLoad() {
+
+    override open func viewDidLoad() {
         super.viewDidLoad()
         lifecycleSubject.send(.viewDidLoad)
     }
-    
-    open override func viewWillAppear(_ animated: Bool) {
+
+    override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         lifecycleSubject.send(.viewWillAppear)
     }
-    
-    open override func viewWillLayoutSubviews() {
+
+    override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         lifecycleSubject.send(.viewWillLayoutSubviews)
     }
-    
-    open override func viewDidLayoutSubviews() {
+
+    override open func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         lifecycleSubject.send(.viewDidLayoutSubviews)
     }
-    
-    open override func viewDidAppear(_ animated: Bool) {
+
+    override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         lifecycleSubject.send(.viewDidAppear)
     }
-    
-    open override func viewWillDisappear(_ animated: Bool) {
+
+    override open func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         lifecycleSubject.send(.viewWillDisappear)
     }
-    
-    open override func viewDidDisappear(_ animated: Bool) {
+
+    override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         lifecycleSubject.send(.viewDidDisappear)
     }
-    
+
     // MARK: - ViewControllable
-    
+
     public var uiviewController: UIViewController { self }
-    
+
     // MARK: - Private
-    
+
     fileprivate func store(cancellable: Cancellable) {
         cancellable.store(in: &storage)
     }
 
     private var storage = Set<AnyCancellable>()
     private let lifecycleSubject = CurrentValueSubject<LifecycleEvent?, Never>(nil)
-    
+
     private let viewBuilder: () -> T
-    
+
     // MARK: - Deinit
-    
+
     deinit {
         storage.forEach { cancellable in cancellable.cancel() }
         storage.removeAll()
@@ -230,7 +230,7 @@ extension Publisher where Failure == Never {
                 (withinEventsSet, value)
             }
             .filter { withinEventsSet, value in
-                return withinEventsSet
+                withinEventsSet
             }
             .map { withinEventsSet, value in
                 value

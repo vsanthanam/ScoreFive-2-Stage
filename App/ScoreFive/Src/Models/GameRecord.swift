@@ -6,8 +6,8 @@
 //
 //
 
-import Foundation
 import CoreData
+import Foundation
 import ScoreKeeping
 
 /// @CreateMock
@@ -23,54 +23,54 @@ protocol GameRecord: AnyObject {
 }
 
 extension GameRecordMO: GameRecord {
-    
+
     // MARK: - GameRecord
-    
+
     var uniqueIdentifier: UUID { rawIdentifier! }
-    
+
     var orderedPlayers: [Player] {
         orderedPlayerIds!.compactMap(player(for:))
     }
-    
+
     var activePlayers: [Player] {
         activePlayerIds!.compactMap(player(for:))
     }
-    
+
     var rankedPlayers: [Player] {
         rankedPlayerIds!.compactMap(player(for:))
     }
-    
+
     var scoreLimit: Int {
         Int(rawScoreLimit)
     }
-    
+
     func getScoreCard() throws -> ScoreCard {
         let decoder = JSONDecoder()
         return try decoder.decode(ScoreCard.self, from: scoreCardData!)
     }
-    
+
     func updateScoreCard(scoreCard: ScoreCard) throws {
         let encoder = JSONEncoder()
         let data = try encoder.encode(scoreCard)
-        self.scoreCardData = data
+        scoreCardData = data
         bind(scoreCard)
     }
-    
+
     // MARK: - Private
-    
+
     private func bind(_ scoreCard: ScoreCard) {
-        self.inProgress = scoreCard.canAddRounds
-        self.playerNamesMap = scoreCard.orderedPlayers.reduce([:]) { previous, player in
+        inProgress = scoreCard.canAddRounds
+        playerNamesMap = scoreCard.orderedPlayers.reduce([:]) { previous, player in
             var dict = previous
             dict![player.uuid] = player.name
             return dict
         }
-        self.rankedPlayerIds = scoreCard.rankedPlayers.map(\.uuid)
-        self.activePlayerIds = scoreCard.activePlayers.map(\.uuid)
-        self.orderedPlayerIds = scoreCard.orderedPlayers.map(\.uuid)
-        self.rawScoreLimit = Int64(scoreCard.scoreLimit)
+        rankedPlayerIds = scoreCard.rankedPlayers.map(\.uuid)
+        activePlayerIds = scoreCard.activePlayers.map(\.uuid)
+        orderedPlayerIds = scoreCard.orderedPlayers.map(\.uuid)
+        rawScoreLimit = Int64(scoreCard.scoreLimit)
     }
-    
+
     private func player(for id: UUID) -> Player? {
         guard let name = playerNamesMap![id] else {
             return nil

@@ -5,13 +5,13 @@
 //  Created by Varun Santhanam on 12/25/20.
 //
 
-import UIKit
 import ShortRibs
+import UIKit
 
 class ScoreFiveSceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - UIWindowSceneDelegate
-    
+
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -49,9 +49,9 @@ class ScoreFiveSceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     // MARK: - Private
-    
+
     private var root: PresentableInteractable?
-    
+
     private func launchScene() {
         guard let window = window else {
             fatalError("Scene window missing!")

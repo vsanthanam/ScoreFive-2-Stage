@@ -16,16 +16,16 @@ protocol NewGamePlayerNameCellDelegate: AnyObject {
 final class NewGamePlayerNameCell: ListCell<NewGamePlayerNameCell.ContentConfiguration, NewGamePlayerNameCell.ContentView> {
 
     final class ContentView: CellContentView<ContentConfiguration> {
-        
+
         // MARK: - Initializrs
-        
+
         override init(configuration: ContentConfiguration) {
             super.init(configuration: configuration)
             setUp()
         }
-        
+
         // MARK: - CellContentView
-        
+
         override func apply(configuration: ContentConfiguration) {
             input.placeholder = "Player \(configuration.playerIndex + 1)"
             input.text = configuration.enteredPlayerName
@@ -33,11 +33,11 @@ final class NewGamePlayerNameCell: ListCell<NewGamePlayerNameCell.ContentConfigu
                 configuration.delegate?.didInputPlayerName(input: input.text, index: configuration.playerIndex)
             }
         }
-        
+
         // MARK: - Private
-        
+
         private let input = UITextField()
-        
+
         private var editingAction: UIAction? {
             didSet {
                 if let oldAction = oldValue {
@@ -48,7 +48,7 @@ final class NewGamePlayerNameCell: ListCell<NewGamePlayerNameCell.ContentConfigu
                 }
             }
         }
-        
+
         private func setUp() {
             backgroundColor = .contentPrimary
             input.clearButtonMode = .whileEditing
@@ -67,19 +67,18 @@ final class NewGamePlayerNameCell: ListCell<NewGamePlayerNameCell.ContentConfigu
     }
 
     struct ContentConfiguration: CellContentConfiguration {
-        
+
         // MARK: - API
-        
+
         weak var delegate: NewGamePlayerNameCellDelegate?
-        
+
         var playerIndex = 0
         var enteredPlayerName: String?
-        
+
         // MARK: - UIContentConfiguration
-        
+
         func makeContentView() -> UIView & UIContentView { ContentView(configuration: self) }
-        
+
         func updated(for state: UIConfigurationState) -> ContentConfiguration { self }
     }
 }
-

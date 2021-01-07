@@ -18,18 +18,18 @@ protocol HomeViewControllable: ViewControllable {}
 protocol HomePresentableListener: AnyObject {}
 
 final class HomeViewController: ScopeViewController, HomePresentable, HomeViewControllable {
-    
+
     // MARK: - UIViewController
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundPrimary
     }
-    
+
     // MARK: - HomePresentable
-    
+
     weak var listener: HomePresentableListener?
-    
+
     func showNewGame(_ viewController: ViewControllable) {
         confineTo(viewEvents: [.viewDidAppear], once: true) {
             if let current = self.newGameViewController {
@@ -44,12 +44,12 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
             }
         }
     }
-    
+
     func closeNewGame() {
         newGameViewController?.uiviewController.dismiss(animated: true, completion: nil)
     }
-    
+
     // MARK: - Private
-    
+
     private var newGameViewController: ViewControllable?
 }

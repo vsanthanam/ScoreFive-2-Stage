@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import ShortRibs
-import ScoreKeeping
 import NeedleFoundation
+import ScoreKeeping
+import ShortRibs
 
 protocol NewRoundDependency: Dependency {}
 
@@ -35,9 +35,9 @@ extension NewRoundBuildable {
 }
 
 final class NewRoundBuilder: ComponentizedBuilder<NewRoundComponent, PresentableInteractable, NewRoundDynamicBuildDependency, Void>, NewRoundBuildable {
-    
+
     // MARK: - ComponentizedBuilder
-    
+
     override final func build(with component: NewRoundComponent, _ dynamicBuildDependency: NewRoundDynamicBuildDependency) -> PresentableInteractable {
         let (listener, replacingIndex, previousValue) = dynamicBuildDependency
         let viewController = NewRoundViewController()
@@ -47,12 +47,12 @@ final class NewRoundBuilder: ComponentizedBuilder<NewRoundComponent, Presentable
         interactor.listener = listener
         return interactor
     }
-    
+
     // MARK: - NewRoundBuildable
-    
+
     func build(withListener listener: NewRoundListener, replacingIndex: Int?, previousValue: Round?) -> PresentableInteractable {
         build(withDynamicBuildDependency: (listener, replacingIndex, previousValue),
               dynamicComponentDependency: ())
     }
-    
+
 }

@@ -7,23 +7,23 @@
 
 import FiveUI
 import Foundation
-import UIKit
 import ScoreKeeping
+import UIKit
 
 final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoundCell.ContentView> {
 
     final class ContentView: CellContentView<ContentConfiguration> {
-        
+
         // MARK: - Initializrs
-        
+
         override init(configuration: ContentConfiguration) {
             stack = .init()
             super.init(configuration: configuration)
             setUp()
         }
-        
+
         // MARK: - CellContentView
-        
+
         override func apply(configuration: ContentConfiguration) {
             let scores = configuration.orderedPlayers
                 .map { player -> String? in
@@ -40,13 +40,13 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
             }
             index.text = configuration.index
         }
-        
+
         // MARK: - Private
-        
+
         private let stack: UIStackView
         private let index = UILabel()
         private let separator = BaseView()
-        
+
         private func setUp() {
             index.textAlignment = .center
             index.font = .systemFont(ofSize: 17.0, weight: .bold)
@@ -69,7 +69,7 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
                     .equalToSuperview()
                     .inset(54.0)
             }
-            
+
             index.snp.makeConstraints { make in
                 make
                     .centerY
@@ -81,7 +81,7 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
                     .leading
                     .equalToSuperview()
             }
-            
+
             separator.snp.makeConstraints { make in
                 make
                     .leading
@@ -96,21 +96,21 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
                     .equalTo(1.0)
             }
         }
-        
+
         private class IndexView: BaseView {
-            
+
             override init() {
                 super.init()
                 setUp()
             }
-            
+
             var title: String? {
                 get { label.text }
                 set { label.text = newValue }
             }
-            
+
             private let label = UILabel()
-            
+
             private func setUp() {
                 backgroundColor = .backgroundPrimary
                 label.font = .systemFont(ofSize: 17.0, weight: .regular)
@@ -133,15 +133,15 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
 
     struct ContentConfiguration: CellContentConfiguration {
         init() {}
-        
+
         var orderedPlayers: [Player] = []
         var round: Round?
         var index: String?
-        
+
         // MARK: - UIContentConfiguration
-        
+
         func makeContentView() -> UIView & UIContentView { ContentView(configuration: self) }
-        
+
         func updated(for state: UIConfigurationState) -> ContentConfiguration { self }
     }
 }

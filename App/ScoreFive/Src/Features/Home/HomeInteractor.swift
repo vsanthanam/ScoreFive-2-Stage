@@ -22,9 +22,9 @@ protocol HomeListener: AnyObject {
 }
 
 final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteractable, HomePresentableListener {
-    
+
     // MARK: - Initializers
-    
+
     init(presenter: HomePresentable,
          gameStorageManager: GameStorageManaging,
          newGameBuilder: NewGameBuildable) {
@@ -33,43 +33,43 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         super.init(presenter: presenter)
         presenter.listener = self
     }
-    
+
     // MARK: - API
-    
+
     weak var listener: HomeListener?
-    
+
     // MARK: - Interactor
-    
+
     override func didBecomeActive() {
         super.didBecomeActive()
         openNewGameIfEmpty()
     }
-    
+
     // MARK: - NewGameListener
-    
+
     func newGameDidCreateNewGame(with identifier: UUID) {
         routeAwayFromNewGame()
         listener?.homeWantToOpenGame(withIdentifier: identifier)
     }
-    
+
     func newGameDidAbort() {
         routeAwayFromNewGame()
     }
-    
+
     // MARK: - Private
-    
+
     private let gameStorageManager: GameStorageManaging
     private let newGameBuilder: NewGameBuildable
-    
+
     private var currentNewGame: PresentableInteractable?
-    
+
     private func openNewGameIfEmpty() {
         let records = (try? gameStorageManager.fetchGameRecords()) ?? []
-        if records.count == 0 {
+        if records.isEmpty {
             routeToNewGame()
         }
     }
-    
+
     private func routeToNewGame() {
         if let current = currentNewGame {
             detach(child: current)
@@ -79,7 +79,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         presenter.showNewGame(newGame.viewControllable)
         currentNewGame = newGame
     }
-    
+
     private func routeAwayFromNewGame() {
         if let current = currentNewGame {
             detach(child: current)

@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import ShortRibs
 import NeedleFoundation
+import ShortRibs
 
 protocol ScoreCardDependency: Dependency {
     var gameStorageProvider: GameStorageProviding { get }
@@ -31,9 +31,9 @@ protocol ScoreCardBuildable: AnyObject {
 }
 
 final class ScoreCardBuilder: ComponentizedBuilder<ScoreCardComponent, ScoreCardInteractable, ScoreCardDynamicBuildDependency, Void>, ScoreCardBuildable {
-    
+
     // MARK: - ComponentizedBuilder
-    
+
     override final func build(with component: ScoreCardComponent, _ dynamicBuildDependency: ScoreCardDynamicBuildDependency) -> ScoreCardInteractable {
         let listener = dynamicBuildDependency
         let viewController = ScoreCardViewController()
@@ -43,12 +43,12 @@ final class ScoreCardBuilder: ComponentizedBuilder<ScoreCardComponent, ScoreCard
         interactor.listener = listener
         return interactor
     }
-    
+
     // MARK: - ScoreCardBuildable
-    
+
     func build(withListener listener: ScoreCardListener) -> ScoreCardInteractable {
         build(withDynamicBuildDependency: listener,
               dynamicComponentDependency: ())
     }
-    
+
 }

@@ -6,57 +6,57 @@
 //
 
 import Foundation
-import UIKit
 import SnapKit
+import UIKit
 
 public enum Symbol {
-    
+
     open class View: BaseView {
-        
+
         public init(symbolName: String, pointSize: CGFloat = 17.0) {
             self.symbolName = symbolName
             self.pointSize = pointSize
             super.init()
             setUp()
         }
-        
+
         open var symbolName: String {
             didSet {
                 refreshImage()
             }
         }
-        
-        open var pointSize: CGFloat{
+
+        open var pointSize: CGFloat {
             didSet {
                 refreshImage()
                 invalidateIntrinsicContentSize()
             }
         }
-        
+
         open var symbolColor: UIColor? {
             get { imageView.tintColor }
             set { imageView.tintColor = newValue }
         }
-        
+
         // MARK: - UIView
-        
-        open override var intrinsicContentSize: CGSize {
+
+        override open var intrinsicContentSize: CGSize {
             .init(width: pointSize, height: pointSize)
         }
-        
+
         // MARK: - Private
-        
+
         private let imageView = UIImageView()
-        
+
         private var symbolConfiguration: UIImage.SymbolConfiguration {
             UIImage.SymbolConfiguration(pointSize: pointSize)
         }
-        
+
         private var image: UIImage? {
             let image = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)
             return image
         }
-        
+
         private func setUp() {
             backgroundColor = .transparent
             imageView.backgroundColor = .transparent
@@ -68,38 +68,38 @@ public enum Symbol {
             }
             refreshImage()
         }
-        
+
         private func refreshImage() {
             imageView.preferredSymbolConfiguration = symbolConfiguration
             imageView.image = image
         }
     }
-    
+
     open class Button: TappableControl {
-        
+
         // MARK: - Initializers
-        
+
         public init(symbolName: String, pointSize: CGFloat = 17.0) {
             self.symbolName = symbolName
             symbolView = .init(symbolName: symbolName, pointSize: pointSize)
             super.init()
             setUp()
         }
-        
+
         // MARK: - API
-        
+
         open var symbolName: String {
             didSet {
                 refreshImage()
             }
         }
-        
+
         open var highlightedSymbolName: String? {
             didSet {
                 refreshImage()
             }
         }
-        
+
         open var pointSize: CGFloat {
             get {
                 symbolView.pointSize
@@ -108,45 +108,45 @@ public enum Symbol {
                 symbolView.pointSize = newValue
             }
         }
-        
+
         open var symbolColor: UIColor = .contentPrimary {
             didSet {
                 refreshImage()
             }
         }
-        
+
         open var highlightedSymbolColor: UIColor? {
             didSet {
                 refreshImage()
             }
         }
-        
+
         open var activeColor: UIColor = .transparent {
             didSet {
                 refreshImage()
             }
         }
-        
+
         open var highlightedActiveColor: UIColor? {
             didSet {
                 refreshImage()
             }
         }
-        
+
         // MARK: - UIView
-        
-        open override var intrinsicContentSize: CGSize {
+
+        override open var intrinsicContentSize: CGSize {
             .init(width: pointSize, height: pointSize)
         }
-        
+
         // MARK: - Private
-        
+
         private let symbolView: Symbol.View
-        
+
         private var symbolConfiguration: UIImage.SymbolConfiguration {
             UIImage.SymbolConfiguration(pointSize: pointSize)
         }
-            
+
         private func setUp() {
             addSubview(symbolView)
             symbolView.snp.makeConstraints { make in
@@ -156,7 +156,7 @@ public enum Symbol {
             }
             refreshImage()
         }
-        
+
         private func refreshImage() {
             if isHighlighted {
                 backgroundColor = activeColor
