@@ -1,8 +1,11 @@
 # Created by https://www.toptal.com/developers/gitignore/api/swift,xcode,objective-c
 # Edit at https://www.toptal.com/developers/gitignore?templates=swift,xcode,objective-c
 
-
+### ScoreFive ###
 App/ScoreFive/Src/Infra/DependencyGraph.swift
+.swiftformat
+
+
 ### Objective-C ###
 # Xcode
 #
