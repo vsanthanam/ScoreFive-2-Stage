@@ -60,13 +60,13 @@ final class FiveInteractorTests: TestCase {
         XCTAssertEqual(presenter.showHomeCallCount, 1)
         XCTAssertEqual(interactor.children.count, 1)
     }
-    
+
     func test_gameWantToResign_updatesStream() {
         XCTAssertEqual(mutableActiveGameStream.deactiveateCurrentGameCallCount, 0)
         interactor.gameWantToResign()
         XCTAssertEqual(mutableActiveGameStream.deactiveateCurrentGameCallCount, 1)
     }
-    
+
     func test_homeWantToOpenGam_updatesStream() {
         let testIdentifier = UUID()
         mutableActiveGameStream.activateGameHandler = { identifier in

@@ -5,12 +5,12 @@
 //  Created by Varun Santhanam on 1/6/21.
 //
 
-import Foundation
 import Combine
+import Foundation
 import XCTest
 
 class TestCase: XCTestCase {
-    
+
     var cancellables = Set<AnyCancellable>()
 
     override func tearDown() {
