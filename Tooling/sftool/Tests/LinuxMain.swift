@@ -1,7 +1,7 @@
 import XCTest
 
-import sfcliTests
+import sftoolTests
 
 var tests = [XCTestCaseEntry]()
-tests += sfcliTests.allTests()
+tests += sftoolTests.allTests()
 XCTMain(tests)

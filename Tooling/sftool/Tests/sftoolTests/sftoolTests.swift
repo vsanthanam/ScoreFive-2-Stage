@@ -1,7 +1,7 @@
 import class Foundation.Bundle
 import XCTest
 
-final class sfcliTests: XCTestCase {
+final class sftoolTests: XCTestCase {
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
@@ -12,7 +12,7 @@ final class sfcliTests: XCTestCase {
             return
         }
 
-        let fooBinary = productsDirectory.appendingPathComponent("sfcli")
+        let fooBinary = productsDirectory.appendingPathComponent("sftool")
 
         let process = Process()
         process.executableURL = fooBinary

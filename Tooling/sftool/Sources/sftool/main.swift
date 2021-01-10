@@ -2,28 +2,40 @@ import ArgumentParser
 import Foundation
 import ShellOut
 
-struct sfcli: ParsableCommand {
+struct sftool: ParsableCommand {
+    
+    // MARK: - Initializers
+    
+    init() {}
+    
+    // MARK: - ParsableCommand
+    
     static let configuration = CommandConfiguration(
         abstract: "A command line utility for the ScoreFive iOS repo",
         subcommands: [Format.self, Gen.self]
     )
-
-    init() {}
 }
 
 struct Gen: ParsableCommand {
 
+    // MARK: - Initializers
+    
+    init() {}
+    
+    // MARK: - ParsableCommand
+    
     static let configuration = CommandConfiguration(
         abstract: "Generate code",
         subcommands: [Mocks.self, Deps.self]
     )
-
-    init() {}
-
 }
 
 struct Format: ParsableCommand {
 
+    // MARK: - Initializers
+    
+    init() {}
+    
     // MARK: - ParsableCommand
 
     static let configuration = CommandConfiguration(abstract: "Run swiftformat")
@@ -50,6 +62,10 @@ struct Format: ParsableCommand {
 
 struct Mocks: ParsableCommand {
 
+    // MARK: - Initializers
+    
+    init() {}
+    
     // MARK: - ParsableCommand
 
     static let configuration = CommandConfiguration(abstract: "Generate Mocks with Mockolo")
@@ -64,12 +80,18 @@ struct Mocks: ParsableCommand {
         }
     }
     
+    // MARK: - API
+    
     @Option(name: .shortAndLong, help: "Location of the score five repo")
     var root: String = FileManager.default.currentDirectoryPath
 
 }
 
 struct Deps: ParsableCommand {
+    
+    // MARK: - Initializers
+    
+    init() {}
 
     // MARK: - ParsableCommand
 
@@ -87,9 +109,11 @@ struct Deps: ParsableCommand {
         }
     }
     
+    // MARK: - API
+    
     @Option(name: .shortAndLong, help: "Location of the score five repo")
     var root: String = FileManager.default.currentDirectoryPath
 
 }
 
-sfcli.main()
+sftool.main()

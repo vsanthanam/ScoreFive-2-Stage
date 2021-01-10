@@ -28,25 +28,25 @@ $ brew install mockolo
 $ brew install swiftformat
 ```
 
-4. Rather than interfacing with the aformentioned tools directly. ScoreFive provides a built-in command line application to that knows the right arguments and paths to use. Build this tool by running the shell script. The executable will become available in the repo root.
+4. Rather than interfacing with the aformentioned tools directly. ScoreFive provides a built-in command line utility called `sftool` to that knows the right arguments and paths to use. The source code for this tool is included in the repo. Build the tool using the provided shell script. The executable will become available in the repo root.
 
 ```
 $ cd path/to/repo
-$ sh build_tooling.sh
+$ sh build_sftool.sh
 ```
 
 4. Generate the dependency graph:
 
 ```
 $ cd path/to/repo
-$ ./sfcli gen deps
+$ ./sftool gen deps
 ```
 
 5. Generate the object mocks (this step is optional if you aren't going to run the unit tests)
 
 ```
 $ cd path/to/repo
-$ ./sfcli gen mocks
+$ ./sftool gen mocks
 ```
 
 After these steps have been taken, you can open `ScoreFive.xcworkspace` and run the app.
