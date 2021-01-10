@@ -1,6 +1,6 @@
 //
 //  File.swift
-//  
+//
 //
 //  Created by Varun Santhanam on 1/10/21.
 //
@@ -12,17 +12,17 @@ import ShellOut
 enum ConfigurationError: Error {
     /// `.sftool-config.json` was not found at the provided root directory
     case notFound(error: ShellOutError)
-    
+
     /// `.sftool-config.json` could not be parsed into a `Configuration object`
     /// - seeAlso: `Configuration`
     case decodingFailed(error: Error)
-    
+
     /// The error message
     var message: String {
         switch self {
-        case .decodingFailed(let error):
+        case let .decodingFailed(error):
             return "Malformed configuration file -- \(error.localizedDescription)"
-        case .notFound(let error):
+        case let .notFound(error):
             return "Configuration file not found -- \(error.localizedDescription)"
         }
     }
@@ -33,7 +33,7 @@ enum ConfigurationError: Error {
 /// - Throws: The error when finding or parsing the repo
 /// - Returns: The configuration file
 func fetchConfiguration(on root: String) throws -> Configuration {
-    
+
     func readFile() throws -> String {
         do {
             return try shellOut(to: .readFile(at: root + "/sftool-config.json"))
@@ -41,9 +41,9 @@ func fetchConfiguration(on root: String) throws -> Configuration {
             throw ConfigurationError.notFound(error: error as! ShellOutError)
         }
     }
-    
+
     let file = try readFile()
-    
+
     do {
         let jsonData = file.data(using: .utf8)!
         let decoder = JSONDecoder()
@@ -56,48 +56,61 @@ func fetchConfiguration(on root: String) throws -> Configuration {
 
 /// The configuration object model
 struct Configuration: Codable {
-    
+
     /// SwiftFormat configuration
     let swiftformat: SwiftFormatConfiguration
-    
+
+    /// SwiftLint configuration
+    let swiftlint: SwiftLintConfiguration
+
     /// Mockolo configuration
     let mockolo: MockoloConfiguration
-    
+
     /// Mock source path
     let mockPath: String
-    
+
     /// DI graph source path
     let diGraphPath: String
-    
+
     /// Path to source that consume the DI graoh
     let diCodePath: String
-    
+
     /// Vendor code path
     let vendorCodePath: String
-    
+
     /// Feature code path
     let featureCodePath: String
-    
+
     /// Library code path
     let libraryCodePath: String
 }
 
 /// SwiftFormat configuration
 struct SwiftFormatConfiguration: Codable {
-    
+
     /// Rules to enable
     let enableRules: [String]
-    
+
     /// Rules to disable
     let disableRules: [String]
-    
+
     /// Directories to exclude
     let excludeDirs: [String]
 }
 
+struct SwiftLintConfiguration: Codable {
+
+    /// Directories to exclude
+    let excludeDirs: [String]
+
+    let disabledRules: [String]
+
+    let optInRules: [String]
+}
+
 /// Mockolo Configuration
 struct MockoloConfiguration: Codable {
-    
+
     /// @testable modules to import
     let testableImports: [String]
 }

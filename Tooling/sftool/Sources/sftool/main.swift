@@ -3,27 +3,29 @@ import Foundation
 import ShellOut
 
 struct sftool: ParsableCommand {
-    
+
     // MARK: - Initializers
-    
+
     init() {}
-    
+
     // MARK: - ParsableCommand
-    
+
     static let configuration = CommandConfiguration(
         abstract: "A command line utility for the ScoreFive iOS repo",
-        subcommands: [SwiftFormatCommand.self, GenerateCommand.self]
+        subcommands: [SwiftFormatCommand.self,
+                      GenerateCommand.self,
+                      SwiftLintCommand.self]
     )
 }
 
 struct GenerateCommand: ParsableCommand {
 
     // MARK: - Initializers
-    
+
     init() {}
-    
+
     // MARK: - ParsableCommand
-    
+
     static let configuration = CommandConfiguration(
         commandName: "gen",
         abstract: "Generate code",

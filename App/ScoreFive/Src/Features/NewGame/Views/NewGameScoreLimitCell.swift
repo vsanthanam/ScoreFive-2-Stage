@@ -50,7 +50,8 @@ final class NewGameScoreLimitCell: ListCell<NewGameScoreLimitCell.ContentConfigu
         }
 
         private func setUp() {
-            backgroundColor = .contentPrimary
+            backgroundColor = .backgroundPrimary
+            input.textColor = .contentPrimary
             input.font = .systemFont(ofSize: 36.0)
             input.keyboardType = .numberPad
             addSubview(input)

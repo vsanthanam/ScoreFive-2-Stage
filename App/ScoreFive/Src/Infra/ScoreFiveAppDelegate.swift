@@ -51,7 +51,7 @@ class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
         }
         let container = NSPersistentContainer(name: "ScoreFive", managedObjectModel: managedObjectModel)
         let persistentContainer = PersistentContainer(container)
-        container.loadPersistentStores { description, error in
+        container.loadPersistentStores { _, error in
             if let error = error as NSError? {
                 fatalError()
             }

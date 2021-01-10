@@ -113,7 +113,7 @@ final class ScoreCardViewController: ScopeViewController, ScoreCardPresentable, 
     }
 
     private func trailingSwipeActionsConfigurationProvider(_ indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard (listener?.canRemoveRow(at: indexPath.row) ?? false) else {
+        guard listener?.canRemoveRow(at: indexPath.row) ?? false else {
             return nil
         }
         let deleteAction = UIContextualAction(style: .destructive,

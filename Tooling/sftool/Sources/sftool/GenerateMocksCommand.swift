@@ -12,9 +12,9 @@ import ShellOut
 struct GenerateMocks: ParsableCommand {
 
     // MARK: - Initializers
-    
+
     init() {}
-    
+
     // MARK: - ParsableCommand
 
     static let configuration = CommandConfiguration(commandName: "mocks",
@@ -30,32 +30,32 @@ struct GenerateMocks: ParsableCommand {
             throw error
         }
     }
-    
+
     // MARK: - API
-    
+
     enum GenerateMocksError: Error {
         case mockoloError(_ error: ShellOutError)
-        
+
         var message: String {
             switch self {
-            case .mockoloError(let error):
+            case let .mockoloError(error):
                 return "Mockolo Failed: \(error.message)"
             }
         }
     }
-    
+
     @Option(name: .shortAndLong, help: "Location of the score five repo")
     var root: String = FileManager.default.currentDirectoryPath
-    
+
     @Flag(name: .shortAndLong, help: "Verbose Logging")
     var verbose: Bool = false
-    
+
     // MARK: - Private
-    
+
     private func generateMocks(with configuration: Configuration) throws {
-        let featureCode = root + configuration.featureCodePath
-        let libraryCode = root + configuration.libraryCodePath
-        let mocks = root + configuration.mockPath
+        let featureCode = root + "/" + configuration.featureCodePath
+        let libraryCode = root + "/" + configuration.libraryCodePath
+        let mocks = root + "/" + configuration.mockPath
         if verbose {
             print("Input Paths:")
             print(featureCode)
@@ -64,7 +64,7 @@ struct GenerateMocks: ParsableCommand {
             print(mocks)
         }
         var command = "mockolo -s \(featureCode) \(libraryCode) -d \(mocks)"
-        if configuration.mockolo.testableImports.count > 0 {
+        if !configuration.mockolo.testableImports.isEmpty {
             if verbose {
                 print("Adding Testable Imports")
                 configuration.mockolo.testableImports.forEach { print($0) }

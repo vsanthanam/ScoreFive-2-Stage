@@ -80,6 +80,10 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         routeAwayFromNewRound()
     }
 
+    func newRoundDidAddRound(_ round: Round) {}
+
+    func newRoundDidReplaceRound(at index: Int, with round: Round) {}
+
     // MARK: - Private
 
     private let gameStorageManager: GameStorageManaging

@@ -54,6 +54,10 @@ final class NewGameInteractor: PresentableInteractor<NewGamePresentable>, NewGam
         }
     }
 
+    func didTapClose() {
+        listener?.newGameDidAbort()
+    }
+
     // MARK: - Private
 
     private let gameStorageManager: GameStorageManaging

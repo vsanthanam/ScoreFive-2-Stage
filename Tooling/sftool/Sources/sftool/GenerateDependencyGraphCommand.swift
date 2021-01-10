@@ -21,9 +21,9 @@ enum DepsError: Error {
 }
 
 struct GenerateDependencyGraphCommand: ParsableCommand {
-    
+
     // MARK: - Initializers
-    
+
     init() {}
 
     // MARK: - ParsableCommand
@@ -41,20 +41,20 @@ struct GenerateDependencyGraphCommand: ParsableCommand {
             throw error
         }
     }
-    
+
     // MARK: - API
-    
+
     @Option(name: .shortAndLong, help: "Location of the score five repo")
     var root: String = FileManager.default.currentDirectoryPath
-    
+
     @Flag(name: .shortAndLong, help: "Verbose Logging")
     var verbose: Bool = false
-    
+
     // MARK: - Private
-    
+
     private func generateDependencyGraph(with configuration: Configuration) throws {
-        let needleInput = root + configuration.diCodePath
-        let dependencyGraph = root + configuration.diGraphPath
+        let needleInput = root + "/" + configuration.diCodePath
+        let dependencyGraph = root + "/" + configuration.diGraphPath
         if verbose {
             print("Input Paths:")
             print(needleInput)

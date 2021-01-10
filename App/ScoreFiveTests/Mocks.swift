@@ -715,46 +715,13 @@ class NewGamePresentableListenerMock: NewGamePresentableListener {
         }
         
     }
-}
 
-class NewRoundInteractableMock: NewRoundInteractable {
-    init() { }
-    init(viewControllable: ViewControllable = ViewControllableMock(), isActive: Bool = false, isActiveStream: AnyPublisher<Bool, Never>) {
-        self.viewControllable = viewControllable
-        self.isActive = isActive
-        self._isActiveStream = isActiveStream
-    }
-
-
-    public private(set) var viewControllableSetCallCount = 0
-    public var viewControllable: ViewControllable = ViewControllableMock() { didSet { viewControllableSetCallCount += 1 } }
-
-    public private(set) var activateCallCount = 0
-    public var activateHandler: (() -> ())?
-    public func activate()  {
-        activateCallCount += 1
-        if let activateHandler = activateHandler {
-            activateHandler()
-        }
-        
-    }
-
-    public private(set) var isActiveSetCallCount = 0
-    public var isActive: Bool = false { didSet { isActiveSetCallCount += 1 } }
-
-    public private(set) var isActiveStreamSetCallCount = 0
-    private var _isActiveStream: AnyPublisher<Bool, Never>!  { didSet { isActiveStreamSetCallCount += 1 } }
-    public var isActiveStream: AnyPublisher<Bool, Never> {
-        get { return _isActiveStream }
-        set { _isActiveStream = newValue }
-    }
-
-    public private(set) var deactivateCallCount = 0
-    public var deactivateHandler: (() -> ())?
-    public func deactivate()  {
-        deactivateCallCount += 1
-        if let deactivateHandler = deactivateHandler {
-            deactivateHandler()
+    private(set) var didTapCloseCallCount = 0
+    var didTapCloseHandler: (() -> ())?
+    func didTapClose()  {
+        didTapCloseCallCount += 1
+        if let didTapCloseHandler = didTapCloseHandler {
+            didTapCloseHandler()
         }
         
     }
@@ -795,6 +762,26 @@ class NewRoundListenerMock: NewRoundListener {
         newRoundDidCancelCallCount += 1
         if let newRoundDidCancelHandler = newRoundDidCancelHandler {
             newRoundDidCancelHandler()
+        }
+        
+    }
+
+    private(set) var newRoundDidAddRoundCallCount = 0
+    var newRoundDidAddRoundHandler: ((Round) -> ())?
+    func newRoundDidAddRound(_ round: Round)  {
+        newRoundDidAddRoundCallCount += 1
+        if let newRoundDidAddRoundHandler = newRoundDidAddRoundHandler {
+            newRoundDidAddRoundHandler(round)
+        }
+        
+    }
+
+    private(set) var newRoundDidReplaceRoundCallCount = 0
+    var newRoundDidReplaceRoundHandler: ((Int, Round) -> ())?
+    func newRoundDidReplaceRound(at index: Int, with round: Round)  {
+        newRoundDidReplaceRoundCallCount += 1
+        if let newRoundDidReplaceRoundHandler = newRoundDidReplaceRoundHandler {
+            newRoundDidReplaceRoundHandler(index, round)
         }
         
     }
@@ -1008,6 +995,49 @@ class ScoreCardInteractableMock: ScoreCardInteractable {
     }
 }
 
+class NewRoundInteractableMock: NewRoundInteractable {
+    init() { }
+    init(viewControllable: ViewControllable = ViewControllableMock(), isActive: Bool = false, isActiveStream: AnyPublisher<Bool, Never>) {
+        self.viewControllable = viewControllable
+        self.isActive = isActive
+        self._isActiveStream = isActiveStream
+    }
+
+
+    public private(set) var viewControllableSetCallCount = 0
+    public var viewControllable: ViewControllable = ViewControllableMock() { didSet { viewControllableSetCallCount += 1 } }
+
+    public private(set) var activateCallCount = 0
+    public var activateHandler: (() -> ())?
+    public func activate()  {
+        activateCallCount += 1
+        if let activateHandler = activateHandler {
+            activateHandler()
+        }
+        
+    }
+
+    public private(set) var isActiveSetCallCount = 0
+    public var isActive: Bool = false { didSet { isActiveSetCallCount += 1 } }
+
+    public private(set) var isActiveStreamSetCallCount = 0
+    private var _isActiveStream: AnyPublisher<Bool, Never>!  { didSet { isActiveStreamSetCallCount += 1 } }
+    public var isActiveStream: AnyPublisher<Bool, Never> {
+        get { return _isActiveStream }
+        set { _isActiveStream = newValue }
+    }
+
+    public private(set) var deactivateCallCount = 0
+    public var deactivateHandler: (() -> ())?
+    public func deactivate()  {
+        deactivateCallCount += 1
+        if let deactivateHandler = deactivateHandler {
+            deactivateHandler()
+        }
+        
+    }
+}
+
 class FiveListenerMock: FiveListener {
     init() { }
 
@@ -1126,21 +1156,6 @@ class NewGameBuildableMock: NewGameBuildable {
         buildCallCount += 1
         if let buildHandler = buildHandler {
             return buildHandler(listener)
-        }
-        return PresentableInteractableMock()
-    }
-}
-
-class NewRoundBuildableMock: NewRoundBuildable {
-    init() { }
-
-
-    private(set) var buildCallCount = 0
-    var buildHandler: ((NewRoundListener, Int?, Round?) -> (PresentableInteractable))?
-    func build(withListener listener: NewRoundListener, replacingIndex: Int?, previousValue: Round?) -> PresentableInteractable {
-        buildCallCount += 1
-        if let buildHandler = buildHandler {
-            return buildHandler(listener, replacingIndex, previousValue)
         }
         return PresentableInteractableMock()
     }
@@ -1281,6 +1296,21 @@ class HomeBuildableMock: HomeBuildable {
     }
 }
 
+class NewRoundBuildableMock: NewRoundBuildable {
+    init() { }
+
+
+    private(set) var buildCallCount = 0
+    var buildHandler: ((NewRoundListener, Int?, Round?) -> (PresentableInteractable))?
+    func build(withListener listener: NewRoundListener, replacingIndex: Int?, previousValue: Round?) -> PresentableInteractable {
+        buildCallCount += 1
+        if let buildHandler = buildHandler {
+            return buildHandler(listener, replacingIndex, previousValue)
+        }
+        return PresentableInteractableMock()
+    }
+}
+
 class GameInteractableMock: GameInteractable {
     init() { }
     init(viewControllable: ViewControllable = ViewControllableMock(), isActive: Bool = false, isActiveStream: AnyPublisher<Bool, Never>) {
@@ -1323,12 +1353,32 @@ class GameInteractableMock: GameInteractable {
         set { _isActiveStream = newValue }
     }
 
+    private(set) var newRoundDidAddRoundCallCount = 0
+    var newRoundDidAddRoundHandler: ((Round) -> ())?
+    func newRoundDidAddRound(_ round: Round)  {
+        newRoundDidAddRoundCallCount += 1
+        if let newRoundDidAddRoundHandler = newRoundDidAddRoundHandler {
+            newRoundDidAddRoundHandler(round)
+        }
+        
+    }
+
     private(set) var scoreCardDidDeleteRoundCallCount = 0
     var scoreCardDidDeleteRoundHandler: ((Int) -> ())?
     func scoreCardDidDeleteRound(at index: Int)  {
         scoreCardDidDeleteRoundCallCount += 1
         if let scoreCardDidDeleteRoundHandler = scoreCardDidDeleteRoundHandler {
             scoreCardDidDeleteRoundHandler(index)
+        }
+        
+    }
+
+    private(set) var newRoundDidReplaceRoundCallCount = 0
+    var newRoundDidReplaceRoundHandler: ((Int, Round) -> ())?
+    func newRoundDidReplaceRound(at index: Int, with round: Round)  {
+        newRoundDidReplaceRoundCallCount += 1
+        if let newRoundDidReplaceRoundHandler = newRoundDidReplaceRoundHandler {
+            newRoundDidReplaceRoundHandler(index, round)
         }
         
     }

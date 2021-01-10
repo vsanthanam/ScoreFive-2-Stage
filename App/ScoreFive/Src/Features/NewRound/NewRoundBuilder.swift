@@ -10,7 +10,10 @@ import NeedleFoundation
 import ScoreKeeping
 import ShortRibs
 
-protocol NewRoundDependency: Dependency {}
+protocol NewRoundDependency: Dependency {
+    var activeGameStream: ActiveGameStreaming { get }
+    var gameStorageProvider: GameStorageProviding { get }
+}
 
 class NewRoundComponent: Component<NewRoundDependency> {}
 
@@ -42,6 +45,8 @@ final class NewRoundBuilder: ComponentizedBuilder<NewRoundComponent, Presentable
         let (listener, replacingIndex, previousValue) = dynamicBuildDependency
         let viewController = NewRoundViewController()
         let interactor = NewRoundInteractor(presenter: viewController,
+                                            activeGameStream: component.activeGameStream,
+                                            gameStorageProvider: component.gameStorageProvider,
                                             replacingIndex: replacingIndex,
                                             previousValue: previousValue)
         interactor.listener = listener

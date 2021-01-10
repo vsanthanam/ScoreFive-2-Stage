@@ -17,6 +17,7 @@ protocol NewGameViewControllable: ViewControllable {}
 /// @mockable
 protocol NewGamePresentableListener: AnyObject {
     func didTapNewGame(with playerNames: [String?], scoreLimit: Int)
+    func didTapClose()
 }
 
 final class NewGameViewController: ScopeViewController, NewGamePresentable, NewGameViewControllable, NewGameScoreLimitCellDelegate, NewGamePlayerNameCellDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UINavigationBarDelegate {
@@ -33,6 +34,7 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        startObservingKeyboardNotifications()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
@@ -170,6 +172,12 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         specializedView.backgroundColor = .backgroundSecondary
 
         let navigationItem = UINavigationItem(title: "New Game")
+        let config = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .bold)
+        let image = UIImage(systemName: "xmark", withConfiguration: config)
+
+        let closeItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
+        closeItem.tintColor = .contentPrimary
+        navigationItem.leftBarButtonItem = closeItem
         navigationItem.largeTitleDisplayMode = .always
         header.setItems([navigationItem], animated: false)
         header.delegate = self
@@ -241,6 +249,34 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         }
     }
 
+    private func startObservingKeyboardNotifications() {
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification, object: nil)
+            .sink { notif in
+                self.handleKeyboardNotification(notif)
+            }
+            .cancelOnDeinit(self)
+        NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+            .sink { notif in
+                self.handleKeyboardNotification(notif)
+            }
+            .cancelOnDeinit(self)
+    }
+
+    private func handleKeyboardNotification(_ notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            collectionView.contentInset = .init(top: 16.0, left: 0.0, bottom: 0.0, right: 0.0)
+        } else {
+            collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+        }
+
+        collectionView.scrollIndicatorInsets = collectionView.contentInset
+    }
+
     private func trailingSwipeActionsConfigurationProvider(_ indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard indexPath.section == 1, enteredPlayerNames.count > 2 else {
             return nil
@@ -286,6 +322,10 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
     private func didTapNewGame() {
         let scoreLimit = Int(enteredScoreLimit ?? "250") ?? 250
         listener?.didTapNewGame(with: enteredPlayerNames, scoreLimit: scoreLimit)
+    }
+
+    @objc private func close() {
+        listener?.didTapClose()
     }
 }
 

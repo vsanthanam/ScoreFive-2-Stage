@@ -2,15 +2,20 @@
     "swiftformat": {
         "enableRules": ["isEmpty"],
         "disableRules": ["blankLinesAtEndOfScope", "blankLinesAtStartOfScope", "redundantNilInit", "unusedArguments", "redundantParens"],
-        "excludeDirs": []
+        "excludeDirs": ["/Tooling"]
     },
     "mockolo": {
         "testableImports": ["ShortRibs", "ScoreFive"]
     },
-    "vendorCodePath": "/Vendor",
-    "diCodeInput": "/App/ScoreFive/Src/Features/",
-    "diGraphPath": "/App/ScoreFive/Src/Infra/DependencyGraph.swift",
-    "mockPath": "/App/ScoreFiveTests/Mocks.swift",
-    "featureCodePath": "/App/ScoreFive/Src",
-    "libraryCodePath": "/Libraries"
+    "swiftlint": {
+        "excludeDirs": ["/Tooling"],
+        "disabledRules": ["line_length", "nesting", "function_body_length", "identifier_name", "redundant_optional_initialization"],
+        "optInRules": []
+    },
+    "vendorCodePath": "Vendor",
+    "diCodePath": "App/ScoreFive/Src/Features/",
+    "diGraphPath": "App/ScoreFive/Src/Infra/DependencyGraph.swift",
+    "mockPath": "App/ScoreFiveTests/Mocks.swift",
+    "featureCodePath": "App/ScoreFive/Src",
+    "libraryCodePath": "Libraries"
 }
