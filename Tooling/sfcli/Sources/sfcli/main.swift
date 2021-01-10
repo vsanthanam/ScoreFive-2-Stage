@@ -5,77 +5,91 @@ import ShellOut
 struct sfcli: ParsableCommand {
     static let configuration = CommandConfiguration(
         abstract: "A command line utility for the ScoreFive iOS repo",
-        subcommands: [Format.self]
+        subcommands: [Format.self, Gen.self]
     )
 
     init() {}
 }
 
+struct Gen: ParsableCommand {
+
+    static let configuration = CommandConfiguration(
+        abstract: "Generate code",
+        subcommands: [Mocks.self, Deps.self]
+    )
+
+    init() {}
+
+}
+
 struct Format: ParsableCommand {
 
-    public static let configuration = CommandConfiguration(abstract: "Run swiftformat on the appropriate files")
+    // MARK: - ParsableCommand
 
-    @Flag(name: .long, help: "Display verbose logging")
-    private var verbose: Bool = false
-
-    enum FormatError: Error {
-        case config
-        case prepare
-        case process(_ description: String)
-        case cleanup
-
-        var localizedDescription: String {
-            switch self {
-            case .config:
-                return "Missing swiftformat file!"
-            case .prepare:
-                return "Couldn't generate .swiftformat file!"
-            case let .process(description):
-                return "Formatting failed: \(description)"
-            case .cleanup:
-                return "Cleanup failed!"
-            }
-        }
-    }
+    static let configuration = CommandConfiguration(abstract: "Run swiftformat")
 
     func run() throws {
-        print("Preparing...")
         do {
-            try shellOut(to: .copyFile(from: "scorefive-swiftformat", to: ".swiftformat"))
-            print("Configuration located")
+            try swiftFormat(verbose: verbose, root: root)
+            print("Process Complete! 🍻")
         } catch {
-            print("Formatting failed!")
-            throw FormatError.prepare
-        }
-
-        if verbose {
-            do {
-                let file = try shellOut(to: .readFile(at: ".swiftformat"))
-                print("Configuration Contents:")
-                print(file)
-            } catch {
-                print("Configuration Unreadable")
-            }
-        }
-
-        do {
-            print("Formatting files...")
-            try shellOut(to: "swiftformat .")
-        } catch {
-            print("Formatting failed!")
-            let error = error as! ShellOutError
-            throw FormatError.process(error.message)
-        }
-
-        do {
-            print("Cleaning up...")
-            try shellOut(to: .removeFile(from: ".swiftformat"))
-            print("Formatting complete! 🍻")
-        } catch {
-            print("Cleanup failed!")
-            throw FormatError.cleanup
+            print("An error occured: \(error.localizedDescription)")
+            throw error
         }
     }
+
+    // MARK: - API
+
+    @Flag(name: .shortAndLong, help: "Display verbose logging")
+    var verbose: Bool = false
+    
+    @Option(name: .shortAndLong, help: "Location of the score five repo")
+    var root: String = FileManager.default.currentDirectoryPath
+
+}
+
+struct Mocks: ParsableCommand {
+
+    // MARK: - ParsableCommand
+
+    static let configuration = CommandConfiguration(abstract: "Generate Mocks with Mockolo")
+
+    func run() throws {
+        do {
+            try runMockolo(root: root)
+            print("Process Complete! 🍻")
+        } catch {
+            print("An error occured: \(error.localizedDescription)")
+            throw error
+        }
+    }
+    
+    @Option(name: .shortAndLong, help: "Location of the score five repo")
+    var root: String = FileManager.default.currentDirectoryPath
+
+}
+
+struct Deps: ParsableCommand {
+
+    // MARK: - ParsableCommand
+
+    static let configuration = CommandConfiguration(abstract: "Generate DI Graph with Needle")
+
+    func run() throws {
+        do {
+            try runNeedle(root: root)
+            print("Process Complete! 🍻")
+        } catch {
+            if let error = error as? DepsError {
+                print("An error occured: \(error.shellOutError.message)")
+            }
+            throw error
+        }
+    }
+    
+    @Option(name: .shortAndLong, help: "Location of the score five repo")
+    var root: String = FileManager.default.currentDirectoryPath
+
 }
 
 sfcli.main()

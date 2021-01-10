@@ -588,7 +588,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SOURCEKIT_LOGGING=0 && needle generate ScoreFive/Src/Infra/DependencyGraph.swift ScoreFive/src/Features/\n";
+			shellScript = "../sfcli gen deps -r ../\n";
 		};
 		072F81A1259A5CEA005EE56B /* Generate Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -606,7 +606,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mockolo -s ScoreFive/Src ../Libraries -d ScoreFiveTests/Mocks.swift -i ShortRibs ScoreFive\n";
+			shellScript = "../sfcli gen mocks -r ../\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

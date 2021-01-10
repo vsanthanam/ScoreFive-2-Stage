@@ -3,7 +3,9 @@
 
 ### ScoreFive ###
 App/ScoreFive/Src/Infra/DependencyGraph.swift
+App/ScoreFiveTests/Mocks.swift
 .swiftformat
+sfcli
 
 
 ### Objective-C ###
