@@ -1,5 +1,0 @@
---disable blankLinesAtEndOfScope,blankLinesAtStartOfScope,redundantNilInit,unusedArguments,redundantParens
---enable isEmpty
---exclude Vendor
---exclude App/ScoreFive/Src/Infra/DependencyGraph.swift
---exclude App/ScoreFiveTests/Mocks.swift

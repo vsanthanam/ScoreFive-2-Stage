@@ -1,0 +1,16 @@
+{
+    "swiftformat": {
+        "enableRules": ["isEmpty"],
+        "disableRules": ["blankLinesAtEndOfScope", "blankLinesAtStartOfScope", "redundantNilInit", "unusedArguments", "redundantParens"],
+        "excludeDirs": []
+    },
+    "mockolo": {
+        "testableImports": ["ShortRibs", "ScoreFive"]
+    },
+    "vendorCodePath": "/Vendor",
+    "diCodeInput": "/App/ScoreFive/Src/Features/",
+    "diGraphPath": "/App/ScoreFive/Src/Infra/DependencyGraph.swift",
+    "mockPath": "/App/ScoreFiveTests/Mocks.swift",
+    "featureCodePath": "/App/ScoreFive/Src",
+    "libraryCodePath": "/Libraries"
+}

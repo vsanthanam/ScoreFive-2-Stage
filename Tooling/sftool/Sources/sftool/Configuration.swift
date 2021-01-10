@@ -1,0 +1,103 @@
+//
+//  File.swift
+//  
+//
+//  Created by Varun Santhanam on 1/10/21.
+//
+
+import Foundation
+import ShellOut
+
+/// Errors from parsing the configuration file
+enum ConfigurationError: Error {
+    /// `.sftool-config.json` was not found at the provided root directory
+    case notFound(error: ShellOutError)
+    
+    /// `.sftool-config.json` could not be parsed into a `Configuration object`
+    /// - seeAlso: `Configuration`
+    case decodingFailed(error: Error)
+    
+    /// The error message
+    var message: String {
+        switch self {
+        case .decodingFailed(let error):
+            return "Malformed configuration file -- \(error.localizedDescription)"
+        case .notFound(let error):
+            return "Configuration file not found -- \(error.localizedDescription)"
+        }
+    }
+}
+
+/// Fetch the configuration file in the provided root directory`
+/// - Parameter root: The root directory of the ScoreFive repo to search for teh config file for
+/// - Throws: The error when finding or parsing the repo
+/// - Returns: The configuration file
+func fetchConfiguration(on root: String) throws -> Configuration {
+    
+    func readFile() throws -> String {
+        do {
+            return try shellOut(to: .readFile(at: root + "/sftool-config.json"))
+        } catch {
+            throw ConfigurationError.notFound(error: error as! ShellOutError)
+        }
+    }
+    
+    let file = try readFile()
+    
+    do {
+        let jsonData = file.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        let config = try decoder.decode(Configuration.self, from: jsonData)
+        return config
+    } catch {
+        throw ConfigurationError.decodingFailed(error: error)
+    }
+}
+
+/// The configuration object model
+struct Configuration: Codable {
+    
+    /// SwiftFormat configuration
+    let swiftformat: SwiftFormatConfiguration
+    
+    /// Mockolo configuration
+    let mockolo: MockoloConfiguration
+    
+    /// Mock source path
+    let mockPath: String
+    
+    /// DI graph source path
+    let diGraphPath: String
+    
+    /// Path to source that consume the DI graoh
+    let diCodePath: String
+    
+    /// Vendor code path
+    let vendorCodePath: String
+    
+    /// Feature code path
+    let featureCodePath: String
+    
+    /// Library code path
+    let libraryCodePath: String
+}
+
+/// SwiftFormat configuration
+struct SwiftFormatConfiguration: Codable {
+    
+    /// Rules to enable
+    let enableRules: [String]
+    
+    /// Rules to disable
+    let disableRules: [String]
+    
+    /// Directories to exclude
+    let excludeDirs: [String]
+}
+
+/// Mockolo Configuration
+struct MockoloConfiguration: Codable {
+    
+    /// @testable modules to import
+    let testableImports: [String]
+}

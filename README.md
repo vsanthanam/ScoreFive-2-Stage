@@ -32,7 +32,8 @@ $ brew install swiftformat
 
 ```
 $ cd path/to/repo
-$ sh build_sftool.sh
+$ swift build --package-path Tooling/sftool --configuration release
+$ cp Tooling/sftool/.build/release/sftool sftool
 ```
 
 4. Generate the dependency graph:
@@ -50,3 +51,14 @@ $ ./sftool gen mocks
 ```
 
 After these steps have been taken, you can open `ScoreFive.xcworkspace` and run the app.
+
+
+## Running SwiftFormat
+
+You can run switformat on the repo with the correct rules and files using `sftool`:
+
+```
+$ cd path/to/repo
+$ ./sftool format
+```
+
