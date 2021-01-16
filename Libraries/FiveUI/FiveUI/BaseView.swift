@@ -8,8 +8,10 @@
 import Foundation
 import UIKit
 
+/// A generic view subclass
 open class BaseView: UIView {
 
+    /// Create a `BaseView`
     public init() {
         super.init(frame: .zero)
     }

@@ -9,6 +9,7 @@
 import CoreData
 import Foundation
 import ScoreKeeping
+import ShortRibs
 
 /// @CreateMock
 protocol GameRecord: AnyObject {

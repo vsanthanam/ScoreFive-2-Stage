@@ -353,6 +353,61 @@ class NewRoundPresentableMock: NewRoundPresentable {
     var listener: NewRoundPresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
 }
 
+public class PersistentContainingMock: PersistentContaining {
+    public init() { }
+    public init(name: String = "", managedObejctModel: NSManagedObjectModel, persistentStoreCoordinator: NSPersistentStoreCoordinator, viewContext: NSManagedObjectContext) {
+        self.name = name
+        self._managedObejctModel = managedObejctModel
+        self._persistentStoreCoordinator = persistentStoreCoordinator
+        self._viewContext = viewContext
+    }
+
+
+    public private(set) var nameSetCallCount = 0
+    public var name: String = "" { didSet { nameSetCallCount += 1 } }
+
+    public private(set) var managedObejctModelSetCallCount = 0
+    private var _managedObejctModel: NSManagedObjectModel!  { didSet { managedObejctModelSetCallCount += 1 } }
+    public var managedObejctModel: NSManagedObjectModel {
+        get { return _managedObejctModel }
+        set { _managedObejctModel = newValue }
+    }
+
+    public private(set) var persistentStoreCoordinatorSetCallCount = 0
+    private var _persistentStoreCoordinator: NSPersistentStoreCoordinator!  { didSet { persistentStoreCoordinatorSetCallCount += 1 } }
+    public var persistentStoreCoordinator: NSPersistentStoreCoordinator {
+        get { return _persistentStoreCoordinator }
+        set { _persistentStoreCoordinator = newValue }
+    }
+
+    public private(set) var viewContextSetCallCount = 0
+    private var _viewContext: NSManagedObjectContext!  { didSet { viewContextSetCallCount += 1 } }
+    public var viewContext: NSManagedObjectContext {
+        get { return _viewContext }
+        set { _viewContext = newValue }
+    }
+
+    public private(set) var createBackgroundContextCallCount = 0
+    public var createBackgroundContextHandler: (() -> (NSManagedObjectContext))?
+    public func createBackgroundContext() -> NSManagedObjectContext {
+        createBackgroundContextCallCount += 1
+        if let createBackgroundContextHandler = createBackgroundContextHandler {
+            return createBackgroundContextHandler()
+        }
+        fatalError("createBackgroundContextHandler returns can't have a default value thus its handler must be set")
+    }
+
+    public private(set) var saveContextCallCount = 0
+    public var saveContextHandler: (() throws -> ())?
+    public func saveContext() throws  {
+        saveContextCallCount += 1
+        if let saveContextHandler = saveContextHandler {
+            try saveContextHandler()
+        }
+        
+    }
+}
+
 class MainViewControllableMock: MainViewControllable {
     init() { }
     init(uiviewController: UIViewController = UIViewController()) {
@@ -408,75 +463,6 @@ class NewRoundViewControllableMock: NewRoundViewControllable {
 
     public private(set) var uiviewControllerSetCallCount = 0
     public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
-}
-
-public class PersistentContainingMock: PersistentContaining {
-    public init() { }
-    public init(name: String = "", managedObejctModel: NSManagedObjectModel, persistentStoreCoordinator: NSPersistentStoreCoordinator, viewContext: NSManagedObjectContext, persistentStoreDescriptions: [NSPersistentStoreDescription] = [NSPersistentStoreDescription]()) {
-        self.name = name
-        self._managedObejctModel = managedObejctModel
-        self._persistentStoreCoordinator = persistentStoreCoordinator
-        self._viewContext = viewContext
-        self.persistentStoreDescriptions = persistentStoreDescriptions
-    }
-
-
-    public private(set) var nameSetCallCount = 0
-    public var name: String = "" { didSet { nameSetCallCount += 1 } }
-
-    public private(set) var managedObejctModelSetCallCount = 0
-    private var _managedObejctModel: NSManagedObjectModel!  { didSet { managedObejctModelSetCallCount += 1 } }
-    public var managedObejctModel: NSManagedObjectModel {
-        get { return _managedObejctModel }
-        set { _managedObejctModel = newValue }
-    }
-
-    public private(set) var persistentStoreCoordinatorSetCallCount = 0
-    private var _persistentStoreCoordinator: NSPersistentStoreCoordinator!  { didSet { persistentStoreCoordinatorSetCallCount += 1 } }
-    public var persistentStoreCoordinator: NSPersistentStoreCoordinator {
-        get { return _persistentStoreCoordinator }
-        set { _persistentStoreCoordinator = newValue }
-    }
-
-    public private(set) var viewContextSetCallCount = 0
-    private var _viewContext: NSManagedObjectContext!  { didSet { viewContextSetCallCount += 1 } }
-    public var viewContext: NSManagedObjectContext {
-        get { return _viewContext }
-        set { _viewContext = newValue }
-    }
-
-    public private(set) var persistentStoreDescriptionsSetCallCount = 0
-    public var persistentStoreDescriptions: [NSPersistentStoreDescription] = [NSPersistentStoreDescription]() { didSet { persistentStoreDescriptionsSetCallCount += 1 } }
-
-    public private(set) var createBackgroundContextCallCount = 0
-    public var createBackgroundContextHandler: (() -> (NSManagedObjectContext))?
-    public func createBackgroundContext() -> NSManagedObjectContext {
-        createBackgroundContextCallCount += 1
-        if let createBackgroundContextHandler = createBackgroundContextHandler {
-            return createBackgroundContextHandler()
-        }
-        fatalError("createBackgroundContextHandler returns can't have a default value thus its handler must be set")
-    }
-
-    public private(set) var saveCallCount = 0
-    public var saveHandler: (() throws -> ())?
-    public func save() throws  {
-        saveCallCount += 1
-        if let saveHandler = saveHandler {
-            try saveHandler()
-        }
-        
-    }
-
-    public private(set) var performBackgroundTaskCallCount = 0
-    public var performBackgroundTaskHandler: ((@escaping (NSManagedObjectContext) -> Void) -> ())?
-    public func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void)  {
-        performBackgroundTaskCallCount += 1
-        if let performBackgroundTaskHandler = performBackgroundTaskHandler {
-            performBackgroundTaskHandler(block)
-        }
-        
-    }
 }
 
 class ScoreCardPresentableMock: ScoreCardPresentable {

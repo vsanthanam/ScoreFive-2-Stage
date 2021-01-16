@@ -24,6 +24,7 @@
 		070683EA259D072C004B7A78 /* ScoreCardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683E6259D072C004B7A78 /* ScoreCardInteractor.swift */; };
 		070683FF259D22F8004B7A78 /* NewGameAddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683FE259D22F8004B7A78 /* NewGameAddPlayerCell.swift */; };
 		07068403259D27A4004B7A78 /* NewGameScoreLimitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068402259D27A4004B7A78 /* NewGameScoreLimitCell.swift */; };
+		072AFC0925AEC68300BBFF25 /* GameStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072AFC0825AEC68300BBFF25 /* GameStorageTests.swift */; };
 		072F8162259A4D48005EE56B /* NeedleFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; };
 		072F8163259A4D48005EE56B /* NeedleFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		072F8168259A4D4D005EE56B /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8167259A4D4D005EE56B /* SnapKit.framework */; };
@@ -43,7 +44,7 @@
 		072F81BC259A5FC3005EE56B /* FiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81B9259A5FC3005EE56B /* FiveViewController.swift */; };
 		072F81BD259A5FC3005EE56B /* FiveBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81BA259A5FC3005EE56B /* FiveBuilder.swift */; };
 		072F81BE259A5FC3005EE56B /* FiveInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81BB259A5FC3005EE56B /* FiveInteractor.swift */; };
-		072F81C3259A6220005EE56B /* GameStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81C2259A6220005EE56B /* GameStorageManager.swift */; };
+		072F81C3259A6220005EE56B /* GameStorageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81C2259A6220005EE56B /* GameStorageWorker.swift */; };
 		072F81C7259A62BD005EE56B /* ScoreFive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 072F81C5259A62BD005EE56B /* ScoreFive.xcdatamodeld */; };
 		072F81CC259A63E3005EE56B /* MainInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81CB259A63E3005EE56B /* MainInteractorTests.swift */; };
 		072F81D0259A6451005EE56B /* MainViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F81CF259A6451005EE56B /* MainViewControllerTests.swift */; };
@@ -117,6 +118,7 @@
 		070683E6259D072C004B7A78 /* ScoreCardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCardInteractor.swift; sourceTree = "<group>"; };
 		070683FE259D22F8004B7A78 /* NewGameAddPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameAddPlayerCell.swift; sourceTree = "<group>"; };
 		07068402259D27A4004B7A78 /* NewGameScoreLimitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameScoreLimitCell.swift; sourceTree = "<group>"; };
+		072AFC0825AEC68300BBFF25 /* GameStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStorageTests.swift; sourceTree = "<group>"; };
 		072F8161259A4D48005EE56B /* NeedleFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NeedleFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072F8167259A4D4D005EE56B /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072F816C259A4D57005EE56B /* ShortRibs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ShortRibs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,7 +135,7 @@
 		072F81B9259A5FC3005EE56B /* FiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveViewController.swift; sourceTree = "<group>"; };
 		072F81BA259A5FC3005EE56B /* FiveBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveBuilder.swift; sourceTree = "<group>"; };
 		072F81BB259A5FC3005EE56B /* FiveInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveInteractor.swift; sourceTree = "<group>"; };
-		072F81C2259A6220005EE56B /* GameStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStorageManager.swift; sourceTree = "<group>"; };
+		072F81C2259A6220005EE56B /* GameStorageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStorageWorker.swift; sourceTree = "<group>"; };
 		072F81C6259A62BD005EE56B /* ScoreFive.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScoreFive.xcdatamodel; sourceTree = "<group>"; };
 		072F81CB259A63E3005EE56B /* MainInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractorTests.swift; sourceTree = "<group>"; };
 		072F81CF259A6451005EE56B /* MainViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerTests.swift; sourceTree = "<group>"; };
@@ -371,7 +373,7 @@
 		072F81C1259A6217005EE56B /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				072F81C2259A6220005EE56B /* GameStorageManager.swift */,
+				072F81C2259A6220005EE56B /* GameStorageWorker.swift */,
 				072F825A259C0565005EE56B /* ActiveGameStream.swift */,
 			);
 			path = Helpers;
@@ -418,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				07A45E6125A6E408000929D1 /* ActiveGameStreamTests.swift */,
+				072AFC0825AEC68300BBFF25 /* GameStorageTests.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -637,7 +640,7 @@
 				072F817F259A4E99005EE56B /* RootViewController.swift in Sources */,
 				072F8194259A523F005EE56B /* MainInteractor.swift in Sources */,
 				072F8235259AC06E005EE56B /* GameRecord.swift in Sources */,
-				072F81C3259A6220005EE56B /* GameStorageManager.swift in Sources */,
+				072F81C3259A6220005EE56B /* GameStorageWorker.swift in Sources */,
 				07068388259C1251004B7A78 /* GameInteractor.swift in Sources */,
 				072F81BE259A5FC3005EE56B /* FiveInteractor.swift in Sources */,
 				072F8264259C0908005EE56B /* HomeBuilder.swift in Sources */,
@@ -667,6 +670,7 @@
 				072F81D4259A658F005EE56B /* FiveInteractorTests.swift in Sources */,
 				072F81B2259A5D9E005EE56B /* RootInteractorTests.swift in Sources */,
 				072F81D8259A65E1005EE56B /* FiveViewControllerTests.swift in Sources */,
+				072AFC0925AEC68300BBFF25 /* GameStorageTests.swift in Sources */,
 				07A45E6225A6E408000929D1 /* ActiveGameStreamTests.swift in Sources */,
 				072F81A9259A5D76005EE56B /* Mocks.swift in Sources */,
 				07A45E6625A6E500000929D1 /* TestCase.swift in Sources */,

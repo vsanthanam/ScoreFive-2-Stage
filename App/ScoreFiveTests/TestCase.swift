@@ -17,6 +17,14 @@ class TestCase: XCTestCase {
         cancellables.forEach { cancellable in cancellable.cancel() }
         super.tearDown()
     }
+
+    func test_doSomething() {
+        XCTAssertTrue(doSomething())
+    }
+
+    private func doSomething() -> Bool {
+        true
+    }
 }
 
 extension Cancellable {

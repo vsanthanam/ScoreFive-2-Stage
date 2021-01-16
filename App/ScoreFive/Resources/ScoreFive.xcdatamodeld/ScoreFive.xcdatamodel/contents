@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="GameRecordMO" representedClassName="GameRecordMO" syncable="YES" codeGenerationType="class">
-        <attribute name="activePlayerIds" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[UUID]"/>
+        <attribute name="activePlayerIds" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[UUID]"/>
         <attribute name="inProgress" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="orderedPlayerIds" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[UUID]"/>
         <attribute name="playerNamesMap" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="[UUID:String]"/>
@@ -15,7 +15,7 @@
         <attribute name="savedPlayerName" attributeType="String" defaultValueString="Player"/>
     </entity>
     <elements>
-        <element name="GameRecordMO" positionX="-403.6437377929688" positionY="686.5408630371094" width="128" height="163"/>
+        <element name="GameRecordMO" positionX="-403.6437377929688" positionY="686.5408630371094" width="128" height="149"/>
         <element name="SavedPlayerMO" positionX="-387" positionY="765" width="128" height="59"/>
     </elements>
 </model>

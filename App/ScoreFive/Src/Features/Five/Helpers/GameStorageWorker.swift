@@ -94,7 +94,7 @@ final class GameStorageWorker: Worker, GameStorageWorking {
     }
 
     func saveAllGames() throws {
-        try persistentContainer.viewContext.save()
+        try persistentContainer.saveContext()
         let games = try fetchGameRecords()
         saveSubject.send(games)
     }

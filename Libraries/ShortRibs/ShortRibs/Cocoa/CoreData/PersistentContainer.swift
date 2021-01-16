@@ -16,71 +16,44 @@
         var managedObejctModel: NSManagedObjectModel { get }
         var persistentStoreCoordinator: NSPersistentStoreCoordinator { get }
         var viewContext: NSManagedObjectContext { get }
-        var persistentStoreDescriptions: [NSPersistentStoreDescription] { get }
         func createBackgroundContext() -> NSManagedObjectContext
-        func save() throws
-        func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void)
+        func saveContext() throws
     }
 
-    open class PersistentContainer: PersistentContaining {
-
+    public class PersistentContainer: PersistentContaining {
         // MARK: - Initializers
-
-        public convenience init(name: String) {
-            self.init(.init(name: name))
-        }
-
-        public convenience init(name: String,
-                                managedObjectModel model: NSManagedObjectModel) {
-            self.init(.init(name: name,
-                            managedObjectModel: model))
-        }
 
         public init(_ container: NSPersistentContainer) {
             self.container = container
         }
 
-        // MARK: - API
-
-        open func loadPersistentStores(completionHandler block: @escaping (NSPersistentStoreDescription, Error?) -> Void) {
-            container.loadPersistentStores(completionHandler: block)
-        }
-
         // MARK: - PersistentContaining
 
-        open var name: String {
+        public var name: String {
             container.name
         }
 
-        open var managedObejctModel: NSManagedObjectModel {
+        public var managedObejctModel: NSManagedObjectModel {
             container.managedObjectModel
         }
 
-        open var persistentStoreCoordinator: NSPersistentStoreCoordinator {
+        public var persistentStoreCoordinator: NSPersistentStoreCoordinator {
             container.persistentStoreCoordinator
         }
 
-        open var viewContext: NSManagedObjectContext {
-            container.viewContext
-        }
-
-        open var persistentStoreDescriptions: [NSPersistentStoreDescription] {
-            container.persistentStoreDescriptions
-        }
-
-        open func createBackgroundContext() -> NSManagedObjectContext {
+        public func createBackgroundContext() -> NSManagedObjectContext {
             container.newBackgroundContext()
         }
 
-        open func save() throws {
+        public var viewContext: NSManagedObjectContext {
+            container.viewContext
+        }
+
+        public func saveContext() throws {
             let context = container.viewContext
             if context.hasChanges {
                 try context.save()
             }
-        }
-
-        open func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
-            container.performBackgroundTask(block)
         }
 
         // MARK: - Private
