@@ -20,6 +20,7 @@
 		0725EE56259981DC00F3C4B5 /* ScopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0725EE54259981DC00F3C4B5 /* ScopeView.swift */; };
 		0725EE57259981DC00F3C4B5 /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0725EE55259981DC00F3C4B5 /* ScopeViewController.swift */; };
 		0725EE5B259981EB00F3C4B5 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0725EE5A259981EB00F3C4B5 /* Builder.swift */; };
+		072AFC1025B38E0000BBFF25 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072AFC0F25B38E0000BBFF25 /* RootBuilder.swift */; };
 		072F80A5259A4A3E005EE56B /* AutoCancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F80A4259A4A3E005EE56B /* AutoCancel.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		0725EE54259981DC00F3C4B5 /* ScopeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeView.swift; sourceTree = "<group>"; };
 		0725EE55259981DC00F3C4B5 /* ScopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeViewController.swift; sourceTree = "<group>"; };
 		0725EE5A259981EB00F3C4B5 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
+		072AFC0F25B38E0000BBFF25 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		072F80A4259A4A3E005EE56B /* AutoCancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCancel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,6 +172,7 @@
 			children = (
 				0725EE42259981B800F3C4B5 /* ComponentizedBuilder.swift */,
 				0725EE41259981B800F3C4B5 /* MultiStageBuilder.swift */,
+				072AFC0F25B38E0000BBFF25 /* RootBuilder.swift */,
 			);
 			path = Needle;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				0725EE47259981B800F3C4B5 /* ComponentizedBuilder.swift in Sources */,
 				0725EE56259981DC00F3C4B5 /* ScopeView.swift in Sources */,
 				0725EE5B259981EB00F3C4B5 /* Builder.swift in Sources */,
+				072AFC1025B38E0000BBFF25 /* RootBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -102,11 +102,13 @@ open class Worker: Working {
 
     // MARK: - Private
 
+    @AutoCancel
     private var binding: Cancellable?
+
     private var storage: Set<AnyCancellable>?
 
     private func bind(to scope: WorkerScope) {
-        unbind()
+        binding = nil
 
         binding = scope.isActiveStream
             .sink { [weak self] isActive in
@@ -118,11 +120,6 @@ open class Worker: Working {
                     self?.internalStop()
                 }
             }
-    }
-
-    private func unbind() {
-        binding?.cancel()
-        binding = nil
     }
 
     private func internalStart(on workable: WorkerScope) {
@@ -141,7 +138,6 @@ open class Worker: Working {
 
     deinit {
         stop()
-        unbind()
     }
 
     private final class AnyWeakScope: WorkerScope {

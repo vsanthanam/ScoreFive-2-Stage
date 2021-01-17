@@ -14,7 +14,7 @@ typealias RootDynamicComponentDependency = (
     PersistentContaining
 )
 
-final class RootComponent: BootstrapComponent {
+final class RootComponent: BootstrapComponent, RootDependencyProviding {
 
     // MARK: - Initializers
 
@@ -51,24 +51,12 @@ protocol RootBuildable: AnyObject {
     func build(onWindow window: UIWindow, persistentContainer: PersistentContaining) -> PresentableInteractable
 }
 
-final class RootBuilder: ComponentizedBuilder<RootComponent, PresentableInteractable, RootDynamicBuildDependency, RootDynamicComponentDependency>, RootBuildable {
-
-    // MARK: - Initializers
-
-    init() {
-        super.init { dynamicDepenency in
-            .init(dynamicDependency: dynamicDepenency)
-        }
-    }
-
-    @available(*, unavailable)
-    required init(componentBuilder: @escaping RootBuilder.ComponentBuilder) {
-        fatalError("RootComponent provides its own component & parent")
-    }
+final class RootBuilder: ComponentizedRootBuilder<RootComponent, PresentableInteractable, RootDynamicBuildDependency, RootDynamicComponentDependency>, RootBuildable {
 
     // MARK: - ComponentizedBuilder
 
-    override final func build(with component: RootComponent, _ dynamicBuildDependency: RootDynamicBuildDependency) -> PresentableInteractable {
+    override final func build(with component: RootComponent,
+                              _ dynamicBuildDependency: RootDynamicBuildDependency) -> PresentableInteractable {
         let window = dynamicBuildDependency
         let viewController = RootViewController()
         let interactor = RootInteractor(presenter: viewController,
@@ -79,7 +67,8 @@ final class RootBuilder: ComponentizedBuilder<RootComponent, PresentableInteract
 
     // MARK: - RootBuildable
 
-    func build(onWindow window: UIWindow, persistentContainer: PersistentContaining) -> PresentableInteractable {
+    func build(onWindow window: UIWindow,
+               persistentContainer: PersistentContaining) -> PresentableInteractable {
         build(withDynamicBuildDependency: window,
               dynamicComponentDependency: persistentContainer)
     }

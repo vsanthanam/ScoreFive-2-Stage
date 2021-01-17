@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -482,7 +482,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07E6F031259980E500AEF80A /* Build configuration list for PBXNativeTarget "ScoreFive" */;
 			buildPhases = (
-				072F8186259A5175005EE56B /* Generate Dependency Graph */,
 				07E6F003259980E300AEF80A /* Sources */,
 				07E6F004259980E300AEF80A /* Frameworks */,
 				07E6F005259980E300AEF80A /* Resources */,
@@ -501,7 +500,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07E6F034259980E500AEF80A /* Build configuration list for PBXNativeTarget "ScoreFiveTests" */;
 			buildPhases = (
-				072F81A1259A5CEA005EE56B /* Generate Mocks */,
 				07E6F019259980E500AEF80A /* Sources */,
 				07E6F01A259980E500AEF80A /* Frameworks */,
 				07E6F01B259980E500AEF80A /* Resources */,
@@ -572,46 +570,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		072F8186259A5175005EE56B /* Generate Dependency Graph */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Dependency Graph";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "../sftool gen deps -r ../\n";
-		};
-		072F81A1259A5CEA005EE56B /* Generate Mocks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Generate Mocks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "../sftool gen mocks -r ../\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		07E6F003259980E300AEF80A /* Sources */ = {

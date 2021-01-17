@@ -45,6 +45,12 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         openNewGameIfEmpty()
     }
 
+    // MARK: - FiveStateInteractable
+    
+    var fiveStateViewController: FiveStateViewControllable {
+        presenter
+    }
+    
     // MARK: - NewGameListener
 
     func newGameDidCreateNewGame(with identifier: UUID) {

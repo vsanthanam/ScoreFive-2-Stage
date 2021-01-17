@@ -1,15 +1,24 @@
 {
     "swiftformat": {
         "enableRules": ["isEmpty"],
-        "disableRules": ["blankLinesAtEndOfScope", "blankLinesAtStartOfScope", "redundantNilInit", "unusedArguments", "redundantParens"],
+        "disableRules": ["blankLinesAtEndOfScope",
+                         "blankLinesAtStartOfScope",
+                         "redundantNilInit",
+                         "unusedArguments",
+                         "redundantParens"],
         "excludeDirs": ["/Tooling"]
     },
     "mockolo": {
-        "testableImports": ["ShortRibs", "ScoreFive"]
+        "testableImports": ["ShortRibs",
+                            "ScoreFive"]
     },
     "swiftlint": {
         "excludeDirs": ["/Tooling"],
-        "disabledRules": ["line_length", "nesting", "function_body_length", "identifier_name", "redundant_optional_initialization"],
+        "disabledRules": ["line_length",
+                          "nesting",
+                          "function_body_length",
+                          "identifier_name",
+                          "redundant_optional_initialization"],
         "optInRules": []
     },
     "vendorCodePath": "Vendor",

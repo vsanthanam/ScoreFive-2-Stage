@@ -25,7 +25,7 @@ protocol GameListener: AnyObject {
 }
 
 final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteractable, GamePresentableListener {
-
+    
     // MARK: - Initializers
 
     init(presenter: GamePresentable,
@@ -52,6 +52,12 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         attachScoreCard()
         startUpdatingHeaderTitles()
         startUpdatingTotalScores()
+    }
+    
+    // MARK: - FiveStateInteractable
+    
+    var fiveStateViewController: FiveStateViewControllable {
+        presenter
     }
 
     // MARK: - GamePresentableListener

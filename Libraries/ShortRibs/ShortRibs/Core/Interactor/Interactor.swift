@@ -24,9 +24,10 @@ public protocol Interactable: WorkerScope {
     func deactivate()
 }
 
-/// An `Interactor`  is node in the application's state tree.
+/// # Interactor
 ///
-/// An  `Interactor` is activated by its parent, and is responsible for activating its children.
+/// An `Interactor`  is node in the application's state tree.
+/// It is activated by its parent, and is responsible for activating its children.
 ///
 /// @mockable
 open class Interactor: Interactable {

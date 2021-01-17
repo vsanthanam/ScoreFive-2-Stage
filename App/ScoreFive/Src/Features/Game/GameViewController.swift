@@ -10,15 +10,16 @@ import ShortRibs
 import UIKit
 
 /// @mockable
-protocol GameViewControllable: ViewControllable {}
+protocol GameViewControllable: FiveStateViewControllable {}
 
 /// @mockable
 protocol GamePresentableListener: AnyObject {
     func wantNewRound()
+    func didClose()
 }
 
 final class GameViewController: ScopeViewController, GamePresentable, GameViewControllable, UINavigationBarDelegate {
-
+    
     // MARK: - UIViewController
 
     override func viewDidLoad() {
@@ -37,6 +38,16 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         }
     }
 
+    // MARK: - FiveStateViewControllable
+    
+    var largeTitles: Bool { false }
+    
+    var headerTitle: String { "ScoreCard" }
+    
+    var leadingActions: [UIBarButtonItem] {
+        [UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))]
+    }
+    
     // MARK: - GamePresentable
 
     weak var listener: GamePresentableListener?
@@ -89,7 +100,6 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
 
     // MARK: - Private
 
-    private let header = UINavigationBar()
     private let bottomSpacer = ScopeView()
     private let gameHeader = GameHeaderView()
     private let gameFooter = GameFooterView()
@@ -100,16 +110,7 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     private var scoreCardViewController: ScoreCardViewControllable?
 
     private func setUp() {
-        let navigationItem = UINavigationItem(title: "Score Card")
-        navigationItem.largeTitleDisplayMode = .never
-        header.setItems([navigationItem], animated: false)
-        header.delegate = self
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .backgroundPrimary
-        header.standardAppearance = appearance
-        specializedView.addSubview(header)
-
+        
         specializedView.addLayoutGuide(scoreCardLayoutGuide)
 
         addRoundButton.addTarget(self, action: #selector(didTapAddRound), for: .touchUpInside)
@@ -122,21 +123,22 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
 
         specializedView.addSubview(gameFooter)
 
-        header.snp.makeConstraints { make in
-            make
-                .top
-                .equalTo(specializedView.safeAreaLayoutGuide)
-            make
-                .leading
-                .trailing
-                .equalToSuperview()
-        }
+//        header.snp.makeConstraints { make in
+//            make
+//                .top
+//                .equalTo(specializedView.safeAreaLayoutGuide)
+//            make
+//                .leading
+//                .trailing
+//                .equalToSuperview()
+//        }
 
         gameHeader.snp.makeConstraints { make in
+//            make
+//                .top
+//                .equalTo(header.snp.bottom)
             make
                 .top
-                .equalTo(header.snp.bottom)
-            make
                 .leading
                 .trailing
                 .equalToSuperview()
@@ -191,5 +193,10 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     @objc
     private func didTapAddRound() {
         listener?.wantNewRound()
+    }
+    
+    @objc
+    private func didTapClose() {
+        listener?.didClose()
     }
 }

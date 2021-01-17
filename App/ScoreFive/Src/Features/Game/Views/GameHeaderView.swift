@@ -22,23 +22,32 @@ final class GameHeaderView: BaseView {
     // MARK: - API
 
     func apply(names: [String]) {
-        stack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        names.forEach { name in
-            let view = IndexView()
-            view.title = name
-            stack.addArrangedSubview(view)
-        }
+        stack.arrangedSubviews
+            .forEach { $0.removeFromSuperview() }
+        
+        names
+            .map(IndexView.init)
+            .forEach { stack.addArrangedSubview($0) }
     }
 
     // MARK: - Private
 
     private let stack: UIStackView
+    private let separator = BaseView()
+    private let ruleView = BaseView()
 
     private func setUp() {
         backgroundColor = .backgroundPrimary
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         addSubview(stack)
+       
+        separator.backgroundColor = .controlDisabled
+        addSubview(separator)
+
+        ruleView.backgroundColor = .controlDisabled
+        addSubview(ruleView)
+        
         stack.snp.makeConstraints { make in
             make
                 .top
@@ -50,13 +59,42 @@ final class GameHeaderView: BaseView {
                 .equalToSuperview()
                 .inset(54.0)
         }
+        
+        separator.snp.makeConstraints { make in
+            make
+                .bottom
+                .equalToSuperview()
+                .offset(-0.5)
+            make
+                .leading
+                .trailing
+                .equalToSuperview()
+            make
+                .height
+                .equalTo(1.0)
+        }
+        
+        ruleView.snp.makeConstraints { make in
+            make
+                .top
+                .bottom
+                .equalToSuperview()
+            make
+                .leading
+                .equalToSuperview()
+                .inset(53.5)
+            make
+                .width
+                .equalTo(1.0)
+        }
     }
 
     private class IndexView: BaseView {
 
-        override init() {
+        init(title: String? = nil) {
             super.init()
             setUp()
+            self.title = title
         }
 
         var title: String? {
