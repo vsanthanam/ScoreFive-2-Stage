@@ -12,7 +12,7 @@ import ShortRibs
 import UIKit
 
 /// @mockable
-protocol HomeViewControllable: FiveStateViewControllable {}
+protocol HomeViewControllable: ViewControllable {}
 
 /// @mockable
 protocol HomePresentableListener: AnyObject {}
@@ -25,12 +25,6 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
         super.viewDidLoad()
         view.backgroundColor = .backgroundPrimary
     }
-    
-    // MARK: - FiveStateViewControllable
-    
-    var largeTitles: Bool { true }
-    
-    var headerTitle: String { "ScoreFive" }
 
     // MARK: - HomePresentable
 

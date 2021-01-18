@@ -29,7 +29,7 @@ class GameComponent: Component<GameDependency> {
 }
 
 /// @mockable
-protocol GameInteractable: FiveStateInteractable, NewRoundListener, ScoreCardListener {}
+protocol GameInteractable: PresentableInteractable, NewRoundListener, ScoreCardListener {}
 
 typealias GameDynamicBuildDependency = (
     GameListener
@@ -37,14 +37,14 @@ typealias GameDynamicBuildDependency = (
 
 /// @mockable
 protocol GameBuildable: AnyObject {
-    func build(withListener listener: GameListener) -> FiveStateInteractable
+    func build(withListener listener: GameListener) -> PresentableInteractable
 }
 
-final class GameBuilder: ComponentizedBuilder<GameComponent, FiveStateInteractable, GameDynamicBuildDependency, Void>, GameBuildable {
+final class GameBuilder: ComponentizedBuilder<GameComponent, PresentableInteractable, GameDynamicBuildDependency, Void>, GameBuildable {
 
     // MARK: - ComponentizedBuilder
 
-    override final func build(with component: GameComponent, _ dynamicBuildDependency: GameDynamicBuildDependency) -> FiveStateInteractable {
+    override final func build(with component: GameComponent, _ dynamicBuildDependency: GameDynamicBuildDependency) -> PresentableInteractable {
         let listener = dynamicBuildDependency
         let viewController = GameViewController()
         let interactor = GameInteractor(presenter: viewController,
@@ -59,7 +59,7 @@ final class GameBuilder: ComponentizedBuilder<GameComponent, FiveStateInteractab
 
     // MARK: - GameBuildable
 
-    func build(withListener listener: GameListener) -> FiveStateInteractable {
+    func build(withListener listener: GameListener) -> PresentableInteractable {
         build(withDynamicBuildDependency: listener,
               dynamicComponentDependency: ())
     }

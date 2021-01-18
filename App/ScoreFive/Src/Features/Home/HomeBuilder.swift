@@ -24,7 +24,7 @@ class HomeComponent: Component<HomeDependency> {
 }
 
 /// @mockable
-protocol HomeInteractable: FiveStateInteractable, NewGameListener {}
+protocol HomeInteractable: PresentableInteractable, NewGameListener {}
 
 typealias HomeDynamicBuildDependency = (
     HomeListener
@@ -32,14 +32,14 @@ typealias HomeDynamicBuildDependency = (
 
 /// @mockable
 protocol HomeBuildable: AnyObject {
-    func build(withListener listener: HomeListener) -> FiveStateInteractable
+    func build(withListener listener: HomeListener) -> PresentableInteractable
 }
 
-final class HomeBuilder: ComponentizedBuilder<HomeComponent, FiveStateInteractable, HomeDynamicBuildDependency, Void>, HomeBuildable {
+final class HomeBuilder: ComponentizedBuilder<HomeComponent, PresentableInteractable, HomeDynamicBuildDependency, Void>, HomeBuildable {
 
     // MARK: - ComponentizedBuilder
 
-    override final func build(with component: HomeComponent, _ dynamicBuildDependency: HomeDynamicBuildDependency) -> FiveStateInteractable {
+    override final func build(with component: HomeComponent, _ dynamicBuildDependency: HomeDynamicBuildDependency) -> PresentableInteractable {
         let listener = dynamicBuildDependency
         let viewController = HomeViewController()
         let interactor = HomeInteractor(presenter: viewController,
@@ -51,7 +51,7 @@ final class HomeBuilder: ComponentizedBuilder<HomeComponent, FiveStateInteractab
 
     // MARK: - HomeBuildable
 
-    func build(withListener listener: HomeListener) -> FiveStateInteractable {
+    func build(withListener listener: HomeListener) -> PresentableInteractable {
         build(withDynamicBuildDependency: listener,
               dynamicComponentDependency: ())
     }

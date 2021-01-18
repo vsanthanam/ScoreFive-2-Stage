@@ -15,97 +15,59 @@ protocol FiveViewControllable: ViewControllable {}
 /// @mockable
 protocol FivePresentableListener: AnyObject {}
 
-final class FiveViewController: ScopeViewController, FivePresentable, FiveViewControllable, UINavigationBarDelegate {
-
+final class FiveViewController: ScopeViewController, FivePresentable, FiveViewControllable {
+    
     // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
     }
-
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        activeChild?.uiviewController.preferredStatusBarStyle ?? .default
-    }
-
+    
     // MARK: - FivePresentable
 
     weak var listener: FivePresentableListener?
 
-    func showHome(_ viewController: FiveStateViewControllable) {
+    func showHome(_ viewController: ViewControllable) {
         removeActiveChild()
         embedActiveChild(viewController)
     }
 
-    func showGame(_ viewController: FiveStateViewControllable) {
+    func showGame(_ viewController: ViewControllable) {
         removeActiveChild()
         embedActiveChild(viewController)
-    }
-    
-    // MARK: - UINavigationBarDelegate
-    
-    func position(for bar: UIBarPositioning) -> UIBarPosition {
-        .topAttached
     }
 
     // MARK: - Private
     
-    private let navigationBar: UINavigationBar = .init(frame: .zero)
-
+    private let nav = UINavigationController()
+    
     private func setUp() {
-        specializedView.backgroundColor = .backgroundPrimary
-        specializedView.addSubview(navigationBar)
+        addChild(nav)
+        view.addSubview(nav.view)
+        nav.view.snp.makeConstraints { make in
+            make
+                .edges
+                .equalToSuperview()
+        }
+        nav.didMove(toParent: self)
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .backgroundPrimary
         let style = NSMutableParagraphStyle()
         style.firstLineHeadIndent = 10 // This is added to the default margin
         appearance.largeTitleTextAttributes = [.paragraphStyle: style]
-        navigationBar.standardAppearance = appearance
-        navigationBar.delegate = self
-        navigationBar.snp.makeConstraints { make in
-            make
-                .top
-                .equalTo(specializedView.safeAreaLayoutGuide)
-            make
-                .leading
-                .trailing
-                .equalToSuperview()
-        }
+        nav.navigationBar.standardAppearance = appearance
+        nav.navigationBar.isTranslucent = false
     }
     
-    private var activeChild: ViewControllable? {
-        didSet {
-            setNeedsStatusBarAppearanceUpdate()
-        }
-    }
-
-    private func embedActiveChild(_ viewController: FiveStateViewControllable) {
-        addChild(viewController.uiviewController)
-        view.addSubview(viewController.uiviewController.view)
-        let navigationItem = UINavigationItem(title: viewController.headerTitle)
-        navigationItem.largeTitleDisplayMode = .always
-        navigationItem.leftBarButtonItems = viewController.leadingActions
-        navigationBar.setItems([navigationItem], animated: false)
-        navigationBar.prefersLargeTitles = viewController.largeTitles
-        viewController.uiviewController.view.snp.makeConstraints { make in
-            make
-                .leading
-                .trailing
-                .bottom
-                .equalToSuperview()
-            make
-                .top
-                .equalTo(navigationBar.snp.bottom)
-        }
-        viewController.uiviewController.didMove(toParent: self)
-        activeChild = viewController
+    private func embedActiveChild(_ viewController: ViewControllable) {
+        nav.setViewControllers([viewController.uiviewController], animated: true)
+        nav.view.setNeedsLayout()
     }
 
     private func removeActiveChild() {
-        activeChild?.uiviewController.willMove(toParent: nil)
-        activeChild?.uiviewController.view.removeFromSuperview()
-        activeChild?.uiviewController.removeFromParent()
-        activeChild = nil
+        navigationController?.viewControllers = []
+        nav.view.setNeedsLayout()
     }
 }

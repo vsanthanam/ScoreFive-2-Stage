@@ -10,7 +10,7 @@ import ShortRibs
 import UIKit
 
 /// @mockable
-protocol GameViewControllable: FiveStateViewControllable {}
+protocol GameViewControllable: ViewControllable {}
 
 /// @mockable
 protocol GamePresentableListener: AnyObject {
@@ -18,7 +18,7 @@ protocol GamePresentableListener: AnyObject {
     func didClose()
 }
 
-final class GameViewController: ScopeViewController, GamePresentable, GameViewControllable, UINavigationBarDelegate {
+final class GameViewController: ScopeViewController, GamePresentable, GameViewControllable {
     
     // MARK: - UIViewController
 
@@ -36,16 +36,6 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         @unknown default:
             return .darkContent
         }
-    }
-
-    // MARK: - FiveStateViewControllable
-    
-    var largeTitles: Bool { false }
-    
-    var headerTitle: String { "ScoreCard" }
-    
-    var leadingActions: [UIBarButtonItem] {
-        [UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))]
     }
     
     // MARK: - GamePresentable
@@ -110,33 +100,23 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     private var scoreCardViewController: ScoreCardViewControllable?
 
     private func setUp() {
+        title = "Score Card"
+        let trailingItem = UIBarButtonItem(barButtonSystemItem: .close,
+                                           target: self,
+                                           action: #selector(didTapClose))
+        navigationItem.leftBarButtonItem = trailingItem
         
         specializedView.addLayoutGuide(scoreCardLayoutGuide)
 
         addRoundButton.addTarget(self, action: #selector(didTapAddRound), for: .touchUpInside)
         specializedView.addSubview(addRoundButton)
-
         bottomSpacer.backgroundColor = .contentAccentPrimary
+        
         specializedView.addSubview(bottomSpacer)
-
         specializedView.addSubview(gameHeader)
-
         specializedView.addSubview(gameFooter)
 
-//        header.snp.makeConstraints { make in
-//            make
-//                .top
-//                .equalTo(specializedView.safeAreaLayoutGuide)
-//            make
-//                .leading
-//                .trailing
-//                .equalToSuperview()
-//        }
-
         gameHeader.snp.makeConstraints { make in
-//            make
-//                .top
-//                .equalTo(header.snp.bottom)
             make
                 .top
                 .leading

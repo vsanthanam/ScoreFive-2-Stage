@@ -54,12 +54,6 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         startUpdatingTotalScores()
     }
     
-    // MARK: - FiveStateInteractable
-    
-    var fiveStateViewController: FiveStateViewControllable {
-        presenter
-    }
-
     // MARK: - GamePresentableListener
 
     func wantNewRound() {

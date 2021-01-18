@@ -14,8 +14,8 @@ import UIKit
 /// @mockable
 protocol FivePresentable: FiveViewControllable {
     var listener: FivePresentableListener? { get set }
-    func showHome(_ viewController: FiveStateViewControllable)
-    func showGame(_ viewController: FiveStateViewControllable)
+    func showHome(_ viewController: ViewControllable)
+    func showGame(_ viewController: ViewControllable)
 }
 
 /// @mockable
@@ -76,7 +76,7 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
     private let homeBuilder: HomeBuildable
     private let gameBuilder: GameBuildable
 
-    private var activeChild: FiveStateInteractable?
+    private var activeChild: PresentableInteractable?
 
     private func startUpdatingActiveChild() {
         mutableActiveGameStream.activeGameIdentifier
@@ -100,7 +100,7 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
         }
         let home = homeBuilder.build(withListener: self)
         attach(child: home)
-        presenter.showHome(home.fiveStateViewController)
+        presenter.showHome(home.viewControllable)
         activeChild = home
     }
 
@@ -110,26 +110,7 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
         }
         let game = gameBuilder.build(withListener: self)
         attach(child: game)
-        presenter.showGame(game.fiveStateViewController)
+        presenter.showGame(game.viewControllable)
         activeChild = game
     }
-}
-
-/// @mockable
-protocol FiveStateInteractable: PresentableInteractable {
-    var fiveStateViewController: FiveStateViewControllable { get }
-    
-}
-
-/// @mockable
-protocol FiveStateViewControllable: ViewControllable {
-    var largeTitles: Bool { get }
-    var headerTitle: String { get }
-    var leadingActions: [UIBarButtonItem] { get }
-    var trailingActions: [UIBarButtonItem] { get }
-}
-
-extension FiveStateViewControllable {
-    var leadingActions: [UIBarButtonItem] { [] }
-    var trailingActions: [UIBarButtonItem] { [] }
 }
