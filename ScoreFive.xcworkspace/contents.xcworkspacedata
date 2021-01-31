@@ -24,6 +24,9 @@
       location = "container:"
       name = "Vendor">
       <FileRef
+         location = "group:Vendor/Countly/Countly.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Vendor/NeedleFoundation/NeedleFoundation.xcodeproj">
       </FileRef>
       <FileRef

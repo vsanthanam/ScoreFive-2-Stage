@@ -46,8 +46,8 @@ final class ActiveGameStream: MutableActiveGameStreaming {
     func deactiveateCurrentGame() {
         currentActiveGameIdentifier = nil
     }
-    
+
     // MARK: - Private
-    
+
     private let subj = CurrentValueSubject<UUID?, Never>(nil)
 }

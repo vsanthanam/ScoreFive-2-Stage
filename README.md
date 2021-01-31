@@ -22,13 +22,7 @@ $ brew install needle
 $ brew install mockolo
 ```
 
-3. ScoreFive uses SwiftFormat for source code style consistency. Install nicklockwood/swiftformat through homebrew.
-
-```
-$ brew install swiftformat
-```
-
-4. Rather than interfacing with the aformentioned tools directly. ScoreFive provides a built-in command line utility called `sftool` to that knows the right arguments and paths to use. The source code for this tool is included in the repo.
+3. Rather than interfacing with the aformentioned tools directly. ScoreFive provides a built-in command line utility called `sftool` to that knows the right arguments and paths to use. The source code for this tool is included in the repo. Build the tool and move it to the root directory.
 
 ```
 $ cd path/to/repo
@@ -36,7 +30,7 @@ $ swift build --package-path Tooling/sftool --configuration release
 $ cp Tooling/sftool/.build/release/sftool sftool
 ```
 
-5. Generate the dependency graph:
+4. Generate the dependency graph:
 
 ```
 $ cd path/to/repo
@@ -50,31 +44,48 @@ After these steps have been taken, you can open `ScoreFive.xcworkspace` and run 
 
 This project is hosted at phab.vsanthanam.com and manage using phacility tools. The copy on github is a mirror. To contribute, visit [the hosted phabricator install](https://phab.vsanthanam.com) and request a user account.
 
-### Running SwiftFormat
-
-You can run switformat on the repo with the correct rules and files using `sftool`:
-
-```
-$ cd path/to/repo
-$ ./sftool format
-```
-
-### Running SwiftLine
-
-You can run switformat on the repo with the correct rules and files using `sftool`:
-
-```
-$ cd path/to/repo
-$ ./sftool lint
-```
-
 ### Running the Unit Tests
 
-Generate the object mocks (this step is optional if you aren't going to run the unit tests)
+1. Generate the object mocks 
 
 ```
 $ cd path/to/repo
 $ ./sftool gen mocks
 ```
 
-Then, run the unit tests from within Xcode.
+2. Open `ScoreFive.xcworkspae` and run the unit tests from within Xcode.
+
+### Running SwiftFormat
+
+You can run switformat on the repo with the correct rules and files using `sftool`:
+
+1. Install `swiftformat` via homebrew
+
+```
+$ brew install swiftformat
+```
+
+2. Run `swiftformat` via `sftool`
+
+```
+$ cd path/to/repo
+$ ./sftool format
+```
+
+### Running SwiftLint
+
+You can run switlint on the repo with the correct rules and files using `sftool`:
+
+1. Install `swiftlint` via homebrew
+
+```
+$ brew install swiftformat
+```
+
+2. Run `swiftlint` via `sftool`
+
+
+```
+$ cd path/to/repo
+$ ./sftool lint
+```

@@ -22,7 +22,7 @@ extension UINavigationController {
         }
         coordinator.animate(alongsideTransition: nil) { _ in completion?() }
     }
-    
+
     @discardableResult
     public func popToViewController(_ viewController: UIViewController,
                                     animated: Bool,
@@ -48,6 +48,5 @@ extension UINavigationController {
         }
         coordinator.animate(alongsideTransition: nil) { _ in completion?() }
     }
-    
-    
+
 }
