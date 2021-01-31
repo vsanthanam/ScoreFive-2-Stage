@@ -73,24 +73,20 @@ final class FiveViewController: ScopeViewController, FivePresentable, FiveViewCo
         switch direction {
         case .pop:
             nav.setViewControllers([viewController.uiviewController] + nav.viewControllers, animated: false)
-            nav.popViewController(animated: true) { [weak self] in
-                guard let nav = self?.nav else {
-                    assertionFailure("Nav OOM")
+            nav.popToViewController(viewController.uiviewController, animated: true) { [weak nav] in
+                guard let nav = nav else {
+                    assertionFailure("Managed Navigation Controller OOM")
                     return
                 }
                 assert(nav.viewControllers.count == 1, "Invalid View Controller Count")
             }
         case .push:
-            print("PUSHING \(viewController)")
-            nav.pushViewController(viewController: viewController.uiviewController, animated: true) { [weak self] in
-                guard let nav = self?.nav else {
-                    assertionFailure("Nav OOM")
+            nav.pushViewController(viewController: viewController.uiviewController, animated: true) { [weak nav] in
+                guard let nav = nav else {
+                    assertionFailure("Managed Navigation Controller OOM")
                     return
                 }
-                self?.nav.setViewControllers([viewController.uiviewController], animated: true) {
-                    print(nav.viewControllers)
-                    assert(nav.viewControllers.count == 1, "Invalid View Controller Count: \(nav.viewControllers.count)")
-                }
+                nav.viewControllers = [viewController.uiviewController]
             }
         }
     }

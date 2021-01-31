@@ -26,6 +26,11 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         super.viewDidLoad()
         setUp()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         switch traitCollection.userInterfaceStyle {
@@ -77,13 +82,13 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     }
 
     func updateHeaderTitles(_ titles: [String]) {
-        confineTo(viewEvents: [.viewDidAppear], once: true) { [weak self] in
+        confineTo(viewEvents: [.viewWillAppear], once: true) { [weak self] in
             self?.gameHeader.apply(names: titles)
         }
     }
 
     func updateTotalScores(_ scores: [String]) {
-        confineTo(viewEvents: [.viewDidAppear], once: true) { [weak self] in
+        confineTo(viewEvents: [.viewWillAppear], once: true) { [weak self] in
             self?.gameFooter.apply(scores: scores)
         }
     }

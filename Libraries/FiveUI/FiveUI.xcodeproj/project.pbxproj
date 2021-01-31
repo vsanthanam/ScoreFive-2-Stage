@@ -12,7 +12,6 @@
 		070683B7259CFBD2004B7A78 /* FiveUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 070683A9259CFBD2004B7A78 /* FiveUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		070683C5259CFBE6004B7A78 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683C3259CFBE6004B7A78 /* Theme.swift */; };
 		070683CC259CFC20004B7A78 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683CB259CFC20004B7A78 /* ColorPalette.swift */; };
-		070683F0259D1ADF004B7A78 /* UIViewController+FiveUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683EF259D1ADF004B7A78 /* UIViewController+FiveUI.swift */; };
 		070683F7259D1F79004B7A78 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683F6259D1F79004B7A78 /* CollectionView.swift */; };
 		0706840A259D364D004B7A78 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068409259D364D004B7A78 /* BaseView.swift */; };
 		0706841B259D4C47004B7A78 /* BaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706841A259D4C47004B7A78 /* BaseControl.swift */; };
@@ -40,7 +39,6 @@
 		070683B6259CFBD2004B7A78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		070683C3259CFBE6004B7A78 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		070683CB259CFC20004B7A78 /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
-		070683EF259D1ADF004B7A78 /* UIViewController+FiveUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+FiveUI.swift"; sourceTree = "<group>"; };
 		070683F6259D1F79004B7A78 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		07068409259D364D004B7A78 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		0706841A259D4C47004B7A78 /* BaseControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseControl.swift; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 		070683EE259D1AD3004B7A78 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				070683EF259D1ADF004B7A78 /* UIViewController+FiveUI.swift */,
 				0747EA3E25B6073B00774773 /* UINavigationController+FiveUI.swift */,
 			);
 			path = Extensions;
@@ -252,7 +249,6 @@
 				0706840A259D364D004B7A78 /* BaseView.swift in Sources */,
 				070683F7259D1F79004B7A78 /* CollectionView.swift in Sources */,
 				0747EA3F25B6073C00774773 /* UINavigationController+FiveUI.swift in Sources */,
-				070683F0259D1ADF004B7A78 /* UIViewController+FiveUI.swift in Sources */,
 				07C4473C25A0342C00626A2A /* SymbolButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

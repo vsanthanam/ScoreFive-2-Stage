@@ -18,6 +18,9 @@ import UIKit
 import CoreData
 import Foundation
 #endif
+#if canImport(NeedleFoundation)
+import NeedleFoundation
+#endif
 
 
 public class PresentableInteractableMock: PresentableInteractable {
@@ -182,17 +185,6 @@ public class ViewControllableMock: ViewControllable {
     public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
 }
 
-class FiveViewControllableMock: FiveViewControllable {
-    init() { }
-    init(uiviewController: UIViewController = UIViewController()) {
-        self.uiviewController = uiviewController
-    }
-
-
-    public private(set) var uiviewControllerSetCallCount = 0
-    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
-}
-
 class GameViewControllableMock: GameViewControllable {
     init() { }
     init(uiviewController: UIViewController = UIViewController()) {
@@ -302,6 +294,26 @@ class HomePresentableMock: HomePresentable {
         }
         
     }
+
+    private(set) var showResumeButtonCallCount = 0
+    var showResumeButtonHandler: (() -> ())?
+    func showResumeButton()  {
+        showResumeButtonCallCount += 1
+        if let showResumeButtonHandler = showResumeButtonHandler {
+            showResumeButtonHandler()
+        }
+        
+    }
+
+    private(set) var hideResumeButtonCallCount = 0
+    var hideResumeButtonHandler: (() -> ())?
+    func hideResumeButton()  {
+        hideResumeButtonCallCount += 1
+        if let hideResumeButtonHandler = hideResumeButtonHandler {
+            hideResumeButtonHandler()
+        }
+        
+    }
 }
 
 class ActiveGameStreamingMock: ActiveGameStreaming {
@@ -336,6 +348,16 @@ class NewGamePresentableMock: NewGamePresentable {
 
     private(set) var listenerSetCallCount = 0
     var listener: NewGamePresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
+
+    private(set) var showScoreLimitErrorCallCount = 0
+    var showScoreLimitErrorHandler: (() -> ())?
+    func showScoreLimitError()  {
+        showScoreLimitErrorCallCount += 1
+        if let showScoreLimitErrorHandler = showScoreLimitErrorHandler {
+            showScoreLimitErrorHandler()
+        }
+        
+    }
 }
 
 class NewRoundPresentableMock: NewRoundPresentable {
@@ -351,6 +373,39 @@ class NewRoundPresentableMock: NewRoundPresentable {
 
     private(set) var listenerSetCallCount = 0
     var listener: NewRoundPresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
+}
+
+class FiveViewControllableMock: FiveViewControllable {
+    init() { }
+    init(uiviewController: UIViewController = UIViewController()) {
+        self.uiviewController = uiviewController
+    }
+
+
+    public private(set) var uiviewControllerSetCallCount = 0
+    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
+}
+
+class MainViewControllableMock: MainViewControllable {
+    init() { }
+    init(uiviewController: UIViewController = UIViewController()) {
+        self.uiviewController = uiviewController
+    }
+
+
+    public private(set) var uiviewControllerSetCallCount = 0
+    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
+}
+
+class NewRoundViewControllableMock: NewRoundViewControllable {
+    init() { }
+    init(uiviewController: UIViewController = UIViewController()) {
+        self.uiviewController = uiviewController
+    }
+
+
+    public private(set) var uiviewControllerSetCallCount = 0
+    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
 }
 
 public class PersistentContainingMock: PersistentContaining {
@@ -408,63 +463,6 @@ public class PersistentContainingMock: PersistentContaining {
     }
 }
 
-class MainViewControllableMock: MainViewControllable {
-    init() { }
-    init(uiviewController: UIViewController = UIViewController()) {
-        self.uiviewController = uiviewController
-    }
-
-
-    public private(set) var uiviewControllerSetCallCount = 0
-    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
-}
-
-class FivePresentableMock: FivePresentable {
-    init() { }
-    init(uiviewController: UIViewController = UIViewController(), listener: FivePresentableListener? = nil) {
-        self.uiviewController = uiviewController
-        self.listener = listener
-    }
-
-
-    public private(set) var uiviewControllerSetCallCount = 0
-    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
-
-    private(set) var listenerSetCallCount = 0
-    var listener: FivePresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
-
-    private(set) var showHomeCallCount = 0
-    var showHomeHandler: ((ViewControllable) -> ())?
-    func showHome(_ viewController: ViewControllable)  {
-        showHomeCallCount += 1
-        if let showHomeHandler = showHomeHandler {
-            showHomeHandler(viewController)
-        }
-        
-    }
-
-    private(set) var showGameCallCount = 0
-    var showGameHandler: ((ViewControllable) -> ())?
-    func showGame(_ viewController: ViewControllable)  {
-        showGameCallCount += 1
-        if let showGameHandler = showGameHandler {
-            showGameHandler(viewController)
-        }
-        
-    }
-}
-
-class NewRoundViewControllableMock: NewRoundViewControllable {
-    init() { }
-    init(uiviewController: UIViewController = UIViewController()) {
-        self.uiviewController = uiviewController
-    }
-
-
-    public private(set) var uiviewControllerSetCallCount = 0
-    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
-}
-
 class ScoreCardPresentableMock: ScoreCardPresentable {
     init() { }
     init(uiviewController: UIViewController = UIViewController(), listener: ScoreCardPresentableListener? = nil) {
@@ -510,6 +508,41 @@ class RootViewControllableMock: RootViewControllable {
 
     public private(set) var uiviewControllerSetCallCount = 0
     public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
+}
+
+class FivePresentableMock: FivePresentable {
+    init() { }
+    init(uiviewController: UIViewController = UIViewController(), listener: FivePresentableListener? = nil) {
+        self.uiviewController = uiviewController
+        self.listener = listener
+    }
+
+
+    public private(set) var uiviewControllerSetCallCount = 0
+    public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
+
+    private(set) var listenerSetCallCount = 0
+    var listener: FivePresentableListener? = nil { didSet { listenerSetCallCount += 1 } }
+
+    private(set) var showHomeCallCount = 0
+    var showHomeHandler: ((ViewControllable) -> ())?
+    func showHome(_ viewController: ViewControllable)  {
+        showHomeCallCount += 1
+        if let showHomeHandler = showHomeHandler {
+            showHomeHandler(viewController)
+        }
+        
+    }
+
+    private(set) var showGameCallCount = 0
+    var showGameHandler: ((ViewControllable) -> ())?
+    func showGame(_ viewController: ViewControllable)  {
+        showGameCallCount += 1
+        if let showGameHandler = showGameHandler {
+            showGameHandler(viewController)
+        }
+        
+    }
 }
 
 class HomeViewControllableMock: HomeViewControllable {
@@ -579,12 +612,6 @@ class NewGameViewControllableMock: NewGameViewControllable {
     public var uiviewController: UIViewController = UIViewController() { didSet { uiviewControllerSetCallCount += 1 } }
 }
 
-class FivePresentableListenerMock: FivePresentableListener {
-    init() { }
-
-
-}
-
 class GamePresentableListenerMock: GamePresentableListener {
     init() { }
 
@@ -598,6 +625,22 @@ class GamePresentableListenerMock: GamePresentableListener {
         }
         
     }
+
+    private(set) var didCloseCallCount = 0
+    var didCloseHandler: (() -> ())?
+    func didClose()  {
+        didCloseCallCount += 1
+        if let didCloseHandler = didCloseHandler {
+            didCloseHandler()
+        }
+        
+    }
+}
+
+class FivePresentableListenerMock: FivePresentableListener {
+    init() { }
+
+
 }
 
 class MainPresentableListenerMock: MainPresentableListener {
@@ -686,6 +729,25 @@ class HomePresentableListenerMock: HomePresentableListener {
     init() { }
 
 
+    private(set) var didTapNewGameCallCount = 0
+    var didTapNewGameHandler: (() -> ())?
+    func didTapNewGame()  {
+        didTapNewGameCallCount += 1
+        if let didTapNewGameHandler = didTapNewGameHandler {
+            didTapNewGameHandler()
+        }
+        
+    }
+
+    private(set) var didTapResumeLastGameCallCount = 0
+    var didTapResumeLastGameHandler: (() -> ())?
+    func didTapResumeLastGame()  {
+        didTapResumeLastGameCallCount += 1
+        if let didTapResumeLastGameHandler = didTapResumeLastGameHandler {
+            didTapResumeLastGameHandler()
+        }
+        
+    }
 }
 
 class NewGamePresentableListenerMock: NewGamePresentableListener {
@@ -708,31 +770,6 @@ class NewGamePresentableListenerMock: NewGamePresentableListener {
         didTapCloseCallCount += 1
         if let didTapCloseHandler = didTapCloseHandler {
             didTapCloseHandler()
-        }
-        
-    }
-}
-
-class NewGameListenerMock: NewGameListener {
-    init() { }
-
-
-    private(set) var newGameDidCreateNewGameCallCount = 0
-    var newGameDidCreateNewGameHandler: ((UUID) -> ())?
-    func newGameDidCreateNewGame(with identifier: UUID)  {
-        newGameDidCreateNewGameCallCount += 1
-        if let newGameDidCreateNewGameHandler = newGameDidCreateNewGameHandler {
-            newGameDidCreateNewGameHandler(identifier)
-        }
-        
-    }
-
-    private(set) var newGameDidAbortCallCount = 0
-    var newGameDidAbortHandler: (() -> ())?
-    func newGameDidAbort()  {
-        newGameDidAbortCallCount += 1
-        if let newGameDidAbortHandler = newGameDidAbortHandler {
-            newGameDidAbortHandler()
         }
         
     }
@@ -822,6 +859,31 @@ class NewGameInteractableMock: NewGameInteractable {
     }
 }
 
+class NewGameListenerMock: NewGameListener {
+    init() { }
+
+
+    private(set) var newGameDidCreateNewGameCallCount = 0
+    var newGameDidCreateNewGameHandler: ((UUID) -> ())?
+    func newGameDidCreateNewGame(with identifier: UUID)  {
+        newGameDidCreateNewGameCallCount += 1
+        if let newGameDidCreateNewGameHandler = newGameDidCreateNewGameHandler {
+            newGameDidCreateNewGameHandler(identifier)
+        }
+        
+    }
+
+    private(set) var newGameDidAbortCallCount = 0
+    var newGameDidAbortHandler: (() -> ())?
+    func newGameDidAbort()  {
+        newGameDidAbortCallCount += 1
+        if let newGameDidAbortHandler = newGameDidAbortHandler {
+            newGameDidAbortHandler()
+        }
+        
+    }
+}
+
 class ScoreCardListenerMock: ScoreCardListener {
     init() { }
 
@@ -871,21 +933,6 @@ class MutableActiveGameStreamingMock: MutableActiveGameStreaming {
         deactiveateCurrentGameCallCount += 1
         if let deactiveateCurrentGameHandler = deactiveateCurrentGameHandler {
             deactiveateCurrentGameHandler()
-        }
-        
-    }
-}
-
-class HomeListenerMock: HomeListener {
-    init() { }
-
-
-    private(set) var homeWantToOpenGameCallCount = 0
-    var homeWantToOpenGameHandler: ((UUID) -> ())?
-    func homeWantToOpenGame(withIdentifier: UUID)  {
-        homeWantToOpenGameCallCount += 1
-        if let homeWantToOpenGameHandler = homeWantToOpenGameHandler {
-            homeWantToOpenGameHandler(withIdentifier)
         }
         
     }
@@ -1030,6 +1077,21 @@ class FiveListenerMock: FiveListener {
 
 }
 
+class HomeListenerMock: HomeListener {
+    init() { }
+
+
+    private(set) var homeWantToOpenGameCallCount = 0
+    var homeWantToOpenGameHandler: ((UUID) -> ())?
+    func homeWantToOpenGame(withIdentifier: UUID)  {
+        homeWantToOpenGameCallCount += 1
+        if let homeWantToOpenGameHandler = homeWantToOpenGameHandler {
+            homeWantToOpenGameHandler(withIdentifier)
+        }
+        
+    }
+}
+
 public class WorkingMock: Working {
     public init() { }
     public init(isStarted: Bool = false, isStartedStream: AnyPublisher<Bool, Never>) {
@@ -1094,6 +1156,13 @@ class HomeInteractableMock: HomeInteractable {
     public private(set) var isActiveSetCallCount = 0
     public var isActive: Bool = false { didSet { isActiveSetCallCount += 1 } }
 
+    public private(set) var isActiveStreamSetCallCount = 0
+    private var _isActiveStream: AnyPublisher<Bool, Never>!  { didSet { isActiveStreamSetCallCount += 1 } }
+    public var isActiveStream: AnyPublisher<Bool, Never> {
+        get { return _isActiveStream }
+        set { _isActiveStream = newValue }
+    }
+
     private(set) var newGameDidCreateNewGameCallCount = 0
     var newGameDidCreateNewGameHandler: ((UUID) -> ())?
     func newGameDidCreateNewGame(with identifier: UUID)  {
@@ -1102,13 +1171,6 @@ class HomeInteractableMock: HomeInteractable {
             newGameDidCreateNewGameHandler(identifier)
         }
         
-    }
-
-    public private(set) var isActiveStreamSetCallCount = 0
-    private var _isActiveStream: AnyPublisher<Bool, Never>!  { didSet { isActiveStreamSetCallCount += 1 } }
-    public var isActiveStream: AnyPublisher<Bool, Never> {
-        get { return _isActiveStream }
-        set { _isActiveStream = newValue }
     }
 
     private(set) var newGameDidAbortCallCount = 0
@@ -1489,6 +1551,21 @@ class GameStorageWorkingMock: GameStorageWorking {
     }
 }
 
+class GameBuildableMock: GameBuildable {
+    init() { }
+
+
+    private(set) var buildCallCount = 0
+    var buildHandler: ((GameListener) -> (PresentableInteractable))?
+    func build(withListener listener: GameListener) -> PresentableInteractable {
+        buildCallCount += 1
+        if let buildHandler = buildHandler {
+            return buildHandler(listener)
+        }
+        return PresentableInteractableMock()
+    }
+}
+
 class RootInteractableMock: RootInteractable {
     init() { }
     init(viewControllable: ViewControllable = ViewControllableMock(), isActive: Bool = false, isActiveStream: AnyPublisher<Bool, Never>) {
@@ -1529,21 +1606,6 @@ class RootInteractableMock: RootInteractable {
             deactivateHandler()
         }
         
-    }
-}
-
-class GameBuildableMock: GameBuildable {
-    init() { }
-
-
-    private(set) var buildCallCount = 0
-    var buildHandler: ((GameListener) -> (PresentableInteractable))?
-    func build(withListener listener: GameListener) -> PresentableInteractable {
-        buildCallCount += 1
-        if let buildHandler = buildHandler {
-            return buildHandler(listener)
-        }
-        return PresentableInteractableMock()
     }
 }
 

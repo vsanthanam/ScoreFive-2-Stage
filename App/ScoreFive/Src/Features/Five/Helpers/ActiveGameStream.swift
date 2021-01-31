@@ -25,11 +25,14 @@ final class ActiveGameStream: MutableActiveGameStreaming {
 
     // MARK: - ActiveGameStreaming
 
-    @Published
-    var currentActiveGameIdentifier: UUID? = nil
+    var currentActiveGameIdentifier: UUID? = nil {
+        didSet {
+            subj.send(currentActiveGameIdentifier)
+        }
+    }
 
     var activeGameIdentifier: AnyPublisher<UUID?, Never> {
-        $currentActiveGameIdentifier
+        subj
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
@@ -43,4 +46,8 @@ final class ActiveGameStream: MutableActiveGameStreaming {
     func deactiveateCurrentGame() {
         currentActiveGameIdentifier = nil
     }
+    
+    // MARK: - Private
+    
+    private let subj = CurrentValueSubject<UUID?, Never>(nil)
 }

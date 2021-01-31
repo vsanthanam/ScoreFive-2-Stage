@@ -13,23 +13,41 @@ extension UINavigationController {
     public func pushViewController(viewController: UIViewController,
                                    animated: Bool,
                                    completion: (() -> Void)?) {
-        CATransaction.begin()
-        CATransaction.setCompletionBlock(completion)
         pushViewController(viewController, animated: animated)
-        CATransaction.commit()
+        guard animated, let coordinator = transitionCoordinator else {
+            defer {
+                completion?()
+            }
+            return
+        }
+        coordinator.animate(alongsideTransition: nil) { _ in completion?() }
+    }
+    
+    @discardableResult
+    public func popToViewController(_ viewController: UIViewController,
+                                    animated: Bool,
+                                    completion: (() -> Void)?) -> [UIViewController]? {
+        let vcs = popToViewController(viewController, animated: animated)
+        guard animated, let coordinator = transitionCoordinator else {
+            defer {
+                completion?()
+            }
+            return vcs
+        }
+        coordinator.animate(alongsideTransition: nil) { _ in completion?() }
+        return vcs
     }
 
     public func popViewController(animated: Bool, completion: (() -> Void)?) {
-        CATransaction.begin()
-        CATransaction.setCompletionBlock(completion)
         popViewController(animated: animated)
-        CATransaction.commit()
+        guard animated, let coordinator = transitionCoordinator else {
+            defer {
+                completion?()
+            }
+            return
+        }
+        coordinator.animate(alongsideTransition: nil) { _ in completion?() }
     }
-
-    public func setViewControllers(_ viewControllers: [UIViewController], animated: Bool, completion: (() -> Void)?) {
-        CATransaction.begin()
-        CATransaction.setCompletionBlock(completion)
-        setViewControllers(viewControllers, animated: animated)
-        CATransaction.commit()
-    }
+    
+    
 }
