@@ -25,7 +25,7 @@ protocol GameListener: AnyObject {
 }
 
 final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteractable, GamePresentableListener {
-    
+
     // MARK: - Initializers
 
     init(presenter: GamePresentable,
@@ -53,7 +53,7 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         startUpdatingHeaderTitles()
         startUpdatingTotalScores()
     }
-    
+
     // MARK: - GamePresentableListener
 
     func wantNewRound() {

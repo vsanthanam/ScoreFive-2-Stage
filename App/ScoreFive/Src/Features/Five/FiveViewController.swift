@@ -5,6 +5,7 @@
 //  Created by Varun Santhanam on 12/28/20.
 //
 
+import FiveUI
 import Foundation
 import ShortRibs
 import UIKit
@@ -16,32 +17,35 @@ protocol FiveViewControllable: ViewControllable {}
 protocol FivePresentableListener: AnyObject {}
 
 final class FiveViewController: ScopeViewController, FivePresentable, FiveViewControllable {
-    
+
     // MARK: - UIViewController
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
     }
-    
+
     // MARK: - FivePresentable
 
     weak var listener: FivePresentableListener?
 
     func showHome(_ viewController: ViewControllable) {
-        removeActiveChild()
-        embedActiveChild(viewController)
+        embedActiveChild(viewController, with: .pop)
     }
 
     func showGame(_ viewController: ViewControllable) {
-        removeActiveChild()
-        embedActiveChild(viewController)
+        embedActiveChild(viewController, with: .push)
     }
 
     // MARK: - Private
-    
+
+    private enum Direction {
+        case push
+        case pop
+    }
+
     private let nav = UINavigationController()
-    
+
     private func setUp() {
         addChild(nav)
         view.addSubview(nav.view)
@@ -59,15 +63,35 @@ final class FiveViewController: ScopeViewController, FivePresentable, FiveViewCo
         appearance.largeTitleTextAttributes = [.paragraphStyle: style]
         nav.navigationBar.standardAppearance = appearance
         nav.navigationBar.isTranslucent = false
-    }
-    
-    private func embedActiveChild(_ viewController: ViewControllable) {
-        nav.setViewControllers([viewController.uiviewController], animated: true)
-        nav.view.setNeedsLayout()
+        nav.navigationBar.prefersLargeTitles = true
     }
 
-    private func removeActiveChild() {
-        navigationController?.viewControllers = []
-        nav.view.setNeedsLayout()
+    private func embedActiveChild(_ viewController: ViewControllable, with direction: Direction) {
+        guard !nav.viewControllers.contains(viewController.uiviewController) else {
+            return
+        }
+        switch direction {
+        case .pop:
+            nav.setViewControllers([viewController.uiviewController] + nav.viewControllers, animated: false)
+            nav.popViewController(animated: true) { [weak self] in
+                guard let nav = self?.nav else {
+                    assertionFailure("Nav OOM")
+                    return
+                }
+                assert(nav.viewControllers.count == 1, "Invalid View Controller Count")
+            }
+        case .push:
+            print("PUSHING \(viewController)")
+            nav.pushViewController(viewController: viewController.uiviewController, animated: true) { [weak self] in
+                guard let nav = self?.nav else {
+                    assertionFailure("Nav OOM")
+                    return
+                }
+                self?.nav.setViewControllers([viewController.uiviewController], animated: true) {
+                    print(nav.viewControllers)
+                    assert(nav.viewControllers.count == 1, "Invalid View Controller Count: \(nav.viewControllers.count)")
+                }
+            }
+        }
     }
 }

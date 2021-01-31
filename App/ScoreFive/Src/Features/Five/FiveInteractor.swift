@@ -47,8 +47,7 @@ final class FiveInteractor: PresentableInteractor<FivePresentable>, FiveInteract
         if records.count == 1,
             let record = records.first,
             record.inProgress {
-            mutableActiveGameStream
-                .activateGame(with: record.uniqueIdentifier)
+            mutableActiveGameStream.activateGame(with: record.uniqueIdentifier)
         }
         startUpdatingActiveChild()
     }

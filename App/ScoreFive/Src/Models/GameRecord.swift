@@ -19,8 +19,10 @@ protocol GameRecord: AnyObject {
     var activePlayers: [Player] { get }
     var rankedPlayers: [Player] { get }
     var scoreLimit: Int { get }
+    var lastSavedDate: Date { get }
     func getScoreCard() throws -> ScoreCard
     func updateScoreCard(scoreCard: ScoreCard) throws
+    func stamp()
 }
 
 extension GameRecordMO: GameRecord {
@@ -45,6 +47,10 @@ extension GameRecordMO: GameRecord {
         Int(rawScoreLimit)
     }
 
+    var lastSavedDate: Date {
+        rawDate!
+    }
+
     func getScoreCard() throws -> ScoreCard {
         let decoder = JSONDecoder()
         return try decoder.decode(ScoreCard.self, from: scoreCardData!)
@@ -55,6 +61,10 @@ extension GameRecordMO: GameRecord {
         let data = try encoder.encode(scoreCard)
         scoreCardData = data
         bind(scoreCard)
+    }
+
+    func stamp() {
+        rawDate = .init()
     }
 
     // MARK: - Private

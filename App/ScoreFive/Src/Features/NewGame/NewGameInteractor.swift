@@ -12,6 +12,7 @@ import ShortRibs
 /// @mockable
 protocol NewGamePresentable: NewGameViewControllable {
     var listener: NewGamePresentableListener? { get set }
+    func showScoreLimitError()
 }
 
 /// @mockable
@@ -38,6 +39,10 @@ final class NewGameInteractor: PresentableInteractor<NewGamePresentable>, NewGam
     // MARK: - NewGamePresentableListener
 
     func didTapNewGame(with playerNames: [String?], scoreLimit: Int) {
+        guard scoreLimit >= 50 else {
+            presenter.showScoreLimitError()
+            return
+        }
         let (_, names) = playerNames.reduce((0, [])) { (total: (Int, [String]), name: String?) in
             let (current, list) = total
             let actualName = name ?? "Player \(current + 1)"

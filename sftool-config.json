@@ -18,7 +18,8 @@
                           "nesting",
                           "function_body_length",
                           "identifier_name",
-                          "redundant_optional_initialization"],
+                          "redundant_optional_initialization",
+                          "type_body_length"],
         "optInRules": []
     },
     "vendorCodePath": "Vendor",

@@ -19,7 +19,7 @@ protocol GamePresentableListener: AnyObject {
 }
 
 final class GameViewController: ScopeViewController, GamePresentable, GameViewControllable {
-    
+
     // MARK: - UIViewController
 
     override func viewDidLoad() {
@@ -37,7 +37,7 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
             return .darkContent
         }
     }
-    
+
     // MARK: - GamePresentable
 
     weak var listener: GamePresentableListener?
@@ -105,13 +105,14 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
                                            target: self,
                                            action: #selector(didTapClose))
         navigationItem.leftBarButtonItem = trailingItem
-        
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.setNavigationBarHidden(false, animated: true)
         specializedView.addLayoutGuide(scoreCardLayoutGuide)
 
         addRoundButton.addTarget(self, action: #selector(didTapAddRound), for: .touchUpInside)
         specializedView.addSubview(addRoundButton)
         bottomSpacer.backgroundColor = .contentAccentPrimary
-        
+
         specializedView.addSubview(bottomSpacer)
         specializedView.addSubview(gameHeader)
         specializedView.addSubview(gameFooter)
@@ -174,7 +175,7 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     private func didTapAddRound() {
         listener?.wantNewRound()
     }
-    
+
     @objc
     private func didTapClose() {
         listener?.didClose()

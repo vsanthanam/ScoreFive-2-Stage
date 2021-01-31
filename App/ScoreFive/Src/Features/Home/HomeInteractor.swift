@@ -14,6 +14,8 @@ protocol HomePresentable: HomeViewControllable {
     var listener: HomePresentableListener? { get set }
     func showNewGame(_ viewController: ViewControllable)
     func closeNewGame()
+    func showResumeButton()
+    func hideResumeButton()
 }
 
 /// @mockable
@@ -43,8 +45,9 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
     override func didBecomeActive() {
         super.didBecomeActive()
         openNewGameIfEmpty()
+        checkForResume()
     }
-    
+
     // MARK: - NewGameListener
 
     func newGameDidCreateNewGame(with identifier: UUID) {
@@ -54,6 +57,25 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 
     func newGameDidAbort() {
         routeAwayFromNewGame()
+    }
+
+    // MARK: - HomePresentableListener
+
+    func didTapNewGame() {
+        routeToNewGame()
+    }
+
+    func didTapResumeLastGame() {
+        do {
+            let games = try gameStorageManager.fetchInProgressGameRecords()
+            if let identifier = games.first?.uniqueIdentifier {
+                listener?.homeWantToOpenGame(withIdentifier: identifier)
+            } else {
+                print("oppress")
+            }
+        } catch {
+            return
+        }
     }
 
     // MARK: - Private
@@ -85,5 +107,17 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
             detach(child: current)
             presenter.closeNewGame()
         }
+        currentNewGame = nil
+    }
+
+    private func checkForResume() {
+        do {
+            let inProgress = try gameStorageManager.fetchGameRecords()
+            if !inProgress.isEmpty {
+                presenter.showResumeButton()
+            } else {
+                presenter.hideResumeButton()
+            }
+        } catch {}
     }
 }

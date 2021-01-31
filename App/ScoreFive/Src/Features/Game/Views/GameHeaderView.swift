@@ -24,7 +24,7 @@ final class GameHeaderView: BaseView {
     func apply(names: [String]) {
         stack.arrangedSubviews
             .forEach { $0.removeFromSuperview() }
-        
+
         names
             .map(IndexView.init)
             .forEach { stack.addArrangedSubview($0) }
@@ -41,13 +41,13 @@ final class GameHeaderView: BaseView {
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         addSubview(stack)
-       
+
         separator.backgroundColor = .controlDisabled
         addSubview(separator)
 
         ruleView.backgroundColor = .controlDisabled
         addSubview(ruleView)
-        
+
         stack.snp.makeConstraints { make in
             make
                 .top
@@ -59,7 +59,7 @@ final class GameHeaderView: BaseView {
                 .equalToSuperview()
                 .inset(54.0)
         }
-        
+
         separator.snp.makeConstraints { make in
             make
                 .bottom
@@ -73,7 +73,7 @@ final class GameHeaderView: BaseView {
                 .height
                 .equalTo(1.0)
         }
-        
+
         ruleView.snp.makeConstraints { make in
             make
                 .top

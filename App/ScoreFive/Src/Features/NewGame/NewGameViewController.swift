@@ -43,6 +43,15 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
 
     weak var listener: NewGamePresentableListener?
 
+    func showScoreLimitError() {
+        let title = "Invalid Score Limit"
+        let message = "Enter a score limit greater than 250"
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
+
     // MARK: - UICollectionViewDataSource
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -172,11 +181,9 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         specializedView.backgroundColor = .backgroundSecondary
 
         let navigationItem = UINavigationItem(title: "New Game")
-        let config = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .bold)
-        let image = UIImage(systemName: "xmark", withConfiguration: config)
-
-        let closeItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
-        closeItem.tintColor = .contentPrimary
+        let closeItem = UIBarButtonItem(barButtonSystemItem: .close,
+                                        target: self,
+                                        action: #selector(didTapClose))
         navigationItem.leftBarButtonItem = closeItem
         navigationItem.largeTitleDisplayMode = .always
         header.setItems([navigationItem], animated: false)
@@ -250,12 +257,14 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
     }
 
     private func startObservingKeyboardNotifications() {
-        NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification, object: nil)
+        UIResponder.keyboardWillHideNotification
+            .asPublisher()
             .sink { notif in
                 self.handleKeyboardNotification(notif)
             }
             .cancelOnDeinit(self)
-        NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        UIResponder.keyboardWillChangeFrameNotification
+            .asPublisher()
             .sink { notif in
                 self.handleKeyboardNotification(notif)
             }
@@ -324,7 +333,8 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
         listener?.didTapNewGame(with: enteredPlayerNames, scoreLimit: scoreLimit)
     }
 
-    @objc private func close() {
+    @objc
+    private func didTapClose() {
         listener?.didTapClose()
     }
 }

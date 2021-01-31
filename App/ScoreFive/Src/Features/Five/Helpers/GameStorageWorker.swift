@@ -51,13 +51,15 @@ final class GameStorageWorker: Worker, GameStorageWorking {
     }
 
     func fetchGameRecords() throws -> [GameRecord] {
-        let request = buildFetchRequest()
+        let sort = NSSortDescriptor(key: "rawDate", ascending: false)
+        let request = buildFetchRequest(sortDescriptors: [sort])
         return try persistentContainer.viewContext.fetch(request)
     }
 
     func fetchInProgressGameRecords() throws -> [GameRecord] {
         let predicate = NSPredicate(format: "inProgress == YES")
-        let request = buildFetchRequest(withPredicate: predicate)
+        let sort = NSSortDescriptor(key: "rawDate", ascending: false)
+        let request = buildFetchRequest(withPredicate: predicate, sortDescriptors: [sort])
         return try persistentContainer.viewContext.fetch(request)
     }
 
@@ -83,6 +85,7 @@ final class GameStorageWorker: Worker, GameStorageWorking {
         let game = GameRecordMO(context: persistentContainer.viewContext)
         try game.updateScoreCard(scoreCard: scoreCard)
         game.rawIdentifier = .init()
+        game.stamp()
         try saveAllGames()
         return game
     }
@@ -90,6 +93,7 @@ final class GameStorageWorker: Worker, GameStorageWorking {
     func save(scoreCard: ScoreCard, with identifier: UUID) throws {
         let game = try fetchGame(for: identifier)
         try game?.updateScoreCard(scoreCard: scoreCard)
+        game?.stamp()
         try saveAllGames()
     }
 

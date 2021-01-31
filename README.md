@@ -61,3 +61,11 @@ $ cd path/to/repo
 $ ./sftool format
 ```
 
+## Running SwiftLine
+
+You can run switformat on the repo with the correct rules and files using `sftool`:
+
+```
+$ cd path/to/repo
+$ ./sftool lint
+```
