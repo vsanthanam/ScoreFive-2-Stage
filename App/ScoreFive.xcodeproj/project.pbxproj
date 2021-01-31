@@ -24,6 +24,8 @@
 		070683EA259D072C004B7A78 /* ScoreCardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683E6259D072C004B7A78 /* ScoreCardInteractor.swift */; };
 		070683FF259D22F8004B7A78 /* NewGameAddPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070683FE259D22F8004B7A78 /* NewGameAddPlayerCell.swift */; };
 		07068403259D27A4004B7A78 /* NewGameScoreLimitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068402259D27A4004B7A78 /* NewGameScoreLimitCell.swift */; };
+		07077CE525C74A7400CF380D /* Countly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07077CE425C74A7400CF380D /* Countly.framework */; };
+		07077CE625C74A7400CF380D /* Countly.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07077CE425C74A7400CF380D /* Countly.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		072AFC0925AEC68300BBFF25 /* GameStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072AFC0825AEC68300BBFF25 /* GameStorageTests.swift */; };
 		072F8162259A4D48005EE56B /* NeedleFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; };
 		072F8163259A4D48005EE56B /* NeedleFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8161259A4D48005EE56B /* NeedleFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -58,6 +60,9 @@
 		072F8264259C0908005EE56B /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8261259C0908005EE56B /* HomeBuilder.swift */; };
 		072F8265259C0908005EE56B /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8262259C0908005EE56B /* HomeInteractor.swift */; };
 		0731343325C63C7E00B81569 /* Notification+ScoreFive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0731343225C63C7E00B81569 /* Notification+ScoreFive.swift */; };
+		073135A925C7490100B81569 /* analytics_config.json in Resources */ = {isa = PBXBuildFile; fileRef = 073135A825C7490100B81569 /* analytics_config.json */; };
+		073135AC25C749A600B81569 /* Analytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073135AB25C749A600B81569 /* Analytics.framework */; };
+		073135AD25C749A600B81569 /* Analytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 073135AB25C749A600B81569 /* Analytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		077178B3259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077178B2259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift */; };
 		07A45E6225A6E408000929D1 /* ActiveGameStreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45E6125A6E408000929D1 /* ActiveGameStreamTests.swift */; };
 		07A45E6625A6E500000929D1 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45E6525A6E500000929D1 /* TestCase.swift */; };
@@ -93,9 +98,11 @@
 			files = (
 				070683D1259CFCA4004B7A78 /* FiveUI.framework in Embed Frameworks */,
 				072F8163259A4D48005EE56B /* NeedleFoundation.framework in Embed Frameworks */,
+				07077CE625C74A7400CF380D /* Countly.framework in Embed Frameworks */,
 				072F8230259AA2DF005EE56B /* ScoreKeeping.framework in Embed Frameworks */,
 				072F816E259A4D57005EE56B /* ShortRibs.framework in Embed Frameworks */,
 				072F8169259A4D4D005EE56B /* SnapKit.framework in Embed Frameworks */,
+				073135AD25C749A600B81569 /* Analytics.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,6 +126,7 @@
 		070683E6259D072C004B7A78 /* ScoreCardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCardInteractor.swift; sourceTree = "<group>"; };
 		070683FE259D22F8004B7A78 /* NewGameAddPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameAddPlayerCell.swift; sourceTree = "<group>"; };
 		07068402259D27A4004B7A78 /* NewGameScoreLimitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameScoreLimitCell.swift; sourceTree = "<group>"; };
+		07077CE425C74A7400CF380D /* Countly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Countly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072AFC0825AEC68300BBFF25 /* GameStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStorageTests.swift; sourceTree = "<group>"; };
 		072F8161259A4D48005EE56B /* NeedleFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NeedleFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		072F8167259A4D4D005EE56B /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,6 +157,8 @@
 		072F8261259C0908005EE56B /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		072F8262259C0908005EE56B /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		0731343225C63C7E00B81569 /* Notification+ScoreFive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+ScoreFive.swift"; sourceTree = "<group>"; };
+		073135A825C7490100B81569 /* analytics_config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = analytics_config.json; sourceTree = "<group>"; };
+		073135AB25C749A600B81569 /* Analytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Analytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		077178B2259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePlayerNameCell.swift; sourceTree = "<group>"; };
 		07A45E6125A6E408000929D1 /* ActiveGameStreamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveGameStreamTests.swift; sourceTree = "<group>"; };
 		07A45E6525A6E500000929D1 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
@@ -176,9 +186,11 @@
 			files = (
 				070683D0259CFCA4004B7A78 /* FiveUI.framework in Frameworks */,
 				072F8162259A4D48005EE56B /* NeedleFoundation.framework in Frameworks */,
+				07077CE525C74A7400CF380D /* Countly.framework in Frameworks */,
 				072F822F259AA2DF005EE56B /* ScoreKeeping.framework in Frameworks */,
 				072F816D259A4D57005EE56B /* ShortRibs.framework in Frameworks */,
 				072F8168259A4D4D005EE56B /* SnapKit.framework in Frameworks */,
+				073135AC25C749A600B81569 /* Analytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +280,8 @@
 		072F8160259A4D48005EE56B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07077CE425C74A7400CF380D /* Countly.framework */,
+				073135AB25C749A600B81569 /* Analytics.framework */,
 				070683CF259CFCA4004B7A78 /* FiveUI.framework */,
 				072F822E259AA2DF005EE56B /* ScoreKeeping.framework */,
 				072F816C259A4D57005EE56B /* ShortRibs.framework */,
@@ -294,6 +308,7 @@
 				07E6F013259980E500AEF80A /* Assets.xcassets */,
 				07E6F015259980E500AEF80A /* LaunchScreen.storyboard */,
 				072F81C5259A62BD005EE56B /* ScoreFive.xcdatamodeld */,
+				073135A825C7490100B81569 /* analytics_config.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -562,6 +577,7 @@
 			files = (
 				07E6F017259980E500AEF80A /* LaunchScreen.storyboard in Resources */,
 				07E6F014259980E500AEF80A /* Assets.xcassets in Resources */,
+				073135A925C7490100B81569 /* analytics_config.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -788,6 +804,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y88YPD4RJA;
 				INFOPLIST_FILE = ScoreFive/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -807,6 +824,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y88YPD4RJA;
 				INFOPLIST_FILE = ScoreFive/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

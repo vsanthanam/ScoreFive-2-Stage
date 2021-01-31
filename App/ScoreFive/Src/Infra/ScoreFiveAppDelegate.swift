@@ -9,6 +9,7 @@ import CoreData
 import NeedleFoundation
 import ShortRibs
 import UIKit
+import Analytics
 
 @main
 class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        startAnalytics()
         registerProviderFactories()
         return true
     }
@@ -58,4 +60,15 @@ class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
         }
         return persistentContainer
     }()
+    
+    // MARK: - Private
+    
+    private func startAnalytics() {
+        guard let file = Bundle.main.url(forResource: "analytics_config", withExtension: "json"),
+              let data = try? Data(contentsOf: file),
+              let configuration = try? JSONDecoder().decode(AnalyticsConfig.self, from: data) else {
+            return
+        }
+        Analytics.startAnalytics(with: configuration)
+    }
 }

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0731345A25C7426400B81569 /* Countly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0731345025C7426400B81569 /* Countly.framework */; };
 		0731345F25C7426400B81569 /* CountlyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0731345E25C7426400B81569 /* CountlyTests.swift */; };
-		0731346F25C7428C00B81569 /* Countly.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731346E25C7428C00B81569 /* Countly.h */; };
+		0731346F25C7428C00B81569 /* Countly.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731346E25C7428C00B81569 /* Countly.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0731349425C742A100B81569 /* CountlyConsentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0731347225C7429E00B81569 /* CountlyConsentManager.m */; };
 		0731349525C742A100B81569 /* CountlyEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0731347325C7429E00B81569 /* CountlyEvent.m */; };
 		0731349625C742A100B81569 /* CountlyLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731347425C7429E00B81569 /* CountlyLocationManager.h */; };
@@ -21,7 +21,7 @@
 		0731349C25C742A100B81569 /* CountlyUserDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 0731347A25C7429F00B81569 /* CountlyUserDetails.m */; };
 		0731349D25C742A100B81569 /* CountlyDeviceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0731347B25C7429F00B81569 /* CountlyDeviceInfo.m */; };
 		0731349E25C742A100B81569 /* CountlyNotificationService.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731347C25C7429F00B81569 /* CountlyNotificationService.h */; };
-		0731349F25C742A100B81569 /* CountlyFeedbackWidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731347D25C7429F00B81569 /* CountlyFeedbackWidget.h */; };
+		0731349F25C742A100B81569 /* CountlyFeedbackWidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731347D25C7429F00B81569 /* CountlyFeedbackWidget.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		073134A025C742A100B81569 /* CountlyPerformanceMonitoring.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731347E25C7429F00B81569 /* CountlyPerformanceMonitoring.h */; };
 		073134A125C742A100B81569 /* CountlyViewTracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731347F25C7429F00B81569 /* CountlyViewTracking.h */; };
 		073134A225C742A100B81569 /* CountlyConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 0731348025C7429F00B81569 /* CountlyConfig.m */; };
@@ -40,8 +40,8 @@
 		073134AF25C742A100B81569 /* CountlyDeviceInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731348D25C742A000B81569 /* CountlyDeviceInfo.h */; };
 		073134B025C742A100B81569 /* CountlyCrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0731348E25C742A000B81569 /* CountlyCrashReporter.m */; };
 		073134B125C742A100B81569 /* CountlyNotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0731348F25C742A000B81569 /* CountlyNotificationService.m */; };
-		073134B225C742A100B81569 /* CountlyConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731349025C742A100B81569 /* CountlyConfig.h */; };
-		073134B325C742A100B81569 /* CountlyUserDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731349125C742A100B81569 /* CountlyUserDetails.h */; };
+		073134B225C742A100B81569 /* CountlyConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731349025C742A100B81569 /* CountlyConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		073134B325C742A100B81569 /* CountlyUserDetails.h in Headers */ = {isa = PBXBuildFile; fileRef = 0731349125C742A100B81569 /* CountlyUserDetails.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		073134B425C742A100B81569 /* CountlyConnectionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0731349225C742A100B81569 /* CountlyConnectionManager.m */; };
 		073134B525C742A100B81569 /* CountlyViewTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 0731349325C742A100B81569 /* CountlyViewTracking.m */; };
 		073134BB25C742E600B81569 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = 073134BA25C742E600B81569 /* Countly.m */; };
@@ -198,24 +198,24 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				073134A825C742A100B81569 /* CountlyEvent.h in Headers */,
-				073134A725C742A100B81569 /* CountlyPersistency.h in Headers */,
-				073134AB25C742A100B81569 /* CountlyCrashReporter.h in Headers */,
-				073134AF25C742A100B81569 /* CountlyDeviceInfo.h in Headers */,
-				0731349E25C742A100B81569 /* CountlyNotificationService.h in Headers */,
-				0731349625C742A100B81569 /* CountlyLocationManager.h in Headers */,
-				073134B225C742A100B81569 /* CountlyConfig.h in Headers */,
-				073134A025C742A100B81569 /* CountlyPerformanceMonitoring.h in Headers */,
-				0731349B25C742A100B81569 /* CountlyConsentManager.h in Headers */,
-				073134B325C742A100B81569 /* CountlyUserDetails.h in Headers */,
-				073134A425C742A100B81569 /* CountlyRemoteConfig.h in Headers */,
-				073134AE25C742A100B81569 /* CountlyConnectionManager.h in Headers */,
-				073134A325C742A100B81569 /* CountlyCommon.h in Headers */,
-				073134A525C742A100B81569 /* CountlyPushNotifications.h in Headers */,
-				0731349F25C742A100B81569 /* CountlyFeedbackWidget.h in Headers */,
-				073134A125C742A100B81569 /* CountlyViewTracking.h in Headers */,
-				073134AC25C742A100B81569 /* CountlyFeedbacks.h in Headers */,
 				0731346F25C7428C00B81569 /* Countly.h in Headers */,
+				073134B225C742A100B81569 /* CountlyConfig.h in Headers */,
+				073134B325C742A100B81569 /* CountlyUserDetails.h in Headers */,
+				0731349F25C742A100B81569 /* CountlyFeedbackWidget.h in Headers */,
+				073134AC25C742A100B81569 /* CountlyFeedbacks.h in Headers */,
+				073134A825C742A100B81569 /* CountlyEvent.h in Headers */,
+				0731349B25C742A100B81569 /* CountlyConsentManager.h in Headers */,
+				073134A125C742A100B81569 /* CountlyViewTracking.h in Headers */,
+				0731349625C742A100B81569 /* CountlyLocationManager.h in Headers */,
+				073134A725C742A100B81569 /* CountlyPersistency.h in Headers */,
+				073134AE25C742A100B81569 /* CountlyConnectionManager.h in Headers */,
+				0731349E25C742A100B81569 /* CountlyNotificationService.h in Headers */,
+				073134AB25C742A100B81569 /* CountlyCrashReporter.h in Headers */,
+				073134A425C742A100B81569 /* CountlyRemoteConfig.h in Headers */,
+				073134A325C742A100B81569 /* CountlyCommon.h in Headers */,
+				073134A025C742A100B81569 /* CountlyPerformanceMonitoring.h in Headers */,
+				073134AF25C742A100B81569 /* CountlyDeviceInfo.h in Headers */,
+				073134A525C742A100B81569 /* CountlyPushNotifications.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
