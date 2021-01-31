@@ -43,16 +43,14 @@ $ cd path/to/repo
 $ ./sftool gen deps
 ```
 
-6. Generate the object mocks (this step is optional if you aren't going to run the unit tests)
-
-```
-$ cd path/to/repo
-$ ./sftool gen mocks
-```
 
 After these steps have been taken, you can open `ScoreFive.xcworkspace` and run the app.
 
-## Running SwiftFormat
+## Development
+
+This project is hosted at phab.vsanthanam.com and manage using phacility tools. The copy on github is a mirror. To contribute, visit [the hosted phabricator install](https://phab.vsanthanam.com) and request a user account.
+
+### Running SwiftFormat
 
 You can run switformat on the repo with the correct rules and files using `sftool`:
 
@@ -61,7 +59,7 @@ $ cd path/to/repo
 $ ./sftool format
 ```
 
-## Running SwiftLine
+### Running SwiftLine
 
 You can run switformat on the repo with the correct rules and files using `sftool`:
 
@@ -69,3 +67,14 @@ You can run switformat on the repo with the correct rules and files using `sftoo
 $ cd path/to/repo
 $ ./sftool lint
 ```
+
+### Running the Unit Tests
+
+Generate the object mocks (this step is optional if you aren't going to run the unit tests)
+
+```
+$ cd path/to/repo
+$ ./sftool gen mocks
+```
+
+Then, run the unit tests from within Xcode.
