@@ -15,7 +15,7 @@ public struct AnalyticsConfig: Codable {
 
 public func startAnalytics(with config: AnalyticsConfig) {
     guard let appKey = config.appKey,
-        let host = config.appKey else {
+        let host = config.host else {
         return
     }
     let countlyConfig = CountlyConfig()

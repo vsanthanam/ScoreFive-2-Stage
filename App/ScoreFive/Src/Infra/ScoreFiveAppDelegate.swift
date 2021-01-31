@@ -64,11 +64,15 @@ class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Private
 
     private func startAnalytics() {
-        guard let file = Bundle.main.url(forResource: "analytics_config", withExtension: "json"),
-            let data = try? Data(contentsOf: file),
-            let configuration = try? JSONDecoder().decode(AnalyticsConfig.self, from: data) else {
-            fatalError("No analytics configuration provided. Run `sftool bootstrap` in the repo root")
+        do {
+            guard let file = Bundle.main.url(forResource: "analytics_config", withExtension: "json") else {
+                fatalError("Fatal: Invalid Analytics Configuration Resource")
+            }
+            let data = try Data(contentsOf: file)
+            let config = try JSONDecoder().decode(AnalyticsConfig.self, from: data)
+            Analytics.startAnalytics(with: config)
+        } catch {
+            fatalError("Broken Analytics Configuration: \(error.localizedDescription)")
         }
-        Analytics.startAnalytics(with: configuration)
     }
 }

@@ -65,13 +65,9 @@ enum Commands {
 
     static func writeAnalyticsConfiguration(_ root: String, config: AnalyticsConfig = .empty) throws {
         let data = try JSONEncoder().encode(config)
-        guard let json = String(data: data, encoding: .utf8) else {
-            return
-        }
         let targetPath = "/App/ScoreFive/Resources/analytics_config.json"
         try shellOut(to: .removeFile(from: root + targetPath))
-        let echo = "echo \"\(json)\" >> \(root)\(targetPath)"
-        try shellOut(to: echo)
+        try NSData(data: data).write(toFile: root + targetPath)
     }
 }
 
