@@ -38,7 +38,7 @@ struct SwiftFormatCommand: ParsableCommand {
     @Option(name: .shortAndLong, help: "Location of the score five repo")
     var root: String = FileManager.default.currentDirectoryPath
 
-    private func runSwiftFormat(with configuration: Configuration) throws {
+    private func runSwiftFormat(with configuration: ToolConfiguration) throws {
         var configComponents: [String] = .init()
         if !configuration.swiftformat.disableRules.isEmpty {
             let disable = "--disable" + " " + configuration.swiftformat.disableRules.joined(separator: ",")

@@ -52,30 +52,13 @@ struct GenerateMocks: ParsableCommand {
 
     // MARK: - Private
 
-    private func generateMocks(with configuration: Configuration) throws {
-        let featureCode = root + "/" + configuration.featureCodePath
-        let libraryCode = root + "/" + configuration.libraryCodePath
-        let mocks = root + "/" + configuration.mockPath
-        if verbose {
-            print("Input Paths:")
-            print(featureCode)
-            print(libraryCode)
-            print("Output Path:")
-            print(mocks)
-        }
-        var command = "mockolo -s \(featureCode) \(libraryCode) -d \(mocks)"
-        if !configuration.mockolo.testableImports.isEmpty {
-            if verbose {
-                print("Adding Testable Imports")
-                configuration.mockolo.testableImports.forEach { print($0) }
-            }
-            command.append(" ")
-            command.append((["-i"] + configuration.mockolo.testableImports).joined(separator: " "))
-        }
-        if verbose {
-            print("Running command \(command)")
-        }
-        try shellOut(to: command)
+    private func generateMocks(with configuration: ToolConfiguration) throws {
+        try Commands.generateMocks(root,
+                                   featureCodePath: configuration.featureCodePath,
+                                   libraryCodePath: configuration.libraryCodePath,
+                                   mockPath: configuration.mockPath,
+                                   testableImports: configuration.mockolo.testableImports,
+                                   verbose: false)
     }
 
 }

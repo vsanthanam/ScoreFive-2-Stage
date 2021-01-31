@@ -5,11 +5,11 @@
 //  Created by Varun Santhanam on 12/25/20.
 //
 
+import Analytics
 import CoreData
 import NeedleFoundation
 import ShortRibs
 import UIKit
-import Analytics
 
 @main
 class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
@@ -60,14 +60,14 @@ class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
         }
         return persistentContainer
     }()
-    
+
     // MARK: - Private
-    
+
     private func startAnalytics() {
         guard let file = Bundle.main.url(forResource: "analytics_config", withExtension: "json"),
-              let data = try? Data(contentsOf: file),
-              let configuration = try? JSONDecoder().decode(AnalyticsConfig.self, from: data) else {
-            return
+            let data = try? Data(contentsOf: file),
+            let configuration = try? JSONDecoder().decode(AnalyticsConfig.self, from: data) else {
+            fatalError("No analytics configuration provided. Run `sftool bootstrap` in the repo root")
         }
         Analytics.startAnalytics(with: configuration)
     }

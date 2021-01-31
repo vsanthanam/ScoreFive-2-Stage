@@ -32,7 +32,7 @@ enum ConfigurationError: Error {
 /// - Parameter root: The root directory of the ScoreFive repo to search for teh config file for
 /// - Throws: The error when finding or parsing the repo
 /// - Returns: The configuration file
-func fetchConfiguration(on root: String) throws -> Configuration {
+func fetchConfiguration(on root: String) throws -> ToolConfiguration {
 
     func readFile() throws -> String {
         do {
@@ -47,7 +47,7 @@ func fetchConfiguration(on root: String) throws -> Configuration {
     do {
         let jsonData = file.data(using: .utf8)!
         let decoder = JSONDecoder()
-        let config = try decoder.decode(Configuration.self, from: jsonData)
+        let config = try decoder.decode(ToolConfiguration.self, from: jsonData)
         return config
     } catch {
         throw ConfigurationError.decodingFailed(error: error)
@@ -55,7 +55,7 @@ func fetchConfiguration(on root: String) throws -> Configuration {
 }
 
 /// The configuration object model
-struct Configuration: Codable {
+struct ToolConfiguration: Codable {
 
     /// SwiftFormat configuration
     let swiftformat: SwiftFormatConfiguration

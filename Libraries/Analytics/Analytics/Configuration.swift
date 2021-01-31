@@ -5,27 +5,22 @@
 //  Created by Varun Santhanam on 1/31/21.
 //
 
-import Foundation
 import Countly
+import Foundation
 
 public struct AnalyticsConfig: Codable {
-    
-    public struct Settings: Codable {
-        let appKey: String
-        let host: String
-    }
-    
-    public let settings: Settings?
+    let appKey: String?
+    let host: String?
 }
 
-
 public func startAnalytics(with config: AnalyticsConfig) {
-    guard let settings = config.settings else {
+    guard let appKey = config.appKey,
+        let host = config.appKey else {
         return
     }
     let countlyConfig = CountlyConfig()
-    countlyConfig.appKey = settings.appKey
-    countlyConfig.host = settings.host
+    countlyConfig.appKey = appKey
+    countlyConfig.host = host
     countlyConfig.features = [.crashReporting]
     Countly.sharedInstance().start(with: countlyConfig)
 }

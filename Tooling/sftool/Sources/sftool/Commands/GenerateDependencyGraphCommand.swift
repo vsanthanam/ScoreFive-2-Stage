@@ -52,20 +52,11 @@ struct GenerateDependencyGraphCommand: ParsableCommand {
 
     // MARK: - Private
 
-    private func generateDependencyGraph(with configuration: Configuration) throws {
-        let needleInput = root + "/" + configuration.diCodePath
-        let dependencyGraph = root + "/" + configuration.diGraphPath
-        if verbose {
-            print("Input Paths:")
-            print(needleInput)
-            print("Output Path:")
-            print(dependencyGraph)
-        }
-        let command = "export SOURCEKIT_LOGGING=0 && needle generate \(dependencyGraph) \(needleInput)"
-        if verbose {
-            print("Running command \(command)")
-        }
-        try shellOut(to: command)
+    private func generateDependencyGraph(with configuration: ToolConfiguration) throws {
+        try Commands.generateDependencyGraph(root,
+                                             diCodePath: configuration.diCodePath,
+                                             diGraphPath: configuration.diGraphPath,
+                                             verbose: verbose)
     }
 
 }

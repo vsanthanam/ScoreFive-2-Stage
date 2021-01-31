@@ -45,7 +45,7 @@ struct SwiftLintCommand: ParsableCommand {
     @Option(name: .shortAndLong, help: "Location of the score five repo")
     var root: String = FileManager.default.currentDirectoryPath
 
-    private func runSwiftLint(with configuration: Configuration) throws {
+    private func runSwiftLint(with configuration: ToolConfiguration) throws {
 
         struct SwiftLintConfig: Codable {
             var excluded: [String] = []

@@ -30,13 +30,12 @@ $ swift build --package-path Tooling/sftool --configuration release
 $ cp Tooling/sftool/.build/release/sftool sftool
 ```
 
-4. Generate the dependency graph:
+4. Prepare the repository for development
 
 ```
 $ cd path/to/repo
-$ ./sftool gen deps
+$ ./sftool boostrap
 ```
-
 
 After these steps have been taken, you can open `ScoreFive.xcworkspace` and run the app.
 
@@ -88,4 +87,29 @@ $ brew install swiftformat
 ```
 $ cd path/to/repo
 $ ./sftool lint
+```
+
+
+### Updating the DI Graph
+
+```
+$ cd path/to/repo
+$ ./sftool gen deps
+```
+
+### Configuration Analytics
+
+ScoreFive uses Countly for user analytics. This feature is disabled by default, and you'll need your own hosted version of Countly to get it up and running.
+If you have your own host, create an application key and install it with `sftool`
+
+```
+$ cd path/to/repo
+$ ./sftool analytics install --key MY_COUNTLY_APP_KEY --host https://mycountlyhost.com
+```
+
+Similarly, you can remove any currently active analytics configuration with `sftool`
+
+```
+$ cd path/to/repo
+$ ./sftool analytics wipe
 ```
