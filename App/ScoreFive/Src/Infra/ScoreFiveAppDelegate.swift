@@ -70,7 +70,7 @@ class ScoreFiveAppDelegate: UIResponder, UIApplicationDelegate {
             }
             let data = try Data(contentsOf: file)
             let config = try JSONDecoder().decode(AnalyticsConfig.self, from: data)
-            Analytics.startAnalytics(with: config)
+            AnalyticsManager.shared.startAnalytics(with: config)
         } catch {
             fatalError("Broken Analytics Configuration: \(error.localizedDescription)")
         }

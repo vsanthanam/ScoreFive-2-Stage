@@ -10,9 +10,10 @@
 		073134D225C744DA00B81569 /* Analytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073134C825C744DA00B81569 /* Analytics.framework */; };
 		073134D725C744DA00B81569 /* AnalyticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073134D625C744DA00B81569 /* AnalyticsTests.swift */; };
 		073134D925C744DA00B81569 /* Analytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 073134CB25C744DA00B81569 /* Analytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		073134E525C744EF00B81569 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073134E425C744EF00B81569 /* Configuration.swift */; };
+		073134E525C744EF00B81569 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073134E425C744EF00B81569 /* AnalyticsManager.swift */; };
 		073134EA25C7456000B81569 /* Countly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073134E925C7456000B81569 /* Countly.framework */; };
 		073134EB25C7456000B81569 /* Countly.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 073134E925C7456000B81569 /* Countly.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		07A57F7525C7AAA400DDD29C /* Assert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A57F7425C7AAA400DDD29C /* Assert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +47,9 @@
 		073134D125C744DA00B81569 /* AnalyticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnalyticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		073134D625C744DA00B81569 /* AnalyticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsTests.swift; sourceTree = "<group>"; };
 		073134D825C744DA00B81569 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		073134E425C744EF00B81569 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		073134E425C744EF00B81569 /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		073134E925C7456000B81569 /* Countly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Countly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		07A57F7425C7AAA400DDD29C /* Assert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +96,8 @@
 			children = (
 				073134CB25C744DA00B81569 /* Analytics.h */,
 				073134CC25C744DA00B81569 /* Info.plist */,
-				073134E425C744EF00B81569 /* Configuration.swift */,
+				073134E425C744EF00B81569 /* AnalyticsManager.swift */,
+				07A57F7425C7AAA400DDD29C /* Assert.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -226,7 +229,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				073134E525C744EF00B81569 /* Configuration.swift in Sources */,
+				073134E525C744EF00B81569 /* AnalyticsManager.swift in Sources */,
+				07A57F7525C7AAA400DDD29C /* Assert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

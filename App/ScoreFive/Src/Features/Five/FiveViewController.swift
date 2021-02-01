@@ -5,6 +5,7 @@
 //  Created by Varun Santhanam on 12/28/20.
 //
 
+import Analytics
 import FiveUI
 import Foundation
 import ShortRibs
@@ -75,15 +76,15 @@ final class FiveViewController: ScopeViewController, FivePresentable, FiveViewCo
             nav.setViewControllers([viewController.uiviewController] + nav.viewControllers, animated: false)
             nav.popToViewController(viewController.uiviewController, animated: true) { [weak nav] in
                 guard let nav = nav else {
-                    assertionFailure("Managed Navigation Controller OOM")
+                    fiveAssertionFailure("Managed Navigation Controller OOM", key: "five_navigation_failure")
                     return
                 }
-                assert(nav.viewControllers.count == 1, "Invalid View Controller Count")
+                fiveAssert(nav.viewControllers.count == 1, "Invalid View Controller Count", key: "five_navigation_failure")
             }
         case .push:
             nav.pushViewController(viewController: viewController.uiviewController, animated: true) { [weak nav] in
                 guard let nav = nav else {
-                    assertionFailure("Managed Navigation Controller OOM")
+                    fiveAssertionFailure("Managed Navigation Controller OOM", key: "five_navigation_failure")
                     return
                 }
                 nav.viewControllers = [viewController.uiviewController]

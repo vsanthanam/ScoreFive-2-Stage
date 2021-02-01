@@ -5,6 +5,7 @@
 //  Created by Varun Santhanam on 12/28/20.
 //
 
+import Analytics
 import Foundation
 import ShortRibs
 import SnapKit
@@ -49,7 +50,7 @@ final class MainViewController: ScopeViewController, MainPresentable, MainViewCo
     }
 
     private func embedFiveViewController(_ viewController: ViewControllable) {
-        assert(fiveViewController == nil)
+        fiveAssert(fiveViewController == nil, "Unowned Five View Controller!", key: "unowned_five_vc")
         addChild(viewController.uiviewController)
         view.addSubview(viewController.uiviewController.view)
         viewController.uiviewController.view.snp.makeConstraints { make in
@@ -62,7 +63,7 @@ final class MainViewController: ScopeViewController, MainPresentable, MainViewCo
     }
 
     private func removeFiveViewController() {
-        assert(fiveViewController != nil)
+        fiveAssert(fiveViewController != nil, "Missing Five View Controller!", key: "missing_five_vc")
         fiveViewController?.uiviewController.willMove(toParent: self)
         fiveViewController?.uiviewController.view.removeFromSuperview()
         fiveViewController?.uiviewController.removeFromParent()
