@@ -125,16 +125,18 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         gameHeader.snp.makeConstraints { make in
             make
                 .top
+                .equalToSuperview()
+            make
                 .leading
                 .trailing
-                .equalToSuperview()
+                .equalTo(specializedView.safeAreaLayoutGuide)
         }
 
         scoreCardLayoutGuide.snp.makeConstraints { make in
             make
                 .leading
                 .trailing
-                .equalToSuperview()
+                .equalTo(specializedView.safeAreaLayoutGuide)
             make
                 .top
                 .equalTo(gameHeader.snp.bottom)
@@ -148,7 +150,7 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
             make
                 .leading
                 .trailing
-                .equalToSuperview()
+                .equalTo(specializedView.safeAreaLayoutGuide)
             make
                 .bottom
                 .equalTo(addRoundButton.snp.top)

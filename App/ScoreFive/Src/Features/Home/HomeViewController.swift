@@ -105,8 +105,14 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
         specializedView.addSubview(buttonStackView)
 
         layoutGuide.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.leading.trailing.equalTo(specializedView).inset(16.0)
+            make
+                .center
+                .equalToSuperview()
+            make
+                .leading
+                .trailing
+                .equalTo(specializedView.safeAreaLayoutGuide)
+                .inset(16.0)
         }
 
         imageView.snp.makeConstraints { make in

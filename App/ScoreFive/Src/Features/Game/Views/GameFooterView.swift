@@ -107,7 +107,7 @@ final class GameFooterView: BaseView {
 
         private func setUp() {
             backgroundColor = .backgroundPrimary
-            label.font = .systemFont(ofSize: 17.0, weight: .bold)
+            label.font = UIFont(name: "Consolas", size: 17.0)
             label.textAlignment = .center
             label.textColor = .contentPrimary
             addSubview(label)
@@ -119,7 +119,7 @@ final class GameFooterView: BaseView {
                     .top
                     .bottom
                     .equalToSuperview()
-                    .inset(18.0)
+                    .inset(16.0)
             }
         }
     }

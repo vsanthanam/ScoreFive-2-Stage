@@ -157,7 +157,7 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
     private lazy var collectionView: UICollectionView = { [weak self] in
         let layout = UICollectionViewCompositionalLayout(sectionProvider: { index, environment in
             var config = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-            config.backgroundColor = .backgroundSecondary
+            config.backgroundColor = .backgroundPrimary
 
             if index == 0 {
                 config.headerMode = .supplementary
@@ -178,7 +178,7 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
     private var enteredPlayerNames: [String?] = [nil, nil]
 
     private func setUp() {
-        specializedView.backgroundColor = .backgroundSecondary
+        specializedView.backgroundColor = .backgroundPrimary
 
         let navigationItem = UINavigationItem(title: "New Game")
         let closeItem = UIBarButtonItem(barButtonSystemItem: .close,

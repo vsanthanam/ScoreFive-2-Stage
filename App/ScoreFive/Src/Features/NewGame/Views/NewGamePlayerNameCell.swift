@@ -50,7 +50,7 @@ final class NewGamePlayerNameCell: ListCell<NewGamePlayerNameCell.ContentConfigu
         }
 
         private func setUp() {
-            backgroundColor = .backgroundPrimary
+            backgroundColor = .backgroundSecondary
             input.textColor = .contentPrimary
             input.clearButtonMode = .whileEditing
             input.returnKeyType = .done
