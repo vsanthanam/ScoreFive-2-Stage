@@ -54,11 +54,9 @@ final class NewRoundViewController: ScopeViewController, NewRoundPresentable, Ne
         let navigationItem = UINavigationItem(title: "Add Scores")
         navigationItem.largeTitleDisplayMode = .always
 
-        let config = UIImage.SymbolConfiguration(pointSize: 17.0, weight: .bold)
-        let image = UIImage(systemName: "xmark", withConfiguration: config)
-
-        let closeItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(close))
-        closeItem.tintColor = .contentPrimary
+        let closeItem = UIBarButtonItem(barButtonSystemItem: .close,
+                                        target: self,
+                                        action: #selector(close))
         navigationItem.leftBarButtonItem = closeItem
 
         header.setItems([navigationItem], animated: false)
