@@ -76,15 +76,15 @@ final class FiveViewController: ScopeViewController, FivePresentable, FiveViewCo
             nav.setViewControllers([viewController.uiviewController] + nav.viewControllers, animated: false)
             nav.popToViewController(viewController.uiviewController, animated: true) { [weak nav] in
                 guard let nav = nav else {
-                    fiveAssertionFailure("Managed Navigation Controller OOM", key: "five_navigation_failure")
+                    keyedAssertionFailure("Managed Navigation Controller OOM", key: "five_navigation_failure")
                     return
                 }
-                fiveAssert(nav.viewControllers.count == 1, "Invalid View Controller Count", key: "five_navigation_failure")
+                keyedAssert(nav.viewControllers.count == 1, "Invalid View Controller Count", key: "five_navigation_failure")
             }
         case .push:
             nav.pushViewController(viewController: viewController.uiviewController, animated: true) { [weak nav] in
                 guard let nav = nav else {
-                    fiveAssertionFailure("Managed Navigation Controller OOM", key: "five_navigation_failure")
+                    keyedAssertionFailure("Managed Navigation Controller OOM", key: "five_navigation_failure")
                     return
                 }
                 nav.viewControllers = [viewController.uiviewController]
