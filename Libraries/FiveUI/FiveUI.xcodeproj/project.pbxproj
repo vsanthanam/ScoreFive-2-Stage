@@ -16,6 +16,7 @@
 		0706840A259D364D004B7A78 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07068409259D364D004B7A78 /* BaseView.swift */; };
 		0706841B259D4C47004B7A78 /* BaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706841A259D4C47004B7A78 /* BaseControl.swift */; };
 		0747EA3F25B6073C00774773 /* UINavigationController+FiveUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0747EA3E25B6073B00774773 /* UINavigationController+FiveUI.swift */; };
+		07A57F9425C9005100DDD29C /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A57F9325C9005100DDD29C /* SnapKit.framework */; };
 		07C38CCD259FCED400A9AFCD /* TappableControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C38CCC259FCED400A9AFCD /* TappableControl.swift */; };
 		07C4473C25A0342C00626A2A /* SymbolButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4473B25A0342C00626A2A /* SymbolButton.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +44,7 @@
 		07068409259D364D004B7A78 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		0706841A259D4C47004B7A78 /* BaseControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseControl.swift; sourceTree = "<group>"; };
 		0747EA3E25B6073B00774773 /* UINavigationController+FiveUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+FiveUI.swift"; sourceTree = "<group>"; };
+		07A57F9325C9005100DDD29C /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07C38CCC259FCED400A9AFCD /* TappableControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableControl.swift; sourceTree = "<group>"; };
 		07C4473B25A0342C00626A2A /* SymbolButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07A57F9425C9005100DDD29C /* SnapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +75,7 @@
 				070683A8259CFBD2004B7A78 /* FiveUI */,
 				070683B3259CFBD2004B7A78 /* FiveUITests */,
 				070683A7259CFBD2004B7A78 /* Products */,
+				07A57F9225C9005100DDD29C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,6 +136,14 @@
 				070683F6259D1F79004B7A78 /* CollectionView.swift */,
 			);
 			path = Lists;
+			sourceTree = "<group>";
+		};
+		07A57F9225C9005100DDD29C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				07A57F9325C9005100DDD29C /* SnapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

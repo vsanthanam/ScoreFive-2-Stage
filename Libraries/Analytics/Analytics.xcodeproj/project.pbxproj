@@ -12,7 +12,6 @@
 		073134D925C744DA00B81569 /* Analytics.h in Headers */ = {isa = PBXBuildFile; fileRef = 073134CB25C744DA00B81569 /* Analytics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		073134E525C744EF00B81569 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073134E425C744EF00B81569 /* AnalyticsManager.swift */; };
 		073134EA25C7456000B81569 /* Countly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073134E925C7456000B81569 /* Countly.framework */; };
-		073134EB25C7456000B81569 /* Countly.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 073134E925C7456000B81569 /* Countly.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		07A57F7525C7AAA400DDD29C /* Assert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A57F7425C7AAA400DDD29C /* Assert.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,20 +24,6 @@
 			remoteInfo = Analytics;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		073134EC25C7456000B81569 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				073134EB25C7456000B81569 /* Countly.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		073134C825C744DA00B81569 /* Analytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Analytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,7 +126,6 @@
 				073134C425C744DA00B81569 /* Sources */,
 				073134C525C744DA00B81569 /* Frameworks */,
 				073134C625C744DA00B81569 /* Resources */,
-				073134EC25C7456000B81569 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
