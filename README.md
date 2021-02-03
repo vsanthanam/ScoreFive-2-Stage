@@ -1,4 +1,5 @@
 #  ScoreFive
+[![Build Status](https://app.bitrise.io/app/fe59272550a1b3ee/status.svg?token=7qUOrruzIv3Ca3ntoOoHvw&branch=master)](https://app.bitrise.io/app/fe59272550a1b3ee)
 
 ## Setup
 
