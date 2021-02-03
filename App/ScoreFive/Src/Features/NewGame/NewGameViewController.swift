@@ -248,7 +248,7 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
                 .leading
                 .trailing
                 .equalTo(specializedView.safeAreaLayoutGuide)
-                .inset(18.0)
+                .inset(16.0)
             make
                 .bottom
                 .equalTo(specializedView.safeAreaLayoutGuide)
