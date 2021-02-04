@@ -1,6 +1,6 @@
 #  ScoreFive
-![Bitrise](https://img.shields.io/bitrise/fe59272550a1b3ee/master?label=build&token=7qUOrruzIv3Ca3ntoOoHvw)
-![GitHub](https://img.shields.io/github/license/vsanthanam/scorefive-2)
+[![Bitrise](https://img.shields.io/bitrise/fe59272550a1b3ee/master?label=build&token=7qUOrruzIv3Ca3ntoOoHvw)](https://app.bitrise.io/app/fe59272550a1b3ee)
+[![GitHub](https://img.shields.io/github/license/vsanthanam/scorefive-2)](https://opensource.org/licenses/MIT)
 
 ## Setup
 
@@ -8,9 +8,7 @@ ScoreFive is comprised of several xcodeprojects convieniently packaged as a work
 Vendor code does not use a package manager, and copied and compiled in separate targets.
 Before opening the `.xcworkspace` and building the app, complete the following steps to setup the tooling
 
-0. Install homebrew.
-
-More information is available at [https://brew.sh](https://brew.sh)
+0. Install homebrew. More information is available at [https://brew.sh](https://brew.sh)
 
 1. ScoreFive uses [Needle](https://www.github.com/uber/needle) for type-safe, scoped dependency injection. Install the needle code generation tools from uber/needle through homebrew:
 
