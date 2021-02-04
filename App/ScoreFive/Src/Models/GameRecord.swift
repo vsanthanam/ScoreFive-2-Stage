@@ -11,7 +11,7 @@ import Foundation
 import ScoreKeeping
 import ShortRibs
 
-/// @CreateMock
+/// @mockable
 protocol GameRecord: AnyObject {
     var inProgress: Bool { get }
     var uniqueIdentifier: UUID { get }

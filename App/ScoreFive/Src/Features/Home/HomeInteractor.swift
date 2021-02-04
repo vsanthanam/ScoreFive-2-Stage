@@ -70,8 +70,6 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
             let games = try gameStorageManager.fetchInProgressGameRecords()
             if let identifier = games.first?.uniqueIdentifier {
                 listener?.homeWantToOpenGame(withIdentifier: identifier)
-            } else {
-                print("oppress")
             }
         } catch {
             return
