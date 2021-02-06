@@ -64,6 +64,9 @@
 		073135AC25C749A600B81569 /* Analytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 073135AB25C749A600B81569 /* Analytics.framework */; };
 		073135AD25C749A600B81569 /* Analytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 073135AB25C749A600B81569 /* Analytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		077178B3259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077178B2259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift */; };
+		0782077B25CF2C9A00D8D659 /* MainViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0782077A25CF2C9900D8D659 /* MainViewControllerSnapshotTests.swift */; };
+		0782077E25CF2CF800D8D659 /* RootViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0782077D25CF2CF800D8D659 /* RootViewControllerSnapshotTests.swift */; };
+		0782078225CF2DE900D8D659 /* NewGameViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0782078125CF2DE900D8D659 /* NewGameViewControllerSnapshotTests.swift */; };
 		07A45E6225A6E408000929D1 /* ActiveGameStreamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45E6125A6E408000929D1 /* ActiveGameStreamTests.swift */; };
 		07A45E6625A6E500000929D1 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A45E6525A6E500000929D1 /* TestCase.swift */; };
 		07A57F7F25C7B85A00DDD29C /* Consolas.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07A57F7E25C7B85A00DDD29C /* Consolas.ttf */; };
@@ -165,6 +168,9 @@
 		073135A825C7490100B81569 /* analytics_config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = analytics_config.json; sourceTree = "<group>"; };
 		073135AB25C749A600B81569 /* Analytics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Analytics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		077178B2259FB1FF00DD5E84 /* NewGamePlayerNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGamePlayerNameCell.swift; sourceTree = "<group>"; };
+		0782077A25CF2C9900D8D659 /* MainViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
+		0782077D25CF2CF800D8D659 /* RootViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
+		0782078125CF2DE900D8D659 /* NewGameViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 		07A45E6125A6E408000929D1 /* ActiveGameStreamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveGameStreamTests.swift; sourceTree = "<group>"; };
 		07A45E6525A6E500000929D1 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		07A57F7E25C7B85A00DDD29C /* Consolas.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Consolas.ttf; sourceTree = "<group>"; };
@@ -374,6 +380,7 @@
 		072F81AC259A5D7E005EE56B /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				0782078025CF2DE000D8D659 /* NewGame */,
 				07A57FA725CA685200DDD29C /* Home */,
 				072F81D2259A6587005EE56B /* Five */,
 				072F81CA259A63DD005EE56B /* Main */,
@@ -387,6 +394,7 @@
 			children = (
 				072F81B1259A5D9E005EE56B /* RootInteractorTests.swift */,
 				072F81B5259A5EBA005EE56B /* RootViewControllerTests.swift */,
+				0782077D25CF2CF800D8D659 /* RootViewControllerSnapshotTests.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -416,6 +424,7 @@
 			children = (
 				072F81CB259A63E3005EE56B /* MainInteractorTests.swift */,
 				072F81CF259A6451005EE56B /* MainViewControllerTests.swift */,
+				0782077A25CF2C9900D8D659 /* MainViewControllerSnapshotTests.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -447,6 +456,14 @@
 				072F8262259C0908005EE56B /* HomeInteractor.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		0782078025CF2DE000D8D659 /* NewGame */ = {
+			isa = PBXGroup;
+			children = (
+				0782078125CF2DE900D8D659 /* NewGameViewControllerSnapshotTests.swift */,
+			);
+			path = NewGame;
 			sourceTree = "<group>";
 		};
 		07A45E6025A6E3FB000929D1 /* Helpers */ = {
@@ -681,15 +698,18 @@
 			files = (
 				072F81D4259A658F005EE56B /* FiveInteractorTests.swift in Sources */,
 				072F81B2259A5D9E005EE56B /* RootInteractorTests.swift in Sources */,
+				0782077B25CF2C9A00D8D659 /* MainViewControllerSnapshotTests.swift in Sources */,
 				072F81D8259A65E1005EE56B /* FiveViewControllerTests.swift in Sources */,
 				072AFC0925AEC68300BBFF25 /* GameStorageTests.swift in Sources */,
 				07E8050D25CF220E008B3125 /* HomeViewControllerSnapshotTests.swift in Sources */,
 				07A45E6225A6E408000929D1 /* ActiveGameStreamTests.swift in Sources */,
+				0782078225CF2DE900D8D659 /* NewGameViewControllerSnapshotTests.swift in Sources */,
 				072F81A9259A5D76005EE56B /* Mocks.swift in Sources */,
 				07A45E6625A6E500000929D1 /* TestCase.swift in Sources */,
 				072F81B6259A5EBA005EE56B /* RootViewControllerTests.swift in Sources */,
 				072F81CC259A63E3005EE56B /* MainInteractorTests.swift in Sources */,
 				072F81D0259A6451005EE56B /* MainViewControllerTests.swift in Sources */,
+				0782077E25CF2CF800D8D659 /* RootViewControllerSnapshotTests.swift in Sources */,
 				07A57FA925CA686300DDD29C /* HomeInteractorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
