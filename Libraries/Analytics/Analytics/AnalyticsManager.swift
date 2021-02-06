@@ -14,15 +14,15 @@ public struct AnalyticsConfig: Codable {
 }
 
 public final class AnalyticsManager {
-    
+
     // MARK: - API
-    
+
     /// The shared instance
     public static let shared: AnalyticsManager = .init()
-    
+
     /// Whether or not analytics events are accepted
     public private(set) var isStarted: Bool = false
-    
+
     /// Start the analytics manager
     /// - Parameter config: The configuration, used to determine where to send events
     public func startAnalytics(with config: AnalyticsConfig) {
@@ -37,12 +37,12 @@ public final class AnalyticsManager {
         Countly.sharedInstance().start(with: countlyConfig)
         isStarted = true
     }
-    
+
     /// Stop the analytics manager
     public func stopAnalytics() {
         isStarted = false
     }
-    
+
     /// Send an event
     /// - Parameters:
     ///   - event: The event
@@ -53,9 +53,9 @@ public final class AnalyticsManager {
         }
         Countly.sharedInstance().recordEvent(event, segmentation: segmentation)
     }
-    
+
     // MARK: - Private
-    
+
     internal func logAssertError(key: String, file: StaticString, function: StaticString, line: UInt) {
         guard isStarted else {
             return
@@ -70,7 +70,7 @@ public final class AnalyticsManager {
 }
 
 public enum Analytics {
-    
+
     /// Send an event
     /// - Parameters:
     ///   - event: The event
@@ -79,4 +79,3 @@ public enum Analytics {
         AnalyticsManager.shared.send(event: event, segmentation: segmentation)
     }
 }
-

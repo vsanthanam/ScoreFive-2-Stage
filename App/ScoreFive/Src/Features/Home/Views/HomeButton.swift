@@ -5,9 +5,9 @@
 //  Created by Varun Santhanam on 2/6/21.
 //
 
+import FiveUI
 import Foundation
 import UIKit
-import FiveUI
 
 final class HomeButton: TappableControl {
 
