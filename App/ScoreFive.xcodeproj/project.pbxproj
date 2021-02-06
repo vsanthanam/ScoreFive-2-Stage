@@ -79,6 +79,9 @@
 		07E6F00D259980E300AEF80A /* ScoreFiveSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E6F00C259980E300AEF80A /* ScoreFiveSceneDelegate.swift */; };
 		07E6F014259980E500AEF80A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E6F013259980E500AEF80A /* Assets.xcassets */; };
 		07E6F017259980E500AEF80A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E6F015259980E500AEF80A /* LaunchScreen.storyboard */; };
+		07E8050425CF213C008B3125 /* FBSnapshotTestCase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E8050325CF213C008B3125 /* FBSnapshotTestCase.framework */; };
+		07E8050825CF21E0008B3125 /* HomeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8050725CF21E0008B3125 /* HomeButton.swift */; };
+		07E8050D25CF220E008B3125 /* HomeViewControllerSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8050C25CF220E008B3125 /* HomeViewControllerSnapshotTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,6 +184,9 @@
 		07E6F018259980E500AEF80A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07E6F01D259980E500AEF80A /* ScoreFiveTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScoreFiveTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E6F023259980E500AEF80A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07E8050325CF213C008B3125 /* FBSnapshotTestCase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSnapshotTestCase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		07E8050725CF21E0008B3125 /* HomeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeButton.swift; sourceTree = "<group>"; };
+		07E8050C25CF220E008B3125 /* HomeViewControllerSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewControllerSnapshotTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07E8050425CF213C008B3125 /* FBSnapshotTestCase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +291,7 @@
 		072F8160259A4D48005EE56B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07E8050325CF213C008B3125 /* FBSnapshotTestCase.framework */,
 				07077CE425C74A7400CF380D /* Countly.framework */,
 				073135AB25C749A600B81569 /* Analytics.framework */,
 				070683CF259CFCA4004B7A78 /* FiveUI.framework */,
@@ -433,6 +441,7 @@
 		072F825F259C08F6005EE56B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				07E8050625CF21D7008B3125 /* Views */,
 				072F8260259C0908005EE56B /* HomeViewController.swift */,
 				072F8261259C0908005EE56B /* HomeBuilder.swift */,
 				072F8262259C0908005EE56B /* HomeInteractor.swift */,
@@ -452,6 +461,7 @@
 		07A57FA725CA685200DDD29C /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				07E8050C25CF220E008B3125 /* HomeViewControllerSnapshotTests.swift */,
 				07A57FA825CA686300DDD29C /* HomeInteractorTests.swift */,
 			);
 			path = Home;
@@ -505,6 +515,14 @@
 				07A45E6525A6E500000929D1 /* TestCase.swift */,
 			);
 			path = ScoreFiveTests;
+			sourceTree = "<group>";
+		};
+		07E8050625CF21D7008B3125 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				07E8050725CF21E0008B3125 /* HomeButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -618,6 +636,7 @@
 				072F8263259C0908005EE56B /* HomeViewController.swift in Sources */,
 				07C38CD1259FCEFA00A9AFCD /* NewGameButton.swift in Sources */,
 				07B6647D25A2528C00A994A8 /* NewGameSectionFooterView.swift in Sources */,
+				07E8050825CF21E0008B3125 /* HomeButton.swift in Sources */,
 				07068398259C33F9004B7A78 /* NewRoundBuilder.swift in Sources */,
 				070683EA259D072C004B7A78 /* ScoreCardInteractor.swift in Sources */,
 				072F8192259A523F005EE56B /* MainViewController.swift in Sources */,
@@ -664,6 +683,7 @@
 				072F81B2259A5D9E005EE56B /* RootInteractorTests.swift in Sources */,
 				072F81D8259A65E1005EE56B /* FiveViewControllerTests.swift in Sources */,
 				072AFC0925AEC68300BBFF25 /* GameStorageTests.swift in Sources */,
+				07E8050D25CF220E008B3125 /* HomeViewControllerSnapshotTests.swift in Sources */,
 				07A45E6225A6E408000929D1 /* ActiveGameStreamTests.swift in Sources */,
 				072F81A9259A5D76005EE56B /* Mocks.swift in Sources */,
 				07A45E6625A6E500000929D1 /* TestCase.swift in Sources */,

@@ -30,6 +30,9 @@
       location = "container:"
       name = "Vendor">
       <FileRef
+         location = "group:Vendor/FBSnapshotTestCase/FBSnapshotTestCase.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Vendor/Countly/Countly.xcodeproj">
       </FileRef>
       <FileRef
