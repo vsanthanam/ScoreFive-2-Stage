@@ -43,16 +43,16 @@ final class NewGameInteractor: PresentableInteractor<NewGamePresentable>, NewGam
             presenter.showScoreLimitError()
             return
         }
-        let (_, names) = playerNames.reduce((0, [])) { (total: (Int, [String]), name: String?) in
+        let (_, players) = playerNames.reduce((0, [])) { (total: (Int, [Player]), name: String?) in
             let (current, list) = total
             let actualName = name ?? "Player \(current + 1)"
-            let newNames = list + [actualName]
+            let player = Player(name: actualName, uuid: .init())
+            let newNames = list + [player]
             return (current + 1, newNames)
         }
-        let players = names.map { Player(name: $0) }
         let scoreCard = ScoreCard(scoreLimit: scoreLimit, orderedPlayers: players)
         do {
-            let record = try gameStorageManager.newGame(from: scoreCard)
+            let record = try gameStorageManager.newGame(from: scoreCard, with: .init())
             listener?.newGameDidCreateNewGame(with: record.uniqueIdentifier)
         } catch {
             listener?.newGameDidAbort()
