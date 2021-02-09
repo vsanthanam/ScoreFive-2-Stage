@@ -21,7 +21,7 @@ protocol GameStorageProviding: AnyObject {
 
 /// @mockable
 protocol GameStorageManaging: GameStorageProviding {
-    func newGame(from scoreCard: ScoreCard) throws -> GameRecord
+    func newGame(from scoreCard: ScoreCard, with identifiuer: UUID) throws -> GameRecord
     func save(scoreCard: ScoreCard, with identifier: UUID) throws
     func saveAllGames() throws
 }
@@ -81,10 +81,10 @@ final class GameStorageWorker: Worker, GameStorageWorking {
 
     // MARK: - GameStorageManaging
 
-    func newGame(from scoreCard: ScoreCard) throws -> GameRecord {
+    func newGame(from scoreCard: ScoreCard, with identifier: UUID) throws -> GameRecord {
         let game = GameRecordMO(context: persistentContainer.viewContext)
         try game.updateScoreCard(scoreCard: scoreCard)
-        game.rawIdentifier = .init()
+        game.rawIdentifier = identifier
         game.stamp()
         try saveAllGames()
         return game
