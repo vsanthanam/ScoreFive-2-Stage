@@ -185,20 +185,6 @@
 		07C38CD4259FD8E900A9AFCD /* GameHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameHeaderView.swift; sourceTree = "<group>"; };
 		07C38CD9259FEA6F00A9AFCD /* AddRoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoundButton.swift; sourceTree = "<group>"; };
 		07C38CDD259FEE6000A9AFCD /* GameRoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRoundCell.swift; sourceTree = "<group>"; };
-		07C3C72025D33CD7004C0E36 /* test_home_button_highlighted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_home_button_highlighted@3x.png"; sourceTree = "<group>"; };
-		07C3C72125D33CD7004C0E36 /* test_home_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_home_button@3x.png"; sourceTree = "<group>"; };
-		07C3C72325D33CD7004C0E36 /* test_rootViewController@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_rootViewController@3x.png"; sourceTree = "<group>"; };
-		07C3C72525D33CD7004C0E36 /* test_mainViewController@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_mainViewController@3x.png"; sourceTree = "<group>"; };
-		07C3C72725D33CD7004C0E36 /* test_default_homeScreen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_default_homeScreen@3x.png"; sourceTree = "<group>"; };
-		07C3C72825D33CD7004C0E36 /* test_resumeLast_homeScreen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_resumeLast_homeScreen@3x.png"; sourceTree = "<group>"; };
-		07C3C72A25D33CD7004C0E36 /* test_viewController_noInput@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_viewController_noInput@3x.png"; sourceTree = "<group>"; };
-		07C3C72D25D33CEC004C0E36 /* test_home_button_highlighted@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_home_button_highlighted@3x.png"; sourceTree = "<group>"; };
-		07C3C72E25D33CEC004C0E36 /* test_home_button@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_home_button@3x.png"; sourceTree = "<group>"; };
-		07C3C73025D33CEC004C0E36 /* test_rootViewController@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_rootViewController@3x.png"; sourceTree = "<group>"; };
-		07C3C73225D33CEC004C0E36 /* test_mainViewController@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_mainViewController@3x.png"; sourceTree = "<group>"; };
-		07C3C73425D33CEC004C0E36 /* test_default_homeScreen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_default_homeScreen@3x.png"; sourceTree = "<group>"; };
-		07C3C73525D33CEC004C0E36 /* test_resumeLast_homeScreen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_resumeLast_homeScreen@3x.png"; sourceTree = "<group>"; };
-		07C3C73725D33CEC004C0E36 /* test_viewController_noInput@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test_viewController_noInput@3x.png"; sourceTree = "<group>"; };
 		07C4473725A00C5100626A2A /* GameFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFooterView.swift; sourceTree = "<group>"; };
 		07E6F007259980E300AEF80A /* ScoreFive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScoreFive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E6F00A259980E300AEF80A /* ScoreFiveAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreFiveAppDelegate.swift; sourceTree = "<group>"; };
@@ -522,114 +508,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		07C3C71E25D33CD7004C0E36 /* ReferenceImages_64 */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C71F25D33CD7004C0E36 /* ScoreFiveTests.HomeButtonSnapshotTests */,
-				07C3C72225D33CD7004C0E36 /* ScoreFiveTests.RootViewControllerSnapshotTests */,
-				07C3C72425D33CD7004C0E36 /* ScoreFiveTests.MainViewControllerSnapshotTests */,
-				07C3C72625D33CD7004C0E36 /* ScoreFiveTests.HomeViewControllerSnapshotTests */,
-				07C3C72925D33CD7004C0E36 /* ScoreFiveTests.NewGameViewControllerSnapshotTests */,
-			);
-			path = ReferenceImages_64;
-			sourceTree = "<group>";
-		};
-		07C3C71F25D33CD7004C0E36 /* ScoreFiveTests.HomeButtonSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C72025D33CD7004C0E36 /* test_home_button_highlighted@3x.png */,
-				07C3C72125D33CD7004C0E36 /* test_home_button@3x.png */,
-			);
-			path = ScoreFiveTests.HomeButtonSnapshotTests;
-			sourceTree = "<group>";
-		};
-		07C3C72225D33CD7004C0E36 /* ScoreFiveTests.RootViewControllerSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C72325D33CD7004C0E36 /* test_rootViewController@3x.png */,
-			);
-			path = ScoreFiveTests.RootViewControllerSnapshotTests;
-			sourceTree = "<group>";
-		};
-		07C3C72425D33CD7004C0E36 /* ScoreFiveTests.MainViewControllerSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C72525D33CD7004C0E36 /* test_mainViewController@3x.png */,
-			);
-			path = ScoreFiveTests.MainViewControllerSnapshotTests;
-			sourceTree = "<group>";
-		};
-		07C3C72625D33CD7004C0E36 /* ScoreFiveTests.HomeViewControllerSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C72725D33CD7004C0E36 /* test_default_homeScreen@3x.png */,
-				07C3C72825D33CD7004C0E36 /* test_resumeLast_homeScreen@3x.png */,
-			);
-			path = ScoreFiveTests.HomeViewControllerSnapshotTests;
-			sourceTree = "<group>";
-		};
-		07C3C72925D33CD7004C0E36 /* ScoreFiveTests.NewGameViewControllerSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C72A25D33CD7004C0E36 /* test_viewController_noInput@3x.png */,
-			);
-			path = ScoreFiveTests.NewGameViewControllerSnapshotTests;
-			sourceTree = "<group>";
-		};
-		07C3C72B25D33CEC004C0E36 /* ReferenceImages_64 */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C72C25D33CEC004C0E36 /* ScoreFiveTests.HomeButtonSnapshotTests */,
-				07C3C72F25D33CEC004C0E36 /* ScoreFiveTests.RootViewControllerSnapshotTests */,
-				07C3C73125D33CEC004C0E36 /* ScoreFiveTests.MainViewControllerSnapshotTests */,
-				07C3C73325D33CEC004C0E36 /* ScoreFiveTests.HomeViewControllerSnapshotTests */,
-				07C3C73625D33CEC004C0E36 /* ScoreFiveTests.NewGameViewControllerSnapshotTests */,
-			);
-			path = ReferenceImages_64;
-			sourceTree = "<group>";
-		};
-		07C3C72C25D33CEC004C0E36 /* ScoreFiveTests.HomeButtonSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C72D25D33CEC004C0E36 /* test_home_button_highlighted@3x.png */,
-				07C3C72E25D33CEC004C0E36 /* test_home_button@3x.png */,
-			);
-			path = ScoreFiveTests.HomeButtonSnapshotTests;
-			sourceTree = "<group>";
-		};
-		07C3C72F25D33CEC004C0E36 /* ScoreFiveTests.RootViewControllerSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C73025D33CEC004C0E36 /* test_rootViewController@3x.png */,
-			);
-			path = ScoreFiveTests.RootViewControllerSnapshotTests;
-			sourceTree = "<group>";
-		};
-		07C3C73125D33CEC004C0E36 /* ScoreFiveTests.MainViewControllerSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C73225D33CEC004C0E36 /* test_mainViewController@3x.png */,
-			);
-			path = ScoreFiveTests.MainViewControllerSnapshotTests;
-			sourceTree = "<group>";
-		};
-		07C3C73325D33CEC004C0E36 /* ScoreFiveTests.HomeViewControllerSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C73425D33CEC004C0E36 /* test_default_homeScreen@3x.png */,
-				07C3C73525D33CEC004C0E36 /* test_resumeLast_homeScreen@3x.png */,
-			);
-			path = ScoreFiveTests.HomeViewControllerSnapshotTests;
-			sourceTree = "<group>";
-		};
-		07C3C73625D33CEC004C0E36 /* ScoreFiveTests.NewGameViewControllerSnapshotTests */ = {
-			isa = PBXGroup;
-			children = (
-				07C3C73725D33CEC004C0E36 /* test_viewController_noInput@3x.png */,
-			);
-			path = ScoreFiveTests.NewGameViewControllerSnapshotTests;
-			sourceTree = "<group>";
-		};
 		07E6EFFE259980E300AEF80A = {
 			isa = PBXGroup;
 			children = (
@@ -662,8 +540,6 @@
 		07E6F020259980E500AEF80A /* ScoreFiveTests */ = {
 			isa = PBXGroup;
 			children = (
-				07C3C71E25D33CD7004C0E36 /* ReferenceImages_64 */,
-				07C3C72B25D33CEC004C0E36 /* ReferenceImages_64 */,
 				07E6F023259980E500AEF80A /* Info.plist */,
 				072F81AC259A5D7E005EE56B /* Features */,
 				072F81A8259A5D76005EE56B /* Mocks.swift */,
