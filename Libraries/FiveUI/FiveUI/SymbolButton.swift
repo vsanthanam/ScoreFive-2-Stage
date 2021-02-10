@@ -17,6 +17,7 @@ public enum Symbol {
             self.symbolName = symbolName
             self.pointSize = pointSize
             super.init()
+            isUserInteractionEnabled = false
             setUp()
         }
 
@@ -132,6 +133,14 @@ public enum Symbol {
                 refreshImage()
             }
         }
+        
+        // MARK: - UIControl
+        
+        open override var isHighlighted: Bool {
+            didSet {
+                refreshImage()
+            }
+        }
 
         // MARK: - UIView
 
@@ -159,13 +168,13 @@ public enum Symbol {
 
         private func refreshImage() {
             if isHighlighted {
-                backgroundColor = activeColor
-                symbolView.symbolColor = symbolColor
-                symbolView.symbolName = symbolName
-            } else {
                 backgroundColor = highlightedActiveColor ?? activeColor
                 symbolView.symbolColor = highlightedSymbolColor ?? symbolColor
                 symbolView.symbolName = highlightedSymbolName ?? symbolName
+            } else {
+                backgroundColor = activeColor
+                symbolView.symbolColor = symbolColor
+                symbolView.symbolName = symbolName
             }
         }
     }

@@ -75,6 +75,10 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
             return
         }
     }
+    
+    func didTapLoadGame() {
+        
+    }
 
     // MARK: - Private
 
