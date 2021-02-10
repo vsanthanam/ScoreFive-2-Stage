@@ -5,6 +5,7 @@
 App/ScoreFive/Resources/analytics_config.json
 App/ScoreFive/Src/Infra/DependencyGraph.swift
 App/ScoreFiveTests/Mocks.swift
+App/ScoreFiveTests/FailureDiffs/
 .swiftformat
 .swiftlint.yml
 

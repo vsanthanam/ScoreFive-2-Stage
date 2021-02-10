@@ -18,6 +18,7 @@ protocol HomeViewControllable: ViewControllable {}
 protocol HomePresentableListener: AnyObject {
     func didTapNewGame()
     func didTapResumeLastGame()
+    func didTapLoadGame()
 }
 
 final class HomeViewController: ScopeViewController, HomePresentable, HomeViewControllable {
@@ -83,6 +84,7 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
 
     private let layoutGuide = UILayoutGuide()
     private let buttonStackView = UIStackView()
+    private let moreButton = Symbol.Button(symbolName: "ellipsis.circle.fill", pointSize: 27.0)
 
     private var resumeGameButton: HomeButton?
 
@@ -97,12 +99,17 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
         imageView.image = image
 
         let newGameButton = HomeButton(title: "New Game")
+        let loadGameButton = HomeButton(title: "Load Game")
 
         buttonStackView.axis = .vertical
         buttonStackView.spacing = 12.0
 
         specializedView.addSubview(imageView)
         specializedView.addSubview(buttonStackView)
+        specializedView.addSubview(moreButton)
+        
+        moreButton.symbolColor = .contentAccentPrimary
+        moreButton.highlightedSymbolColor = .contentAccentSecondary
 
         layoutGuide.snp.makeConstraints { make in
             make
@@ -130,26 +137,47 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
             make
                 .leading
                 .trailing
-                .bottom
                 .equalTo(layoutGuide)
             make
                 .top
                 .equalTo(imageView.snp.bottom)
                 .offset(24.0)
+            make
+                .bottom
+                .equalTo(moreButton.snp.top)
+                .offset(-24.0)
+        }
+        
+        moreButton.snp.makeConstraints { make in
+            make
+                .bottom
+                .equalTo(layoutGuide)
+            make
+                .centerX
+                .equalTo(layoutGuide)
         }
 
-        newGameButton.title = "New Game"
         newGameButton.setContentCompressionResistancePriority(.required, for: .horizontal)
-        newGameButton.addTarget(self, action: #selector(tapAdd), for: .touchUpInside)
+        newGameButton.addTarget(self, action: #selector(didTapAdd), for: .touchUpInside)
         buttonStackView.insertArrangedSubview(newGameButton, at: 0)
+        
+        loadGameButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+        loadGameButton.addTarget(self, action: #selector(didTapLoad), for: .touchUpInside)
+        buttonStackView.insertArrangedSubview(loadGameButton, at: buttonStackView.arrangedSubviews.count)
     }
 
     @objc
-    private func tapAdd() {
+    private func didTapAdd() {
         listener?.didTapNewGame()
     }
 
-    @objc func didTapResume() {
+    @objc
+    private func didTapResume() {
         listener?.didTapResumeLastGame()
+    }
+    
+    @objc
+    private func didTapLoad() {
+        listener?.didTapLoadGame()
     }
 }
