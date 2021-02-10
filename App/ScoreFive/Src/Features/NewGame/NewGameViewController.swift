@@ -45,7 +45,7 @@ final class NewGameViewController: ScopeViewController, NewGamePresentable, NewG
 
     func showScoreLimitError() {
         let title = "Invalid Score Limit"
-        let message = "Enter a score limit greater than 250"
+        let message = "Enter a score limit greater than 50"
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alertController.addAction(okAction)

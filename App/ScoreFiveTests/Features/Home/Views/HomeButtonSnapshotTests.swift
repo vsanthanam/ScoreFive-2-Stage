@@ -5,17 +5,17 @@
 //  Created by Varun Santhanam on 2/6/21.
 //
 
-@testable import ScoreFive
 import FBSnapshotTestCase
+@testable import ScoreFive
 import SnapKit
 
 final class HomeButtonSnapshotTests: FBSnapshotTestCase {
-    
+
     override func setUp() {
         super.setUp()
         recordMode = false
     }
-    
+
     func test_home_button() {
         let canvas = UIView(frame: .init(origin: .init(x: 0.0,
                                                        y: 0.0),
@@ -29,7 +29,7 @@ final class HomeButtonSnapshotTests: FBSnapshotTestCase {
         }
         FBSnapshotVerifyView(canvas)
     }
-    
+
     func test_home_button_highlighted() {
         let canvas = UIView(frame: .init(origin: .init(x: 0.0,
                                                        y: 0.0),
