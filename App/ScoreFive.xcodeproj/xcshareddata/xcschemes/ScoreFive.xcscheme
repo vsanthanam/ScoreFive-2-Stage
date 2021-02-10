@@ -38,6 +38,16 @@
                ReferencedContainer = "container:ScoreFive.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "072F81EC259A6AFA005EE56B"
+               BuildableName = "ScoreKeepingTests.xctest"
+               BlueprintName = "ScoreKeepingTests"
+               ReferencedContainer = "container:../Libraries/ScoreKeeping/ScoreKeeping.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

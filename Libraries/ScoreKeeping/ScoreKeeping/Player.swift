@@ -17,7 +17,7 @@ public struct Player: Codable, Hashable, Equatable, Identifiable {
     ///   - name: The human-readalbe name of the player
     ///   - uuid: The unique identifier of the player
     public init(name: String,
-                uuid: UUID) {
+                uuid: UUID = .init()) {
         self.name = name
         self.uuid = uuid
     }
