@@ -112,6 +112,12 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
 
     func newRoundDidReplaceRound(at index: Int, with round: Round) {}
 
+    // MARK: - GameSettingsListener
+
+    func gameSettingsDidResign() {
+        routeAwayFromGameSettings()
+    }
+
     // MARK: - Private
 
     private let gameStorageManager: GameStorageManaging
