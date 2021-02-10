@@ -14,7 +14,9 @@ protocol GameSettingsPresentable: GameSettingsViewControllable {
 }
 
 /// @mockable
-protocol GameSettingsListener: AnyObject {}
+protocol GameSettingsListener: AnyObject {
+    func gameSettingsDidResign()
+}
 
 final class GameSettingsInteractor: PresentableInteractor<GameSettingsPresentable>, GameSettingsInteractable, GameSettingsPresentableListener {
 
