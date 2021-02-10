@@ -4,8 +4,8 @@
 
 ## Setup
 
-ScoreFive is comprised of several xcodeprojects convieniently packaged as a workspace.
-Vendor code does not use a package manager, and copied and compiled in separate targets.
+ScoreFive is comprised of several proejcts and a single workspace.
+Vendor code and other dependencies do not use a package manager, and are included in the repository directly.
 Before opening the `.xcworkspace` and building the app, complete the following steps to setup the tooling
 
 0. Install homebrew. More information is available at [https://brew.sh](https://brew.sh)
@@ -22,7 +22,7 @@ $ brew install needle
 $ brew install mockolo
 ```
 
-3. Rather than interfacing with the aformentioned tools directly. ScoreFive provides a built-in command line utility called `sftool` to that knows the right arguments and paths to use. The source code for this tool is included in the repo. Build the tool and move it to the root directory.
+3. Rather than interfacing with the aformentioned tools directly. ScoreFive provides a built-in command line utility called `sftool` to that knows the right arguments and paths to use. The source code for this tool is included in the repo. Build the tool and move it to the root directory:
 
 ```
 $ cd path/to/repo
@@ -41,7 +41,7 @@ After these steps have been taken, you can open `ScoreFive.xcworkspace` and run 
 
 ## Development
 
-This project is hosted at phab.vsanthanam.com and manage using phacility tools. The copy on github is a mirror. To contribute, visit [the hosted phabricator install](https://phab.vsanthanam.com) and request a user account.
+This project is hosted at phab.vsanthanam.com and manage using phacility tools. The copy on github is just a mirror, and only contains the master branch. To contribute, visit [the hosted phabricator install](https://phab.vsanthanam.com) and request a user account.
 
 ### Running the Unit Tests
 
@@ -97,7 +97,7 @@ $ cd path/to/repo
 $ ./sftool gen deps
 ```
 
-### Configuration Analytics
+### Analytics Setup
 
 ScoreFive uses Countly for user analytics. This feature is disabled by default, and you'll need your own hosted version of Countly to get it up and running.
 If you have your own host, create an application key and install it with `sftool`
