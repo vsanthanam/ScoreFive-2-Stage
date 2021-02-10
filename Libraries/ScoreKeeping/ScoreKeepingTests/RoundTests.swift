@@ -18,8 +18,8 @@ final class RoundTests: XCTestCase {
     func test_assignScore_retreive() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
-        let player2 = Player(name: "Test Player")
+        let player1 = Player.test
+        let player2 = Player.test
         round.set(score: 50, for: player1)
         XCTAssertEqual(round.score(for: player1), 50, "player1 should have assigned score of 50")
         round.set(score: 0, for: player2)
@@ -28,8 +28,8 @@ final class RoundTests: XCTestCase {
 
     func test_assignedScore_retrieve_subscript() {
         var round = Round()
-        let player1 = Player(name: "Test Player")
-        let player2 = Player(name: "Test Player")
+        let player1 = Player.test
+        let player2 = Player.test
         round[player1] = 50
         XCTAssertEqual(round[player1], 50, "player1 should have assigned score of 50")
         round[player2] = 0
@@ -39,8 +39,8 @@ final class RoundTests: XCTestCase {
     func test_assignScore_addsPlayers() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
-        let player2 = Player(name: "Test Player")
+        let player1 = Player.test
+        let player2 = Player.test
         round.set(score: 50, for: player1)
         XCTAssertTrue(round.players.contains(player1), "Round should have a score for player1")
         round.set(score: 0, for: player2)
@@ -51,8 +51,8 @@ final class RoundTests: XCTestCase {
     func test_assignScore_addsPlayers_subscript() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
-        let player2 = Player(name: "Test Player")
+        let player1 = Player.test
+        let player2 = Player.test
         round[player1] = 50
         XCTAssertTrue(round.players.contains(player1), "Round should have a score for player1")
         round[player2] = 0
@@ -63,27 +63,27 @@ final class RoundTests: XCTestCase {
     func test_assignSscore_missingPlayer_returnsNil() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let testPlayer = Player(name: "Test Player")
+        let testPlayer = Player.test
         round.set(score: 50, for: testPlayer)
-        let missingPlayer = Player(name: "Missing")
+        let missingPlayer = Player.test
         XCTAssertNil(round.score(for: missingPlayer), "Missing player's score should be nil")
     }
 
     func test_assignSscore_missingPlayer_returnsNil_subscript() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let testPlayer = Player(name: "Test Player")
+        let testPlayer = Player.test
         round[testPlayer] = 50
-        let missingPlayer = Player(name: "Missing")
+        let missingPlayer = Player.test
         XCTAssertNil(round[missingPlayer], "Missing player's score should be nil")
     }
 
     func test_assignSscore_missingPlayer_notContained() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let testPlayer = Player(name: "Test Player")
+        let testPlayer = Player.test
         round.set(score: 50, for: testPlayer)
-        let missingPlayer = Player(name: "Missing")
+        let missingPlayer = Player.test
         XCTAssertFalse(round.players.contains(missingPlayer), "Missing player shouldn't be included")
         XCTAssertEqual(round.players.count, 1, "Round should have only 1 player")
     }
@@ -91,7 +91,7 @@ final class RoundTests: XCTestCase {
     func test_removeScore_returnsNil() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
+        let player1 = Player.test
         round.set(score: 50, for: player1)
         XCTAssertEqual(round.score(for: player1), 50, "player1 should have assigned score of 50")
         round.removeScore(for: player1)
@@ -101,7 +101,7 @@ final class RoundTests: XCTestCase {
     func test_removeScore_returnsNil_subscript() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
+        let player1 = Player.test
         round.set(score: 50, for: player1)
         XCTAssertEqual(round[player1], 50, "player1 should have assigned score of 50")
         round[player1] = nil
@@ -111,7 +111,7 @@ final class RoundTests: XCTestCase {
     func test_removeScore_removesPlayer() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
+        let player1 = Player.test
         round.set(score: 50, for: player1)
         XCTAssertTrue(round.players.contains(player1), "Round should have a score for player1")
         round.removeScore(for: player1)
@@ -122,7 +122,7 @@ final class RoundTests: XCTestCase {
     func test_removeScore_removesPlayer_subscript() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
+        let player1 = Player.test
         round[player1] = 10
         XCTAssertTrue(round.players.contains(player1), "Round should have a score for player1")
         round[player1] = nil
@@ -133,7 +133,7 @@ final class RoundTests: XCTestCase {
     func test_assignedScore_replacesPreviousScore() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
+        let player1 = Player.test
         round.set(score: 23, for: player1)
         XCTAssertEqual(round.score(for: player1), 23, "player1 should have assigned score of 23")
         round.set(score: 50, for: player1)
@@ -143,7 +143,7 @@ final class RoundTests: XCTestCase {
     func test_assignedScore_doesntAddPlayer() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
+        let player1 = Player.test
         round.set(score: 23, for: player1)
         round.set(score: 50, for: player1)
         XCTAssertEqual(round.players.count, 1, "Round should only have 1 player")
@@ -153,7 +153,7 @@ final class RoundTests: XCTestCase {
     func test_assignedScore_replacesPreviousScore_subscript() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
+        let player1 = Player.test
         round[player1] = 23
         XCTAssertEqual(round[player1], 23, "player1 should have assigned score of 23")
         round[player1] = 50
@@ -163,7 +163,7 @@ final class RoundTests: XCTestCase {
     func test_assignedScore_doesntAddPlayer_subscript() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
-        let player1 = Player(name: "Test Player")
+        let player1 = Player.test
         round[player1] = 23
         round[player1] = 50
         XCTAssertEqual(round.players.count, 1, "Round should only have 1 player")
@@ -171,8 +171,8 @@ final class RoundTests: XCTestCase {
     }
 
     func test_equality() {
-        let player1 = Player(name: "Test Player")
-        let player2 = Player(name: "Test Player")
+        let player1 = Player.test
+        let player2 = Player.test
         var round1 = Round()
         var round2 = Round()
         var round3 = Round()
@@ -186,5 +186,11 @@ final class RoundTests: XCTestCase {
         XCTAssertEqual(round1, round1)
         XCTAssertNotEqual(round1, round2)
         XCTAssertEqual(round1, round3)
+    }
+}
+
+private extension Player {
+    static var test: Player {
+        .init(name: "Test Player", uuid: .init())
     }
 }
