@@ -26,10 +26,14 @@ class GameComponent: Component<GameDependency> {
         ScoreCardBuilder { ScoreCardComponent(parent: self) }
     }
 
+    fileprivate var gameSettingsBuilder: GameSettingsBuildable {
+        GameSettingsBuilder { GameSettingsComponent(parent: self) }
+    }
+
 }
 
 /// @mockable
-protocol GameInteractable: PresentableInteractable, NewRoundListener, ScoreCardListener {}
+protocol GameInteractable: PresentableInteractable, NewRoundListener, ScoreCardListener, GameSettingsListener {}
 
 typealias GameDynamicBuildDependency = (
     GameListener
@@ -51,7 +55,8 @@ final class GameBuilder: ComponentizedBuilder<GameComponent, PresentableInteract
                                         gameStorageManager: component.gameStorageManager,
                                         activeGameStream: component.activeGameStream,
                                         newRoundBuilder: component.newRoundBuilder,
-                                        scoreCardBuilder: component.scoreCardBuilder)
+                                        scoreCardBuilder: component.scoreCardBuilder,
+                                        gameSettingsBuilder: component.gameSettingsBuilder)
         viewController.listener = interactor
         interactor.listener = listener
         return interactor

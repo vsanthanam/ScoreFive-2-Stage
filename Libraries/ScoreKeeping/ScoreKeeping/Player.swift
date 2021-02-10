@@ -21,7 +21,7 @@ public struct Player: Codable, Hashable, Equatable, Identifiable {
         self.name = name
         self.uuid = uuid
     }
-    
+
     // MARK: - API
 
     /// The unique identifier of the player
@@ -29,11 +29,11 @@ public struct Player: Codable, Hashable, Equatable, Identifiable {
 
     /// The name of the player
     public let name: String
-    
+
     // MARK: - Identifiable
-    
+
     public typealias ID = UUID
-    
+
     public var id: ID {
         uuid
     }

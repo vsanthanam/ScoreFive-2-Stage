@@ -12,11 +12,14 @@ import ShortRibs
 /// @mockable
 protocol GamePresentable: GameViewControllable {
     var listener: GamePresentableListener? { get set }
-    func showNewRound(_ viewController: ViewControllable)
-    func closeNewRound()
     func showScoreCard(_ viewController: ScoreCardViewControllable)
     func updateHeaderTitles(_ titles: [String])
     func updateTotalScores(_ scores: [String])
+    func showOperationFailure(_ message: String)
+    func showNewRound(_ viewController: ViewControllable)
+    func closeNewRound()
+    func showGameSettings(_ viewController: ViewControllable)
+    func closeGameSettings()
 }
 
 /// @mockable
@@ -32,11 +35,13 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
          gameStorageManager: GameStorageManaging,
          activeGameStream: ActiveGameStreaming,
          newRoundBuilder: NewRoundBuildable,
-         scoreCardBuilder: ScoreCardBuildable) {
+         scoreCardBuilder: ScoreCardBuildable,
+         gameSettingsBuilder: GameSettingsBuildable) {
         self.gameStorageManager = gameStorageManager
         self.activeGameStream = activeGameStream
         self.newRoundBuilder = newRoundBuilder
         self.scoreCardBuilder = scoreCardBuilder
+        self.gameSettingsBuilder = gameSettingsBuilder
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -64,23 +69,46 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         listener?.gameWantToResign()
     }
 
+    func wantGameSettings() {
+        routeToGameSettings()
+    }
+
     // MARK: - ScoreCardListener
 
     func scoreCardDidDeleteRound(at index: Int) {
-        if let identifier = activeGameStream.currentActiveGameIdentifier,
-            var card = try? gameStorageManager.fetchScoreCard(for: identifier) {
+        guard let identifier = activeGameStream.currentActiveGameIdentifier,
+            var card = try? gameStorageManager.fetchScoreCard(for: identifier) else {
+            presenter.showOperationFailure("Couldn't read current game data from disk")
+            return
+        }
+        do {
             card.removeRound(at: index)
-            try? gameStorageManager.save(scoreCard: card, with: identifier)
+            try gameStorageManager.save(scoreCard: card, with: identifier)
+        } catch {
+            presenter.showOperationFailure("Couldn't write game data to disk")
         }
     }
 
-    // MARK: - NewGameListener
+    // MARK: - NewRoundListener
 
     func newRoundDidCancel() {
         routeAwayFromNewRound()
     }
 
-    func newRoundDidAddRound(_ round: Round) {}
+    func newRoundDidAddRound(_ round: Round) {
+        guard let identifier = activeGameStream.currentActiveGameIdentifier,
+            var card = try? gameStorageManager.fetchScoreCard(for: identifier) else {
+            presenter.showOperationFailure("Couldn't read current game data from disk")
+            return
+        }
+        do {
+            card.addRound(round)
+            try gameStorageManager.save(scoreCard: card, with: identifier)
+        } catch {
+            presenter.showOperationFailure("Couldn't write game data to disk")
+        }
+        routeAwayFromNewRound()
+    }
 
     func newRoundDidReplaceRound(at index: Int, with round: Round) {}
 
@@ -90,39 +118,11 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
     private let activeGameStream: ActiveGameStreaming
     private let newRoundBuilder: NewRoundBuildable
     private let scoreCardBuilder: ScoreCardBuildable
+    private let gameSettingsBuilder: GameSettingsBuildable
 
-    private var currentNewRound: PresentableInteractable?
     private var currentScoreCard: ScoreCardInteractable?
-
-    private func routeToNewRound() {
-        if let current = currentNewRound {
-            detach(child: current)
-        }
-        let newRound = newRoundBuilder.build(withListener: self)
-        attach(child: newRound)
-        presenter.showNewRound(newRound.viewControllable)
-        currentNewRound = newRound
-    }
-
-    private func routeToNewRound(replacing index: Int, previousValue: Round) {
-        if let current = currentNewRound {
-            detach(child: current)
-        }
-        let newRound = newRoundBuilder.build(withListener: self,
-                                             replacingIndex: index,
-                                             previousValue: previousValue)
-        attach(child: newRound)
-        presenter.showNewRound(newRound.viewControllable)
-        currentNewRound = newRound
-    }
-
-    private func routeAwayFromNewRound() {
-        if let current = currentNewRound {
-            detach(child: current)
-            presenter.closeNewRound()
-            currentNewRound = nil
-        }
-    }
+    private var currentNewRound: PresentableInteractable?
+    private var currentGameSettings: PresentableInteractable?
 
     private func attachScoreCard() {
         if currentScoreCard == nil {
@@ -169,5 +169,53 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
                 self.presenter.updateTotalScores(scores)
             }
             .cancelOnDeactivate(interactor: self)
+    }
+
+    private func routeToNewRound() {
+        if let current = currentNewRound {
+            detach(child: current)
+        }
+        let newRound = newRoundBuilder.build(withListener: self)
+        attach(child: newRound)
+        presenter.showNewRound(newRound.viewControllable)
+        currentNewRound = newRound
+    }
+
+    private func routeToNewRound(replacing index: Int, previousValue: Round) {
+        if let current = currentNewRound {
+            detach(child: current)
+        }
+        let newRound = newRoundBuilder.build(withListener: self,
+                                             replacingIndex: index,
+                                             previousValue: previousValue)
+        attach(child: newRound)
+        presenter.showNewRound(newRound.viewControllable)
+        currentNewRound = newRound
+    }
+
+    private func routeAwayFromNewRound() {
+        if let current = currentNewRound {
+            detach(child: current)
+            presenter.closeNewRound()
+            currentNewRound = nil
+        }
+    }
+
+    private func routeToGameSettings() {
+        if let current = currentGameSettings {
+            detach(child: current)
+        }
+        let gameSettings = gameSettingsBuilder.build(withListener: self)
+        attach(child: gameSettings)
+        presenter.showGameSettings(gameSettings.viewControllable)
+        currentGameSettings = gameSettings
+    }
+
+    private func routeAwayFromGameSettings() {
+        if let current = currentGameSettings {
+            detach(child: current)
+            presenter.closeGameSettings()
+            currentGameSettings = nil
+        }
     }
 }

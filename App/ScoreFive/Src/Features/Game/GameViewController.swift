@@ -5,6 +5,7 @@
 //  Created by Varun Santhanam on 12/29/20.
 //
 
+import FiveUI
 import Foundation
 import ShortRibs
 import UIKit
@@ -16,6 +17,7 @@ protocol GameViewControllable: ViewControllable {}
 protocol GamePresentableListener: AnyObject {
     func wantNewRound()
     func didClose()
+    func wantGameSettings()
 }
 
 final class GameViewController: ScopeViewController, GamePresentable, GameViewControllable {
@@ -64,6 +66,23 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         newRoundViewController?.uiviewController.dismiss(animated: true, completion: nil)
     }
 
+    func showGameSettings(_ viewController: ViewControllable) {
+        if let current = gameSettingsViewController {
+            current.uiviewController.dismiss(animated: true) { [weak self] in
+                self?.gameSettingsViewController = nil
+                self?.showGameSettings(viewController)
+            }
+        } else {
+            present(viewController.uiviewController, animated: true) { [weak self] in
+                self?.gameSettingsViewController = viewController
+            }
+        }
+    }
+
+    func closeGameSettings() {
+        gameSettingsViewController?.uiviewController.dismiss(animated: true, completion: nil)
+    }
+
     func showScoreCard(_ viewController: ScoreCardViewControllable) {
         if let current = scoreCardViewController {
             current.uiviewController.willMove(toParent: nil)
@@ -82,15 +101,18 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     }
 
     func updateHeaderTitles(_ titles: [String]) {
-        confineTo(viewEvents: [.viewWillAppear], once: true) { [weak self] in
-            self?.gameHeader.apply(names: titles)
-        }
+        gameHeader.apply(names: titles)
     }
 
     func updateTotalScores(_ scores: [String]) {
-        confineTo(viewEvents: [.viewWillAppear], once: true) { [weak self] in
-            self?.gameFooter.apply(scores: scores)
-        }
+        gameFooter.apply(scores: scores)
+    }
+
+    func showOperationFailure(_ message: String) {
+        let alertController = UIAlertController(title: "Operation Failed", message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        present(alertController, animated: true, completion: nil)
     }
 
     // MARK: - Private
@@ -102,14 +124,22 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     private let scoreCardLayoutGuide = UILayoutGuide()
 
     private var newRoundViewController: ViewControllable?
+    private var gameSettingsViewController: ViewControllable?
     private var scoreCardViewController: ScoreCardViewControllable?
 
     private func setUp() {
         title = "Score Card"
-        let trailingItem = UIBarButtonItem(barButtonSystemItem: .close,
-                                           target: self,
-                                           action: #selector(didTapClose))
-        navigationItem.leftBarButtonItem = trailingItem
+        let leadingItem = UIBarButtonItem(barButtonSystemItem: .close,
+                                          target: self,
+                                          action: #selector(didTapClose))
+
+        let trailingItem = UIBarButtonItem.fromSymbol(named: "ellipsis",
+                                                      target: self,
+                                                      action: #selector(didTapActions))
+        trailingItem.tintColor = .contentPrimary
+
+        navigationItem.leftBarButtonItem = leadingItem
+        navigationItem.rightBarButtonItem = trailingItem
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.setNavigationBarHidden(false, animated: true)
         specializedView.addLayoutGuide(scoreCardLayoutGuide)
@@ -186,5 +216,10 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
     @objc
     private func didTapClose() {
         listener?.didClose()
+    }
+
+    @objc
+    private func didTapActions() {
+        listener?.wantGameSettings()
     }
 }

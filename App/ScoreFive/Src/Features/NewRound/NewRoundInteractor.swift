@@ -72,6 +72,11 @@ final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewR
         }
         do {
             scoreCard = try gameStorageProvider.fetchScoreCard(for: identifier)
+            if let card = scoreCard {
+                for i in 0 ..< card.orderedPlayers.count {
+                    round[card.orderedPlayers[i]] = i
+                }
+            }
         } catch {
             listener?.newRoundDidCancel()
         }
