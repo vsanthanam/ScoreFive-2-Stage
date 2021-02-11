@@ -21,10 +21,17 @@ class HomeComponent: Component<HomeDependency> {
         NewGameBuilder { NewGameComponent(parent: self) }
     }
 
+    fileprivate var moreOptionsBuilder: MoreOptionsBuildable {
+        MoreOptionsBuilder { MoreOptionsComponent(parent: self) }
+    }
+
+    fileprivate var gameLibraryBuilder: GameLibraryBuildable {
+        GameLibraryBuilder { GameLibraryComponent(parent: self) }
+    }
 }
 
 /// @mockable
-protocol HomeInteractable: PresentableInteractable, NewGameListener {}
+protocol HomeInteractable: PresentableInteractable, NewGameListener, MoreOptionsListener, GameLibraryListener {}
 
 typealias HomeDynamicBuildDependency = (
     HomeListener
@@ -44,7 +51,9 @@ final class HomeBuilder: ComponentizedBuilder<HomeComponent, PresentableInteract
         let viewController = HomeViewController()
         let interactor = HomeInteractor(presenter: viewController,
                                         gameStorageManager: component.gameStorageManager,
-                                        newGameBuilder: component.newGameBuilder)
+                                        newGameBuilder: component.newGameBuilder,
+                                        moreOptionsBuilder: component.moreOptionsBuilder,
+                                        gameLibraryBuilder: component.gameLibraryBuilder)
         interactor.listener = listener
         return interactor
     }

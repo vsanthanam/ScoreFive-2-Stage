@@ -12,10 +12,14 @@ import ShortRibs
 /// @mockable
 protocol HomePresentable: HomeViewControllable {
     var listener: HomePresentableListener? { get set }
-    func showNewGame(_ viewController: ViewControllable)
-    func closeNewGame()
     func showResumeButton()
     func hideResumeButton()
+    func showNewGame(_ viewController: ViewControllable)
+    func closeNewGame()
+    func showMoreOptions(_ viewController: ViewControllable)
+    func closeMoreOptions()
+    func showGameLibrary(_ viewController: ViewControllable)
+    func closeGameLibrary()
 }
 
 /// @mockable
@@ -29,9 +33,13 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
 
     init(presenter: HomePresentable,
          gameStorageManager: GameStorageManaging,
-         newGameBuilder: NewGameBuildable) {
+         newGameBuilder: NewGameBuildable,
+         moreOptionsBuilder: MoreOptionsBuildable,
+         gameLibraryBuilder: GameLibraryBuildable) {
         self.gameStorageManager = gameStorageManager
         self.newGameBuilder = newGameBuilder
+        self.moreOptionsBuilder = moreOptionsBuilder
+        self.gameLibraryBuilder = gameLibraryBuilder
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -58,6 +66,12 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
     func newGameDidAbort() {
         routeAwayFromNewGame()
     }
+    
+    // MARK: - MoreOptionsListener
+    
+    func moreOptionsDidResign() {
+        routeAwayFromMoreOptions()
+    }
 
     // MARK: - HomePresentableListener
 
@@ -75,23 +89,40 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
             return
         }
     }
-    
-    func didTapLoadGame() {
-        
+
+    func didTapLoadGame() {}
+
+    func didTapMore() {
+        routeToMoreOptions()
     }
 
     // MARK: - Private
 
     private let gameStorageManager: GameStorageManaging
     private let newGameBuilder: NewGameBuildable
-
+    private let moreOptionsBuilder: MoreOptionsBuildable
+    private let gameLibraryBuilder: GameLibraryBuildable
+    
     private var currentNewGame: PresentableInteractable?
+    private var currentMoreOptions: PresentableInteractable?
+    private var currentGameLibrary: PresentableInteractable?
 
     private func openNewGameIfEmpty() {
         let records = (try? gameStorageManager.fetchGameRecords()) ?? []
         if records.isEmpty {
             routeToNewGame()
         }
+    }
+
+    private func checkForResume() {
+        do {
+            let inProgress = try gameStorageManager.fetchGameRecords()
+            if !inProgress.isEmpty {
+                presenter.showResumeButton()
+            } else {
+                presenter.hideResumeButton()
+            }
+        } catch {}
     }
 
     private func routeToNewGame() {
@@ -112,14 +143,39 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         currentNewGame = nil
     }
 
-    private func checkForResume() {
-        do {
-            let inProgress = try gameStorageManager.fetchGameRecords()
-            if !inProgress.isEmpty {
-                presenter.showResumeButton()
-            } else {
-                presenter.hideResumeButton()
-            }
-        } catch {}
+    private func routeToMoreOptions() {
+        if let current = currentMoreOptions {
+            detach(child: current)
+        }
+        let moreOptions = moreOptionsBuilder.build(withListener: self)
+        attach(child: moreOptions)
+        presenter.showMoreOptions(moreOptions.viewControllable)
+        currentMoreOptions = moreOptions
+    }
+    
+    private func routeAwayFromMoreOptions() {
+        if let current = currentMoreOptions {
+            detach(child: current)
+            presenter.closeMoreOptions()
+        }
+        currentMoreOptions = nil
+    }
+    
+    private func routeToGameLibrary() {
+        if let current = currentNewGame {
+            detach(child: current)
+        }
+        let gameLibrary = gameLibraryBuilder.build(withListener: self)
+        attach(child: gameLibrary)
+        presenter.showMoreOptions(gameLibrary.viewControllable)
+        currentGameLibrary = gameLibrary
+    }
+    
+    private func routeAwayFromGameLibrary() {
+        guard let current = currentGameLibrary else {
+            return
+        }
+        detach(child: current)
+        currentGameLibrary = nil
     }
 }

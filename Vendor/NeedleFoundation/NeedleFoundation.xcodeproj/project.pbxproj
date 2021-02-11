@@ -8,15 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		072F813B259A4CCE005EE56B /* NeedleFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072F8131259A4CCE005EE56B /* NeedleFoundation.framework */; };
-		072F8140259A4CCE005EE56B /* NeedleFoundationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F813F259A4CCE005EE56B /* NeedleFoundationTests.swift */; };
 		072F8142259A4CCE005EE56B /* NeedleFoundation.h in Headers */ = {isa = PBXBuildFile; fileRef = 072F8134259A4CCE005EE56B /* NeedleFoundation.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		072F8157259A4D1A005EE56B /* Bootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F814D259A4D1A005EE56B /* Bootstrap.swift */; };
-		072F8158259A4D1A005EE56B /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F814E259A4D1A005EE56B /* Component.swift */; };
-		072F8159259A4D1A005EE56B /* PluginExtensionProviderRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8151259A4D1A005EE56B /* PluginExtensionProviderRegistry.swift */; };
-		072F815A259A4D1A005EE56B /* NonCoreComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8152259A4D1A005EE56B /* NonCoreComponent.swift */; };
-		072F815B259A4D1A005EE56B /* PluginizedComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8153259A4D1A005EE56B /* PluginizedComponent.swift */; };
-		072F815C259A4D1A005EE56B /* PluginizedScopeLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8154259A4D1A005EE56B /* PluginizedScopeLifecycle.swift */; };
-		072F815D259A4D1A005EE56B /* DependencyProviderRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072F8156259A4D1A005EE56B /* DependencyProviderRegistry.swift */; };
+		07C3C7DC25D4D42F004C0E36 /* Bootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7D225D4D42F004C0E36 /* Bootstrap.swift */; };
+		07C3C7DD25D4D42F004C0E36 /* PluginExtensionProviderRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7D525D4D42F004C0E36 /* PluginExtensionProviderRegistry.swift */; };
+		07C3C7DE25D4D42F004C0E36 /* NonCoreComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7D625D4D42F004C0E36 /* NonCoreComponent.swift */; };
+		07C3C7DF25D4D42F004C0E36 /* PluginizedComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7D725D4D42F004C0E36 /* PluginizedComponent.swift */; };
+		07C3C7E025D4D42F004C0E36 /* PluginizedScopeLifecycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7D825D4D42F004C0E36 /* PluginizedScopeLifecycle.swift */; };
+		07C3C7E125D4D42F004C0E36 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7D925D4D42F004C0E36 /* Component.swift */; };
+		07C3C7E225D4D42F004C0E36 /* DependencyProviderRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7DB25D4D42F004C0E36 /* DependencyProviderRegistry.swift */; };
+		07C3C7EF25D4D462004C0E36 /* DependencyProviderRegistryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7EB25D4D462004C0E36 /* DependencyProviderRegistryTests.swift */; };
+		07C3C7F025D4D462004C0E36 /* ComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7EC25D4D462004C0E36 /* ComponentTests.swift */; };
+		07C3C7F125D4D462004C0E36 /* PluginizedComponentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C3C7EE25D4D462004C0E36 /* PluginizedComponentTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,15 +36,17 @@
 		072F8134259A4CCE005EE56B /* NeedleFoundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NeedleFoundation.h; sourceTree = "<group>"; };
 		072F8135259A4CCE005EE56B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		072F813A259A4CCE005EE56B /* NeedleFoundationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeedleFoundationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		072F813F259A4CCE005EE56B /* NeedleFoundationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeedleFoundationTests.swift; sourceTree = "<group>"; };
 		072F8141259A4CCE005EE56B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		072F814D259A4D1A005EE56B /* Bootstrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bootstrap.swift; sourceTree = "<group>"; };
-		072F814E259A4D1A005EE56B /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
-		072F8151259A4D1A005EE56B /* PluginExtensionProviderRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginExtensionProviderRegistry.swift; sourceTree = "<group>"; };
-		072F8152259A4D1A005EE56B /* NonCoreComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonCoreComponent.swift; sourceTree = "<group>"; };
-		072F8153259A4D1A005EE56B /* PluginizedComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginizedComponent.swift; sourceTree = "<group>"; };
-		072F8154259A4D1A005EE56B /* PluginizedScopeLifecycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginizedScopeLifecycle.swift; sourceTree = "<group>"; };
-		072F8156259A4D1A005EE56B /* DependencyProviderRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyProviderRegistry.swift; sourceTree = "<group>"; };
+		07C3C7D225D4D42F004C0E36 /* Bootstrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bootstrap.swift; sourceTree = "<group>"; };
+		07C3C7D525D4D42F004C0E36 /* PluginExtensionProviderRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginExtensionProviderRegistry.swift; sourceTree = "<group>"; };
+		07C3C7D625D4D42F004C0E36 /* NonCoreComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonCoreComponent.swift; sourceTree = "<group>"; };
+		07C3C7D725D4D42F004C0E36 /* PluginizedComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginizedComponent.swift; sourceTree = "<group>"; };
+		07C3C7D825D4D42F004C0E36 /* PluginizedScopeLifecycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginizedScopeLifecycle.swift; sourceTree = "<group>"; };
+		07C3C7D925D4D42F004C0E36 /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
+		07C3C7DB25D4D42F004C0E36 /* DependencyProviderRegistry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyProviderRegistry.swift; sourceTree = "<group>"; };
+		07C3C7EB25D4D462004C0E36 /* DependencyProviderRegistryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyProviderRegistryTests.swift; sourceTree = "<group>"; };
+		07C3C7EC25D4D462004C0E36 /* ComponentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComponentTests.swift; sourceTree = "<group>"; };
+		07C3C7EE25D4D462004C0E36 /* PluginizedComponentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PluginizedComponentTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,10 +89,10 @@
 		072F8133259A4CCE005EE56B /* NeedleFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				072F814D259A4D1A005EE56B /* Bootstrap.swift */,
-				072F814E259A4D1A005EE56B /* Component.swift */,
-				072F8155259A4D1A005EE56B /* Internal */,
-				072F814F259A4D1A005EE56B /* Pluginized */,
+				07C3C7D225D4D42F004C0E36 /* Bootstrap.swift */,
+				07C3C7D925D4D42F004C0E36 /* Component.swift */,
+				07C3C7DA25D4D42F004C0E36 /* Internal */,
+				07C3C7D325D4D42F004C0E36 /* Pluginized */,
 				072F8134259A4CCE005EE56B /* NeedleFoundation.h */,
 				072F8135259A4CCE005EE56B /* Info.plist */,
 			);
@@ -98,37 +102,47 @@
 		072F813E259A4CCE005EE56B /* NeedleFoundationTests */ = {
 			isa = PBXGroup;
 			children = (
-				072F813F259A4CCE005EE56B /* NeedleFoundationTests.swift */,
+				07C3C7EC25D4D462004C0E36 /* ComponentTests.swift */,
+				07C3C7EB25D4D462004C0E36 /* DependencyProviderRegistryTests.swift */,
+				07C3C7ED25D4D462004C0E36 /* Pluginized */,
 				072F8141259A4CCE005EE56B /* Info.plist */,
 			);
 			path = NeedleFoundationTests;
 			sourceTree = "<group>";
 		};
-		072F814F259A4D1A005EE56B /* Pluginized */ = {
+		07C3C7D325D4D42F004C0E36 /* Pluginized */ = {
 			isa = PBXGroup;
 			children = (
-				072F8150259A4D1A005EE56B /* Internal */,
-				072F8152259A4D1A005EE56B /* NonCoreComponent.swift */,
-				072F8153259A4D1A005EE56B /* PluginizedComponent.swift */,
-				072F8154259A4D1A005EE56B /* PluginizedScopeLifecycle.swift */,
+				07C3C7D425D4D42F004C0E36 /* Internal */,
+				07C3C7D625D4D42F004C0E36 /* NonCoreComponent.swift */,
+				07C3C7D725D4D42F004C0E36 /* PluginizedComponent.swift */,
+				07C3C7D825D4D42F004C0E36 /* PluginizedScopeLifecycle.swift */,
 			);
 			path = Pluginized;
 			sourceTree = "<group>";
 		};
-		072F8150259A4D1A005EE56B /* Internal */ = {
+		07C3C7D425D4D42F004C0E36 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				072F8151259A4D1A005EE56B /* PluginExtensionProviderRegistry.swift */,
+				07C3C7D525D4D42F004C0E36 /* PluginExtensionProviderRegistry.swift */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
 		};
-		072F8155259A4D1A005EE56B /* Internal */ = {
+		07C3C7DA25D4D42F004C0E36 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				072F8156259A4D1A005EE56B /* DependencyProviderRegistry.swift */,
+				07C3C7DB25D4D42F004C0E36 /* DependencyProviderRegistry.swift */,
 			);
 			path = Internal;
+			sourceTree = "<group>";
+		};
+		07C3C7ED25D4D462004C0E36 /* Pluginized */ = {
+			isa = PBXGroup;
+			children = (
+				07C3C7EE25D4D462004C0E36 /* PluginizedComponentTests.swift */,
+			);
+			path = Pluginized;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,10 +206,11 @@
 				TargetAttributes = {
 					072F8130259A4CCE005EE56B = {
 						CreatedOnToolsVersion = 12.3;
-						LastSwiftMigration = 1230;
+						LastSwiftMigration = 1240;
 					};
 					072F8139259A4CCE005EE56B = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -240,13 +255,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				072F815C259A4D1A005EE56B /* PluginizedScopeLifecycle.swift in Sources */,
-				072F815A259A4D1A005EE56B /* NonCoreComponent.swift in Sources */,
-				072F815D259A4D1A005EE56B /* DependencyProviderRegistry.swift in Sources */,
-				072F8157259A4D1A005EE56B /* Bootstrap.swift in Sources */,
-				072F815B259A4D1A005EE56B /* PluginizedComponent.swift in Sources */,
-				072F8159259A4D1A005EE56B /* PluginExtensionProviderRegistry.swift in Sources */,
-				072F8158259A4D1A005EE56B /* Component.swift in Sources */,
+				07C3C7DD25D4D42F004C0E36 /* PluginExtensionProviderRegistry.swift in Sources */,
+				07C3C7E125D4D42F004C0E36 /* Component.swift in Sources */,
+				07C3C7E225D4D42F004C0E36 /* DependencyProviderRegistry.swift in Sources */,
+				07C3C7DE25D4D42F004C0E36 /* NonCoreComponent.swift in Sources */,
+				07C3C7DF25D4D42F004C0E36 /* PluginizedComponent.swift in Sources */,
+				07C3C7DC25D4D42F004C0E36 /* Bootstrap.swift in Sources */,
+				07C3C7E025D4D42F004C0E36 /* PluginizedScopeLifecycle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,7 +269,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				072F8140259A4CCE005EE56B /* NeedleFoundationTests.swift in Sources */,
+				07C3C7EF25D4D462004C0E36 /* DependencyProviderRegistryTests.swift in Sources */,
+				07C3C7F025D4D462004C0E36 /* ComponentTests.swift in Sources */,
+				07C3C7F125D4D462004C0E36 /* PluginizedComponentTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +467,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y88YPD4RJA;
 				INFOPLIST_FILE = NeedleFoundationTests/Info.plist;
@@ -460,6 +478,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.varunsanthanam.NeedleFoundationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -469,6 +488,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y88YPD4RJA;
 				INFOPLIST_FILE = NeedleFoundationTests/Info.plist;
