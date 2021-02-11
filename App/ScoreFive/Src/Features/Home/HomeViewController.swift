@@ -19,6 +19,7 @@ protocol HomePresentableListener: AnyObject {
     func didTapNewGame()
     func didTapResumeLastGame()
     func didTapLoadGame()
+    func didTapMore()
 }
 
 final class HomeViewController: ScopeViewController, HomePresentable, HomeViewControllable {
@@ -38,26 +39,7 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
     // MARK: - HomePresentable
 
     weak var listener: HomePresentableListener?
-
-    func showNewGame(_ viewController: ViewControllable) {
-        confineTo(viewEvents: [.viewDidAppear], once: true) {
-            if let current = self.newGameViewController {
-                current.uiviewController.dismiss(animated: true) { [weak self] in
-                    self?.newGameViewController = nil
-                    self?.showNewGame(viewController)
-                }
-            } else {
-                self.present(viewController.uiviewController, animated: true) { [weak self] in
-                    self?.newGameViewController = viewController
-                }
-            }
-        }
-    }
-
-    func closeNewGame() {
-        newGameViewController?.uiviewController.dismiss(animated: true, completion: nil)
-    }
-
+    
     func showResumeButton() {
         confineTo(viewEvents: [.viewDidLoad], once: true) { [weak self] in
             guard let self = self else { return }
@@ -80,6 +62,54 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
         }
     }
 
+    func showNewGame(_ viewController: ViewControllable) {
+        confineTo(viewEvents: [.viewDidAppear], once: true) {
+            if let current = self.newGameViewController {
+                current.uiviewController.dismiss(animated: true) { [weak self] in
+                    self?.newGameViewController = nil
+                    self?.showNewGame(viewController)
+                }
+            } else {
+                self.present(viewController.uiviewController, animated: true) { [weak self] in
+                    self?.newGameViewController = viewController
+                }
+            }
+        }
+    }
+
+    func closeNewGame() {
+        newGameViewController?.uiviewController.dismiss(animated: true, completion: nil)
+        newGameViewController = nil
+    }
+
+    func showMoreOptions(_ viewController: ViewControllable) {
+        confineTo(viewEvents: [.viewDidAppear], once: true) {
+            if let current = self.moreOptionsViewController {
+                current.uiviewController.dismiss(animated: true) { [weak self] in
+                    self?.moreOptionsViewController = nil
+                    self?.showMoreOptions(viewController)
+                }
+            } else {
+                self.present(viewController.uiviewController, animated: true) { [weak self] in
+                    self?.moreOptionsViewController = viewController
+                }
+            }
+        }
+    }
+    
+    func closeMoreOptions() {
+        moreOptionsViewController?.uiviewController.dismiss(animated: true, completion: nil)
+        moreOptionsViewController = nil
+    }
+    
+    func showGameLibrary(_ viewController: ViewControllable) {
+        
+    }
+    
+    func closeGameLibrary() {
+        
+    }
+    
     // MARK: - Private
 
     private let layoutGuide = UILayoutGuide()
@@ -89,6 +119,7 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
     private var resumeGameButton: HomeButton?
 
     private var newGameViewController: ViewControllable?
+    private var moreOptionsViewController: ViewControllable?
 
     private func setUp() {
         specializedView.backgroundColor = .backgroundPrimary
@@ -107,9 +138,10 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
         specializedView.addSubview(imageView)
         specializedView.addSubview(buttonStackView)
         specializedView.addSubview(moreButton)
-        
+
         moreButton.symbolColor = .contentAccentPrimary
         moreButton.highlightedSymbolColor = .contentAccentSecondary
+        moreButton.addTarget(self, action: #selector(didTapMore), for: .touchUpInside)
 
         layoutGuide.snp.makeConstraints { make in
             make
@@ -147,7 +179,7 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
                 .equalTo(moreButton.snp.top)
                 .offset(-24.0)
         }
-        
+
         moreButton.snp.makeConstraints { make in
             make
                 .bottom
@@ -160,7 +192,7 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
         newGameButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         newGameButton.addTarget(self, action: #selector(didTapAdd), for: .touchUpInside)
         buttonStackView.insertArrangedSubview(newGameButton, at: 0)
-        
+
         loadGameButton.setContentCompressionResistancePriority(.required, for: .horizontal)
         loadGameButton.addTarget(self, action: #selector(didTapLoad), for: .touchUpInside)
         buttonStackView.insertArrangedSubview(loadGameButton, at: buttonStackView.arrangedSubviews.count)
@@ -175,9 +207,14 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
     private func didTapResume() {
         listener?.didTapResumeLastGame()
     }
-    
+
     @objc
     private func didTapLoad() {
         listener?.didTapLoadGame()
+    }
+
+    @objc
+    private func didTapMore() {
+        listener?.didTapMore()
     }
 }

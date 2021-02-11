@@ -48,6 +48,26 @@
                ReferencedContainer = "container:../Libraries/ScoreKeeping/ScoreKeeping.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "072F80C3259A4C59005EE56B"
+               BuildableName = "SnapKitTests.xctest"
+               BlueprintName = "SnapKitTests"
+               ReferencedContainer = "container:../Vendor/SnapKit/SnapKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "072F8139259A4CCE005EE56B"
+               BuildableName = "NeedleFoundationTests.xctest"
+               BlueprintName = "NeedleFoundationTests"
+               ReferencedContainer = "container:../Vendor/NeedleFoundation/NeedleFoundation.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

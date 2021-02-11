@@ -17,6 +17,8 @@ final class HomeInteractorTests: TestCase {
     let listener = HomeListenerMock()
     let gameStorageManager = GameStorageManagingMock()
     let newGameBuilder = NewGameBuildableMock()
+    let moreOptionsBuilder = MoreOptionsBuildableMock()
+    let gameLibraryBuilder = GameLibraryBuildableMock()
 
     var interactor: HomeInteractor!
 
@@ -24,7 +26,9 @@ final class HomeInteractorTests: TestCase {
         super.setUp()
         interactor = .init(presenter: presenter,
                            gameStorageManager: gameStorageManager,
-                           newGameBuilder: newGameBuilder)
+                           newGameBuilder: newGameBuilder,
+                           moreOptionsBuilder: moreOptionsBuilder,
+                           gameLibraryBuilder: gameLibraryBuilder)
         interactor.listener = listener
     }
 

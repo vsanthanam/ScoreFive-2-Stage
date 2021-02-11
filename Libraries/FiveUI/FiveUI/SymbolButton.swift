@@ -133,10 +133,10 @@ public enum Symbol {
                 refreshImage()
             }
         }
-        
+
         // MARK: - UIControl
-        
-        open override var isHighlighted: Bool {
+
+        override open var isHighlighted: Bool {
             didSet {
                 refreshImage()
             }

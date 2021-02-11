@@ -64,6 +64,7 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
 
     func closeNewRound() {
         newRoundViewController?.uiviewController.dismiss(animated: true, completion: nil)
+        newRoundViewController = nil
     }
 
     func showGameSettings(_ viewController: ViewControllable) {
@@ -81,6 +82,7 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
 
     func closeGameSettings() {
         gameSettingsViewController?.uiviewController.dismiss(animated: true, completion: nil)
+        gameSettingsViewController = nil
     }
 
     func showScoreCard(_ viewController: ScoreCardViewControllable) {
