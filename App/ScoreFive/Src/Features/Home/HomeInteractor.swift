@@ -66,11 +66,17 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
     func newGameDidAbort() {
         routeAwayFromNewGame()
     }
-    
+
     // MARK: - MoreOptionsListener
-    
+
     func moreOptionsDidResign() {
         routeAwayFromMoreOptions()
+    }
+
+    // MARK: - GameLibraryListener
+
+    func gameLibraryDidResign() {
+        routeAwayFromGameLibrary()
     }
 
     // MARK: - HomePresentableListener
@@ -90,7 +96,9 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         }
     }
 
-    func didTapLoadGame() {}
+    func didTapLoadGame() {
+        routeToGameLibrary()
+    }
 
     func didTapMore() {
         routeToMoreOptions()
@@ -102,7 +110,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
     private let newGameBuilder: NewGameBuildable
     private let moreOptionsBuilder: MoreOptionsBuildable
     private let gameLibraryBuilder: GameLibraryBuildable
-    
+
     private var currentNewGame: PresentableInteractable?
     private var currentMoreOptions: PresentableInteractable?
     private var currentGameLibrary: PresentableInteractable?
@@ -152,7 +160,7 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         presenter.showMoreOptions(moreOptions.viewControllable)
         currentMoreOptions = moreOptions
     }
-    
+
     private func routeAwayFromMoreOptions() {
         if let current = currentMoreOptions {
             detach(child: current)
@@ -160,22 +168,22 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         }
         currentMoreOptions = nil
     }
-    
+
     private func routeToGameLibrary() {
         if let current = currentNewGame {
             detach(child: current)
         }
         let gameLibrary = gameLibraryBuilder.build(withListener: self)
         attach(child: gameLibrary)
-        presenter.showMoreOptions(gameLibrary.viewControllable)
+        presenter.showGameLibrary(gameLibrary.viewControllable)
         currentGameLibrary = gameLibrary
     }
-    
+
     private func routeAwayFromGameLibrary() {
-        guard let current = currentGameLibrary else {
-            return
+        if let current = currentGameLibrary {
+            detach(child: current)
+            presenter.closeGameLibrary()
         }
-        detach(child: current)
         currentGameLibrary = nil
     }
 }
