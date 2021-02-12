@@ -9,7 +9,7 @@ import Foundation
 
 /// A `Round` is a struct that encapsultes a single hand in a game
 /// A `Round` cannot contain scores below 0 or above 50, nor can it contain duplicate players
-/// It's contents are further validated by the `ScoreCard` it is eventually added to ensure that it is valid for the card at the providwed index
+/// It's contents are further validated by the `ScoreCard` it is eventually added to ensure that it is valid for the card at the provided index
 public struct Round: Codable, Equatable, Hashable {
 
     // MARK: - Initializers

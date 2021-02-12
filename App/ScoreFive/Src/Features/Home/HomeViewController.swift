@@ -83,14 +83,14 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
     }
 
     func showMoreOptions(_ viewController: ViewControllable) {
-        confineTo(viewEvents: [.viewDidAppear], once: true) {
-            if let current = self.moreOptionsViewController {
+        confineTo(viewEvents: [.viewDidAppear], once: true) { [weak self] in
+            if let current = self?.moreOptionsViewController {
                 current.uiviewController.dismiss(animated: true) { [weak self] in
                     self?.moreOptionsViewController = nil
                     self?.showMoreOptions(viewController)
                 }
             } else {
-                self.present(viewController.uiviewController, animated: true) { [weak self] in
+                self?.present(viewController.uiviewController, animated: true) { [weak self] in
                     self?.moreOptionsViewController = viewController
                 }
             }
@@ -103,11 +103,23 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
     }
     
     func showGameLibrary(_ viewController: ViewControllable) {
-        
+        confineTo(viewEvents: [.viewDidAppear], once: true) { [weak self] in
+            if let current = self?.gameLibraryViewController  {
+                current.uiviewController.dismiss(animated: true)  { [weak self] in
+                    self?.gameLibraryViewController = nil
+                    self?.showGameLibrary(viewController)
+                }
+            } else {
+                self?.present(viewController.uiviewController, animated: true) { [weak self] in
+                    self?.gameLibraryViewController = viewController
+                }
+            }
+        }
     }
     
     func closeGameLibrary() {
-        
+        gameLibraryViewController?.uiviewController.dismiss(animated: true, completion: nil)
+        gameLibraryViewController = nil
     }
     
     // MARK: - Private
@@ -120,6 +132,7 @@ final class HomeViewController: ScopeViewController, HomePresentable, HomeViewCo
 
     private var newGameViewController: ViewControllable?
     private var moreOptionsViewController: ViewControllable?
+    private var gameLibraryViewController: ViewControllable?
 
     private func setUp() {
         specializedView.backgroundColor = .backgroundPrimary

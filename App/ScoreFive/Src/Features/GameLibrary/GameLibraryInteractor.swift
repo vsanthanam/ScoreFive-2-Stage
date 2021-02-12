@@ -14,11 +14,19 @@ protocol GameLibraryPresentable: GameLibraryViewControllable {
 }
 
 /// @mockable
-protocol GameLibraryListener: AnyObject {}
+protocol GameLibraryListener: AnyObject {
+    func gameLibraryDidResign()
+}
 
 final class GameLibraryInteractor: PresentableInteractor<GameLibraryPresentable>, GameLibraryInteractable, GameLibraryPresentableListener {
     
     // MARK: - API
     
-    weak var listener: GameLibraryListener?    
+    weak var listener: GameLibraryListener?
+    
+    // MARK: - GameLibraryPresentableListener
+    
+    func didTapClose() {
+        listener?.gameLibraryDidResign()
+    }
 }

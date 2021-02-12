@@ -13,9 +13,19 @@ import UIKit
 protocol GameLibraryViewControllable: ViewControllable {}
 
 /// @mockable
-protocol GameLibraryPresentableListener: AnyObject {}
+protocol GameLibraryPresentableListener: AnyObject {
+    func didTapClose()
+}
 
 final class GameLibraryViewController: ScopeViewController, GameLibraryPresentable, GameLibraryViewControllable {
+    
+    // MARK: - UIViewController
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        isModalInPresentation = true
+        view.backgroundColor = .backgroundPrimary
+    }
     
     // MARK: - GameLibraryPresentable
     

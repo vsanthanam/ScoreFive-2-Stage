@@ -72,6 +72,12 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
     func moreOptionsDidResign() {
         routeAwayFromMoreOptions()
     }
+    
+    // MARK: - GameLibraryListener
+    
+    func gameLibraryDidResign() {
+        routeAwayFromGameLibrary()
+    }
 
     // MARK: - HomePresentableListener
 
@@ -90,7 +96,9 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         }
     }
 
-    func didTapLoadGame() {}
+    func didTapLoadGame() {
+        routeToGameLibrary()
+    }
 
     func didTapMore() {
         routeToMoreOptions()
@@ -167,15 +175,15 @@ final class HomeInteractor: PresentableInteractor<HomePresentable>, HomeInteract
         }
         let gameLibrary = gameLibraryBuilder.build(withListener: self)
         attach(child: gameLibrary)
-        presenter.showMoreOptions(gameLibrary.viewControllable)
+        presenter.showGameLibrary(gameLibrary.viewControllable)
         currentGameLibrary = gameLibrary
     }
     
     private func routeAwayFromGameLibrary() {
-        guard let current = currentGameLibrary else {
-            return
+        if let current = currentGameLibrary {
+            detach(child: current)
+            presenter.closeGameLibrary()
         }
-        detach(child: current)
         currentGameLibrary = nil
     }
 }
