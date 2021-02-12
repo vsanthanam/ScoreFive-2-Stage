@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import ShortRibs
 import NeedleFoundation
+import ShortRibs
 
 protocol GameLibraryDependency: Dependency {}
 
@@ -26,9 +26,9 @@ protocol GameLibraryBuildable: AnyObject {
 }
 
 final class GameLibraryBuilder: ComponentizedBuilder<GameLibraryComponent, PresentableInteractable, GameLibraryDynamicBuildDependency, Void>, GameLibraryBuildable {
-    
+
     // MARK: - ComponentizedBuilder
-    
+
     override final func build(with component: GameLibraryComponent, _ dynamicBuildDependency: GameLibraryDynamicBuildDependency) -> PresentableInteractable {
         let listener = dynamicBuildDependency
         let viewController = GameLibraryViewController()
@@ -37,12 +37,12 @@ final class GameLibraryBuilder: ComponentizedBuilder<GameLibraryComponent, Prese
         interactor.listener = listener
         return interactor
     }
-    
+
     // MARK: - GameLibraryBuildable
-    
+
     func build(withListener listener: GameLibraryListener) -> PresentableInteractable {
         build(withDynamicBuildDependency: listener,
               dynamicComponentDependency: ())
     }
-    
+
 }
