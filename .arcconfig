@@ -1,3 +1,14 @@
 {
-  "phabricator.uri": "https://phab.vsanthanam.com/"
+  "phabricator.uri": "https://phab.vsanthanam.com/",
+  "load": [
+    "Tooling/arc-xcode-test-engine"
+   ],
+   "unit.xcode": {
+    "build": {
+      "workspace": "ScoreFive.xcworkspace",
+      "scheme": "ScoreFive",
+      "configuration": "Debug",
+      "destination": "platform=iOS Simulator,name=iPhone 8 Plus"
+    }
+  }
 }
