@@ -112,8 +112,19 @@ final class GameInteractorTests: TestCase {
     }
 
     func test_routeToNewRound_noReplacement_cancel() {
+        let id = UUID()
+        let card = ScoreCard(orderedPlayers: ["Player 1", "Player 2"].map(Player.init))
+        let round = card.newRound()
+        activeGameStream.currentActiveGameIdentifier = id
+        gameStorageManager.fetchScoreCardHandler = { identifier in
+            XCTAssertEqual(identifier, id)
+            return card
+        }
+        
         let newRound = PresentableInteractableMock()
-        newRoundBuilder.buildHandler = { listener, _, _ in
+        
+        newRoundBuilder.buildHandler = { listener, roundDep, _ in
+            XCTAssertEqual(round, roundDep)
             XCTAssertTrue(listener === self.interactor)
             return newRound
         }
@@ -141,13 +152,24 @@ final class GameInteractorTests: TestCase {
     }
 
     func test_saveNewRound() {
+        let id = UUID()
+        let card = ScoreCard(orderedPlayers: ["Player 1", "Player 2"].map(Player.init))
+        var round = card.newRound()
+        activeGameStream.currentActiveGameIdentifier = id
+        gameStorageManager.fetchScoreCardHandler = { identifier in
+            XCTAssertEqual(identifier, id)
+            return card
+        }
+        
         let newRound = PresentableInteractableMock()
 
-        newRoundBuilder.buildHandler = { listener, _, _ in
+        newRoundBuilder.buildHandler = { listener, roundDep, _ in
+            XCTAssertEqual(round, roundDep)
             XCTAssertTrue(listener === self.interactor)
             return newRound
         }
-
+        
+        XCTAssertEqual(gameStorageManager.fetchScoreCardCallCount, 0)
         XCTAssertEqual(interactor.children.count, 0)
         XCTAssertEqual(presenter.showNewRoundCallCount, 0)
         XCTAssertEqual(presenter.closeNewRoundCallCount, 0)
@@ -155,33 +177,26 @@ final class GameInteractorTests: TestCase {
 
         interactor.wantNewRound()
 
+        XCTAssertEqual(gameStorageManager.fetchScoreCardCallCount, 1)
         XCTAssertEqual(interactor.children.count, 1)
         XCTAssertEqual(presenter.showNewRoundCallCount, 1)
         XCTAssertEqual(presenter.closeNewRoundCallCount, 0)
         XCTAssertEqual(newRoundBuilder.buildCallCount, 1)
 
         newRound.isActive = true
-        let identifier = UUID()
-        activeGameStream.currentActiveGameIdentifier = identifier
-        let card = ScoreCard(orderedPlayers: ["Player 1", "Player 2"].map(Player.init))
-        gameStorageManager.fetchScoreCardHandler = { id in
-            XCTAssertEqual(id, identifier)
-            return card
-        }
-
+        
         XCTAssertEqual(card.rounds.count, 0)
 
-        var round = Round()
         for i in 0 ..< card.orderedPlayers.count {
             round[card.orderedPlayers[i]] = i
         }
 
-        XCTAssertEqual(gameStorageManager.fetchScoreCardCallCount, 0)
+        XCTAssertEqual(gameStorageManager.fetchScoreCardCallCount, 1)
         XCTAssertEqual(gameStorageManager.saveCallCount, 0)
 
         interactor.newRoundDidAddRound(round)
 
-        XCTAssertEqual(gameStorageManager.fetchScoreCardCallCount, 1)
+        XCTAssertEqual(gameStorageManager.fetchScoreCardCallCount, 2)
         XCTAssertEqual(gameStorageManager.saveCallCount, 1)
 
         XCTAssertEqual(interactor.children.count, 0)

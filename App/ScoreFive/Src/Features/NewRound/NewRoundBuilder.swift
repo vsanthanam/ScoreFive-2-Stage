@@ -22,18 +22,18 @@ protocol NewRoundInteractable: PresentableInteractable {}
 
 typealias NewRoundDynamicBuildDependency = (
     listener: NewRoundListener,
-    replacingIndex: Int?,
-    previousValue: Round?
+    previousValue: Round,
+    replacingIndex: Int?
 )
 
 /// @mockable
 protocol NewRoundBuildable: AnyObject {
-    func build(withListener listener: NewRoundListener, replacingIndex: Int?, previousValue: Round?) -> PresentableInteractable
+    func build(withListener listener: NewRoundListener, round: Round, replacingIndex: Int?) -> PresentableInteractable
 }
 
 extension NewRoundBuildable {
-    func build(withListener listener: NewRoundListener) -> PresentableInteractable {
-        build(withListener: listener, replacingIndex: nil, previousValue: nil)
+    func build(withListener listener: NewRoundListener, round: Round) -> PresentableInteractable {
+        build(withListener: listener, round: round, replacingIndex: nil)
     }
 }
 
@@ -42,21 +42,21 @@ final class NewRoundBuilder: ComponentizedBuilder<NewRoundComponent, Presentable
     // MARK: - ComponentizedBuilder
 
     override final func build(with component: NewRoundComponent, _ dynamicBuildDependency: NewRoundDynamicBuildDependency) -> PresentableInteractable {
-        let (listener, replacingIndex, previousValue) = dynamicBuildDependency
+        let (listener, round, replacingIndex) = dynamicBuildDependency
         let viewController = NewRoundViewController()
         let interactor = NewRoundInteractor(presenter: viewController,
                                             activeGameStream: component.activeGameStream,
                                             gameStorageProvider: component.gameStorageProvider,
                                             replacingIndex: replacingIndex,
-                                            previousValue: previousValue)
+                                            round: round)
         interactor.listener = listener
         return interactor
     }
 
     // MARK: - NewRoundBuildable
 
-    func build(withListener listener: NewRoundListener, replacingIndex: Int?, previousValue: Round?) -> PresentableInteractable {
-        build(withDynamicBuildDependency: (listener, replacingIndex, previousValue),
+    func build(withListener listener: NewRoundListener, round: Round, replacingIndex: Int?) -> PresentableInteractable {
+        build(withDynamicBuildDependency: (listener, round, replacingIndex),
               dynamicComponentDependency: ())
     }
 
