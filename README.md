@@ -1,5 +1,5 @@
 #  ScoreFive
-[![Bitrise](https://img.shields.io/bitrise/fe59272550a1b3ee/master?label=build&token=7qUOrruzIv3Ca3ntoOoHvw)](https://app.bitrise.io/app/fe59272550a1b3ee)
+[![Bitrise](https://img.shields.io/bitrise/fe59272550a1b3ee/main?label=build&token=7qUOrruzIv3Ca3ntoOoHvw)](https://app.bitrise.io/app/fe59272550a1b3ee)
 [![GitHub](https://img.shields.io/github/license/vsanthanam/scorefive-2)](https://opensource.org/licenses/MIT)
 
 ## Setup
@@ -41,7 +41,7 @@ After these steps have been taken, you can open `ScoreFive.xcworkspace` and run 
 
 ## Development
 
-This project is hosted at phab.vsanthanam.com and manage using phacility tools. The copy on github is just a mirror, and only contains the master branch. To contribute, visit [the hosted phabricator install](https://phab.vsanthanam.com) and request a user account.
+This project is hosted at phab.vsanthanam.com and manage using phacility tools. The copy on github is just a mirror, and only contains the `main` branch. To contribute, visit [the hosted phabricator install](https://phab.vsanthanam.com) and request a user account.
 
 ### Running the Unit Tests
 
