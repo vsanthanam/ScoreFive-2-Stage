@@ -95,7 +95,7 @@ final class RoundTests: XCTestCase {
         round.set(score: 50, for: player1)
         XCTAssertEqual(round.score(for: player1), 50, "player1 should have assigned score of 50")
         round.removeScore(for: player1)
-        XCTAssertNil(round.score(for: player1), "player1 should have a nil score")
+        XCTAssertEqual(round.score(for: player1), Round.noScore, "player1 should have an empty score")
     }
 
     func test_removeScore_returnsNil_subscript() {
@@ -108,15 +108,15 @@ final class RoundTests: XCTestCase {
         XCTAssertNil(round[player1], "player1 should have a nil score")
     }
 
-    func test_removeScore_removesPlayer() {
+    func test_removeScore_doesntRemovePlayer() {
         var round = Round()
         XCTAssertEqual(round.players.count, 0)
         let player1 = Player.test
         round.set(score: 50, for: player1)
         XCTAssertTrue(round.players.contains(player1), "Round should have a score for player1")
         round.removeScore(for: player1)
-        XCTAssertFalse(round.players.contains(player1), "player1 shouldn't be included")
-        XCTAssertEqual(round.players.count, 0, "Round shouldn't have any players")
+        XCTAssertTrue(round.players.contains(player1), "player1 should be included")
+        XCTAssertEqual(round.players.count, 1, "Round should have only 1 player")
     }
 
     func test_removeScore_removesPlayer_subscript() {
