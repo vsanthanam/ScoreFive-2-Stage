@@ -173,6 +173,7 @@ final class GameInteractorTests: TestCase {
 
         var round = Round()
         for i in 0 ..< card.orderedPlayers.count {
+            round.addPlayer(card.orderedPlayers[i])
             round[card.orderedPlayers[i]] = i
         }
 

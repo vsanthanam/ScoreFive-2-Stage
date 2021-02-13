@@ -83,6 +83,9 @@ final class NewRoundViewController: ScopeViewController, NewRoundPresentable, Ne
                 .top
                 .equalTo(specializedView.safeAreaLayoutGuide)
         }
+        
+        let roundView = RoundScoreView()
+        
     }
 
     @objc

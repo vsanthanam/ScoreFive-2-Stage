@@ -178,22 +178,30 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
     }
 
     private func routeToNewRound() {
+        guard let identifier = activeGameStream.currentActiveGameIdentifier,
+              let card = try? gameStorageManager.fetchScoreCard(for: identifier) else {
+            return
+        }
         if let current = currentNewRound {
             detach(child: current)
         }
-        let newRound = newRoundBuilder.build(withListener: self)
+        let newRound = newRoundBuilder.build(withListener: self, round: card.newRound())
         attach(child: newRound)
         presenter.showNewRound(newRound.viewControllable)
         currentNewRound = newRound
     }
 
-    private func routeToNewRound(replacing index: Int, previousValue: Round) {
+    private func routeToNewRound(replacing index: Int) {
+        guard let identifier = activeGameStream.currentActiveGameIdentifier,
+              let card = try? gameStorageManager.fetchScoreCard(for: identifier) else {
+            return
+        }
         if let current = currentNewRound {
             detach(child: current)
         }
         let newRound = newRoundBuilder.build(withListener: self,
-                                             replacingIndex: index,
-                                             previousValue: previousValue)
+                                             round: card[index],
+                                             replacingIndex: index)
         attach(child: newRound)
         presenter.showNewRound(newRound.viewControllable)
         currentNewRound = newRound

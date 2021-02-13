@@ -154,7 +154,10 @@ public struct ScoreCard: Codable, Equatable, Hashable {
             precondition(previouslyActivePlayers == activePlayers, "Round removal must not change active players")
         }
     }
-
+    
+    /// Createa a new card, without a specific round
+    /// - Parameter index: The index of the round that should be absent in the new card
+    /// - Returns: The new card
     public func cardByRemovingRound(at index: Int) -> ScoreCard {
         var copy = self
         copy.removeRound(at: index)
@@ -173,7 +176,12 @@ public struct ScoreCard: Codable, Equatable, Hashable {
         }
         rounds[index] = newRound
     }
-
+    
+    /// Creates a new card, but with a round replaced with a new one
+    /// - Parameters:
+    ///   - index: The index of the round you want replaced
+    ///   - newRound: The new round
+    /// - Returns: The new card
     public func cardByReplacingRound(at index: Int, with newRound: Round) -> ScoreCard {
         var copy = self
         copy.replaceRound(at: index, with: newRound)
@@ -186,7 +194,10 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     public mutating func updateScoreLimit(_ scoreLimit: Int) {
         fatalError("This method hasn't been implemented yet.")
     }
-
+    
+    /// Create a card with an updated score limit
+    /// - Parameter scoreLimit: The new score limit
+    /// - Returns: The new card
     public func cardWithUpdatedScoreLimit(_ scoreLimit: Int) -> ScoreCard {
         var copy = self
         copy.updateScoreLimit(scoreLimit)
@@ -197,6 +208,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
     /// - Parameter round: The new round to add
     /// - Note: This method produces a run-time failure if this round doesn't contain the right players or doesn't contain at least 1 winner and 1 loser.
     public mutating func addRound(_ round: Round) {
+        precondition(round.isComplete, "This round is missing scores and cannot be added until it has a score for every player")
         precondition(canAddRounds, "This game cannot accept rounds unless its score limit is increased or existing rounds are removed")
         precondition(Set(round.players) == Set(activePlayers), "Round players do not match currently active players")
         let zeros = round.containedScores.filter { score in score == 0 }
@@ -204,6 +216,15 @@ public struct ScoreCard: Codable, Equatable, Hashable {
         precondition(zeros.count < round.players.count, "Round must contain 1 loser before being added")
         rounds.append(round)
         precondition(activePlayers.count >= 1, "Round must leave at least one player standing after being added")
+    }
+    
+    /// Create a new round with the correct players for the next round
+    /// - Returns: The new round, with no scores
+    public func newRound() -> Round {
+        guard activePlayers.count >= 2 else {
+            fatalError()
+        }
+        return .init(players: activePlayers)
     }
 
     // MARK: - Subscript
@@ -232,7 +253,7 @@ public struct ScoreCard: Codable, Equatable, Hashable {
                 round.containsScore(for: player)
             }
             .reduce(0) { total, round in
-                total + (round.score(for: player) ?? 0)
+                total + round.score(for: player)
             }
     }
 }
@@ -240,12 +261,12 @@ public struct ScoreCard: Codable, Equatable, Hashable {
 private extension Round {
 
     func containsScore(for player: Player) -> Bool {
-        score(for: player) != nil
+        score(for: player) != Round.noScore
     }
 
     var containedScores: [Int] {
         players
             .map(score(for:))
-            .compactMap { $0 }
+            .filter { $0 != Round.noScore }
     }
 }
