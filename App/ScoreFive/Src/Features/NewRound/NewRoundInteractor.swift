@@ -29,20 +29,13 @@ final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewR
          activeGameStream: ActiveGameStreaming,
          gameStorageProvider: GameStorageProviding,
          replacingIndex: Int?,
-         previousValue: Round?) {
+         round: Round) {
         self.activeGameStream = activeGameStream
         self.gameStorageProvider = gameStorageProvider
         self.replacingIndex = replacingIndex
-        round = previousValue ?? Round()
+        self.round = round
         super.init(presenter: presenter)
         presenter.listener = self
-    }
-
-    // MARK: - Interactor
-
-    override func didBecomeActive() {
-        super.didBecomeActive()
-        fetchLatestScoreCard()
     }
 
     // MARK: - API
@@ -63,22 +56,4 @@ final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewR
     private let replacingIndex: Int?
 
     private var round: Round
-    private var scoreCard: ScoreCard?
-
-    private func fetchLatestScoreCard() {
-        guard let identifier = activeGameStream.currentActiveGameIdentifier else {
-            listener?.newRoundDidCancel()
-            return
-        }
-        do {
-            scoreCard = try gameStorageProvider.fetchScoreCard(for: identifier)
-            if let card = scoreCard {
-                for i in 0 ..< card.orderedPlayers.count {
-                    round[card.orderedPlayers[i]] = i
-                }
-            }
-        } catch {
-            listener?.newRoundDidCancel()
-        }
-    }
 }

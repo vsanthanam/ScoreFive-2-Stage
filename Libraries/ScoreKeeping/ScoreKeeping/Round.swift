@@ -12,11 +12,20 @@ import Foundation
 /// It's contents are further validated by the `ScoreCard` it is eventually added to ensure that it is valid for the card at the provided index
 public struct Round: Codable, Equatable, Hashable {
 
+    /// An empty score
+    public static let noScore: Int = -1
+
     // MARK: - Initializers
 
     /// An create an empty `Round`
     public init() {
         scores = [Player: Int]()
+    }
+
+    /// Create a round with players but no score
+    /// - Parameter players: The players in the round
+    public init(players: [Player]) {
+        self.init(entries: players.map { ($0, Round.noScore) })
     }
 
     /// Create a `Round` from a collection of players and scores
@@ -27,7 +36,7 @@ public struct Round: Codable, Equatable, Hashable {
         precondition(entries.count == Set(players).count, "Entry must not contain duplicate players")
         scores = entries.reduce([Player: Int]()) { scores, entry in
             let (player, score) = entry
-            precondition(score >= 0, "Entry must not contain scores less than 0")
+            precondition(score >= -1, "Entry must not contain scores less than 0")
             precondition(score <= 50, "Entry must not contain score greater than 50")
             var existing = scores
             existing[player] = score
@@ -39,7 +48,7 @@ public struct Round: Codable, Equatable, Hashable {
     /// - Parameter entries: A dictionary with players and scores
     /// - Note: This initialize produces a run-time failure if the provided collection contains invalid scores.
     public init(entries: [Player: Int]) {
-        let aboveZero = entries.values.map { value in value >= 0 }
+        let aboveZero = entries.values.map { value in value >= -1 }
         let belowFifty = entries.values.map { value in value <= 50 }
         precondition(!aboveZero.contains(false), "Entry must not contain scores less than 0")
         precondition(!belowFifty.contains(false), "Entry must not contain score greater than 50")
@@ -59,6 +68,34 @@ public struct Round: Codable, Equatable, Hashable {
         .init(scores.keys)
     }
 
+    public var isComplete: Bool {
+        !(scores.values.map { $0 == Round.noScore }.contains(true))
+    }
+
+    /// Add a player to the round
+    /// - Parameter player: The player to add
+    public mutating func addPlayer(_ player: Player) {
+        set(score: Round.noScore, for: player)
+    }
+
+    /// Add players to the round
+    /// - Parameter players: The players to add
+    public mutating func addPlayers(_ players: Player...) {
+        guard Set(players).count == players.count else {
+            fatalError("You cannot add duplicate players")
+        }
+        players.forEach { addPlayer($0) }
+    }
+
+    /// Remove a player from the round
+    /// - Parameter player: The player to remove
+    public mutating func removePlayer(_ player: Player) {
+        guard players.contains(player) else {
+            fatalError("This round does not contain this player!")
+        }
+        scores.removeValue(forKey: player)
+    }
+
     /// Retrieve the score for player stored in this round
     /// - Parameter player: The player to retrieve the score
     /// - Returns: The score fo the player if it exists in this round, or `nil` if no such player exists
@@ -73,7 +110,7 @@ public struct Round: Codable, Equatable, Hashable {
     /// - Note: If the round already contains a score for the player, the previous value is replaced
     /// - Note: This method produces a run-time failure if the provided score is invalid
     public mutating func set(score: Int, for player: Player) {
-        precondition(score >= 0, "Score must be greater than 0")
+        precondition(score >= -1, "Score must be greater than 0")
         precondition(score <= 50, "Score must be less than or equal to 50")
         scores[player] = score
     }
@@ -81,7 +118,7 @@ public struct Round: Codable, Equatable, Hashable {
     /// Remove a score from a player
     /// - Parameter player: The player to remove the score
     public mutating func removeScore(for player: Player) {
-        scores.removeValue(forKey: player)
+        set(score: Round.noScore, for: player)
     }
 
     // MARK: - Subscript
@@ -96,7 +133,7 @@ public struct Round: Codable, Equatable, Hashable {
             if let score = newValue {
                 set(score: score, for: player)
             } else {
-                removeScore(for: player)
+                removePlayer(player)
             }
         }
     }
