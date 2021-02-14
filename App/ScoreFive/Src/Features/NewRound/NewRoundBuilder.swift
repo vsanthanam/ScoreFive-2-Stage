@@ -43,7 +43,7 @@ final class NewRoundBuilder: ComponentizedBuilder<NewRoundComponent, Presentable
 
     override final func build(with component: NewRoundComponent, _ dynamicBuildDependency: NewRoundDynamicBuildDependency) -> PresentableInteractable {
         let (listener, round, replacingIndex) = dynamicBuildDependency
-        let viewController = NewRoundViewController()
+        let viewController = NewRoundViewController(replacing: replacingIndex != nil)
         let interactor = NewRoundInteractor(presenter: viewController,
                                             activeGameStream: component.activeGameStream,
                                             gameStorageProvider: component.gameStorageProvider,

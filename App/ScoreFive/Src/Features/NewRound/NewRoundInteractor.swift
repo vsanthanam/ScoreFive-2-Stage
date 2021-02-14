@@ -12,6 +12,7 @@ import ShortRibs
 /// @mockable
 protocol NewRoundPresentable: NewRoundViewControllable {
     var listener: NewRoundPresentableListener? { get set }
+    func advanceToNextPlayer()
 }
 
 /// @mockable
@@ -41,11 +42,46 @@ final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewR
     // MARK: - API
 
     weak var listener: NewRoundListener?
+    
+    // MARK: - Interactor
+    
+    override func didBecomeActive() {
+        super.didBecomeActive()
+        guard let id = activeGameStream.currentActiveGameIdentifier,
+              let card = try? gameStorageProvider.fetchScoreCard(for: id) else {
+            listener?.newRoundDidCancel()
+            return
+        }
+        
+        players = card.orderedPlayers.filter { round.players.contains($0) }
+        
+        guard Set(players) == Set(round.players) else {
+            listener?.newRoundDidCancel()
+            return
+        }
+    }
 
     // MARK: - NewRoundPresentableListener
 
     func didTapClose() {
         listener?.newRoundDidCancel()
+    }
+    
+    func didSaveScore(_ score: Int) {
+        let player = players[currentPlayerIndex]
+        round[player] = score
+        print(round)
+        
+        if currentPlayerIndex < players.count - 1 {
+            currentPlayerIndex += 1
+            presenter.advanceToNextPlayer()
+        } else {
+            if let index = replacingIndex {
+                listener?.newRoundDidReplaceRound(at: index, with: round)
+            } else {
+                listener?.newRoundDidAddRound(round)
+            }
+        }
     }
 
     // MARK: - Private
@@ -56,4 +92,7 @@ final class NewRoundInteractor: PresentableInteractor<NewRoundPresentable>, NewR
     private let replacingIndex: Int?
 
     private var round: Round
+    private var players = [Player]()
+    
+    private var currentPlayerIndex: Int = 0
 }
