@@ -19,6 +19,7 @@ protocol ScoreCardPresentable: ScoreCardViewControllable {
 /// @mockable
 protocol ScoreCardListener: AnyObject {
     func scoreCardDidDeleteRound(at index: Int)
+    func scoreCardWantToEditRound(at index: Int)
 }
 
 final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, ScoreCardInteractable, ScoreCardPresentableListener {
@@ -74,9 +75,13 @@ final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, Sc
     }
 
     func index(at index: Int) -> String? {
-        return String(index)
+        String(index)
     }
 
+    func editRowAtIndex(at index: Int) {
+        listener?.scoreCardWantToEditRound(at: index)
+    }
+    
     // MARK: - Private
 
     private let gameStorageProvider: GameStorageProviding

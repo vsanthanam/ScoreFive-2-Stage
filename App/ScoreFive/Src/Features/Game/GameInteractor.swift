@@ -62,7 +62,12 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
     // MARK: - GamePresentableListener
 
     func wantNewRound() {
-        routeToNewRound()
+        guard let identifier = activeGameStream.currentActiveGameIdentifier,
+            let card = try? gameStorageManager.fetchScoreCard(for: identifier) else {
+            return
+        }
+        let round = card.newRound()
+        routeToNewRound(using: round)
     }
 
     func didClose() {
@@ -89,6 +94,14 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         }
     }
 
+    func scoreCardWantToEditRound(at index: Int) {
+        guard let identifier = activeGameStream.currentActiveGameIdentifier,
+            let card = try? gameStorageManager.fetchScoreCard(for: identifier) else {
+            return
+        }
+        routeToNewRound(using: card[index], replacing: index)
+    }
+    
     // MARK: - NewRoundListener
 
     func newRoundDidCancel() {
@@ -177,30 +190,12 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
             .cancelOnDeactivate(interactor: self)
     }
 
-    private func routeToNewRound() {
-        guard let identifier = activeGameStream.currentActiveGameIdentifier,
-            let card = try? gameStorageManager.fetchScoreCard(for: identifier) else {
-            return
-        }
-        if let current = currentNewRound {
-            detach(child: current)
-        }
-        let newRound = newRoundBuilder.build(withListener: self, round: card.newRound())
-        attach(child: newRound)
-        presenter.showNewRound(newRound.viewControllable)
-        currentNewRound = newRound
-    }
-
-    private func routeToNewRound(replacing index: Int) {
-        guard let identifier = activeGameStream.currentActiveGameIdentifier,
-            let card = try? gameStorageManager.fetchScoreCard(for: identifier) else {
-            return
-        }
+    private func routeToNewRound(using round: Round, replacing index: Int? = nil) {
         if let current = currentNewRound {
             detach(child: current)
         }
         let newRound = newRoundBuilder.build(withListener: self,
-                                             round: card[index],
+                                             round: round,
                                              replacingIndex: index)
         attach(child: newRound)
         presenter.showNewRound(newRound.viewControllable)

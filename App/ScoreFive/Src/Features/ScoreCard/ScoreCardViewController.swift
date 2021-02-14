@@ -21,6 +21,7 @@ protocol ScoreCardPresentableListener: AnyObject {
     func index(at index: Int) -> String?
     func canRemoveRow(at index: Int) -> Bool
     func didRemoveRow(at index: Int)
+    func editRowAtIndex(at index: Int)
 }
 
 final class ScoreCardViewController: ScopeViewController, ScoreCardPresentable, ScoreCardViewControllable, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -131,9 +132,17 @@ final class ScoreCardViewController: ScopeViewController, ScoreCardPresentable, 
             }, completion: { _ in
                 collectionView.reloadData()
             })
-
         }
-        let config = UISwipeActionsConfiguration(actions: [deleteAction])
+        
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [listener] _, _, actionPerformed in
+            guard let listener = listener else {
+                actionPerformed(false)
+                return
+            }
+            listener.editRowAtIndex(at: indexPath.row)
+            actionPerformed(true)
+        }
+        let config = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return config
     }
 }
