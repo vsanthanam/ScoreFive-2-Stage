@@ -99,6 +99,10 @@ extension UIColor {
     public static var controlDisabled: UIColor {
         ColorPalette.Grey500
     }
+    
+    public static var contentPositive: UIColor {
+        ColorPalette.Green400
+    }
 
     // MARK: - Implementation Colors
 
