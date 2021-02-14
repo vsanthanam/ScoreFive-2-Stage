@@ -101,7 +101,7 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         }
         routeToNewRound(using: card[index], replacing: index)
     }
-    
+
     // MARK: - NewRoundListener
 
     func newRoundDidCancel() {
@@ -123,7 +123,20 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
         routeAwayFromNewRound()
     }
 
-    func newRoundDidReplaceRound(at index: Int, with round: Round) {}
+    func newRoundDidReplaceRound(at index: Int, with round: Round) {
+        guard let identifier = activeGameStream.currentActiveGameIdentifier,
+            var card = try? gameStorageManager.fetchScoreCard(for: identifier) else {
+            presenter.showOperationFailure("Couldn't read current game data from disk")
+            return
+        }
+        do {
+            card.replaceRound(at: index, with: round)
+            try gameStorageManager.save(scoreCard: card, with: identifier)
+        } catch {
+            presenter.showOperationFailure("Couldn't write game data to disk")
+        }
+        routeAwayFromNewRound()
+    }
 
     // MARK: - GameSettingsListener
 

@@ -75,13 +75,13 @@ final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, Sc
     }
 
     func index(at index: Int) -> String? {
-        String(index)
+        String(index + 1)
     }
 
     func editRowAtIndex(at index: Int) {
         listener?.scoreCardWantToEditRound(at: index)
     }
-    
+
     // MARK: - Private
 
     private let gameStorageProvider: GameStorageProviding
