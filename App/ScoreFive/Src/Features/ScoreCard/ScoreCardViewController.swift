@@ -133,7 +133,7 @@ final class ScoreCardViewController: ScopeViewController, ScoreCardPresentable, 
                 collectionView.reloadData()
             })
         }
-        
+
         let editAction = UIContextualAction(style: .normal, title: "Edit") { [listener] _, _, actionPerformed in
             guard let listener = listener else {
                 actionPerformed(false)
