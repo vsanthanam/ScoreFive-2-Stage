@@ -100,6 +100,10 @@ extension UIColor {
         ColorPalette.Grey500
     }
 
+    public static var contentPositive: UIColor {
+        ColorPalette.Green400
+    }
+
     // MARK: - Implementation Colors
 
     private static let staticDarkPrimary: UIColor = ColorPalette.Black
