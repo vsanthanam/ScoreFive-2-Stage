@@ -113,7 +113,7 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
 
             private func setUp() {
                 backgroundColor = .backgroundPrimary
-                label.font = .systemFont(ofSize: 17.0, weight: .regular)
+                label.font = UIFont(name: "Consolas", size: 17.0)
                 label.textAlignment = .center
                 label.textColor = .contentPrimary
                 addSubview(label)

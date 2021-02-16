@@ -86,7 +86,7 @@ final class NewRoundViewController: ScopeViewController, NewRoundPresentable, Ne
     }
 
     func showResetError() {
-        // show alert controller
+        // show alert controllerdd
     }
 
     // MARK: - UINavigationBarDelegate
@@ -181,6 +181,10 @@ final class NewRoundViewController: ScopeViewController, NewRoundPresentable, Ne
         entryView.snp.makeConstraints { make in
             make
                 .center
+                .equalTo(keyboardLayoutGuide)
+            make
+                .leading
+                .trailing
                 .equalTo(keyboardLayoutGuide)
         }
         entryView.delegate = self

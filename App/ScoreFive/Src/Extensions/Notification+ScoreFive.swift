@@ -10,8 +10,12 @@ import Foundation
 
 extension Notification.Name {
 
-    func asPublisher() -> AnyPublisher<Notification, Never> {
-        NotificationCenter.default.publisher(for: self, object: nil).eraseToAnyPublisher()
+    func asPublisher<T>(object: T?) -> AnyPublisher<Notification, Never> where T: AnyObject {
+        NotificationCenter.default.publisher(for: self, object: object).eraseToAnyPublisher()
+    }
+    
+    func asPublisher(_ object: AnyObject? = nil) -> AnyPublisher<Notification, Never> {
+        asPublisher(object: object)
     }
 
 }

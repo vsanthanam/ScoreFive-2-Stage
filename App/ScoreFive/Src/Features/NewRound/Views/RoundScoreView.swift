@@ -149,7 +149,7 @@ final class RoundScoreView: BaseView {
 
     private func configureInput(_ input: ScoreInput) {
         input.textAlignment = .center
-        input.font = UIFont(name: "Consolas", size: 17.0)
+        input.font = UIFont(name: "Consolas", size: 52.0)
         input.keyboardType = .numberPad
         addSubview(input)
 
