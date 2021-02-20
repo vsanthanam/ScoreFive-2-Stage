@@ -52,7 +52,13 @@ $ cd path/to/repo
 $ ./sftool gen mocks
 ```
 
-2. Open `ScoreFive.xcworkspae` and run the unit tests from within Xcode.
+2. Run the tests with `xcodebuild` via with `sftool`
+
+```
+$ cd path/to/repo
+$ ./sftool test
+```
+You can also open `ScoreFive.xcworkspae` and run the unit tests from within Xcode.
 
 ### Running SwiftFormat
 
