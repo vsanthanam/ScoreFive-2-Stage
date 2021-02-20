@@ -89,12 +89,10 @@ $ brew install swiftformat
 
 2. Run `swiftlint` via `sftool`
 
-
 ```
 $ cd path/to/repo
 $ ./sftool lint
 ```
-
 
 ### Updating the DI Graph
 

@@ -89,12 +89,6 @@ enum Commands {
 
     static func runTests(_ root: String, name: String, os: String) throws -> String {
         try shellOut(to: "xcodebuild -workspace \(root)/ScoreFive.xcworkspace -sdk iphonesimulator -scheme ScoreFive -destination 'platform=iOS Simulator,name=\(name),OS=\(os)' test")
-//        xcodebuild \
-//        -workspace ScoreFive.xcworkspace \
-//        -sdk iphonesimulator \
-//        -scheme ScoreFive \
-//        -destination 'platform=iOS Simulator,name=iPhone 8 Plus,OS=14.4' \
-//        test
     }
 }
 
