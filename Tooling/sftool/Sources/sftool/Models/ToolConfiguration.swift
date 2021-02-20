@@ -36,7 +36,7 @@ func fetchConfiguration(on root: String) throws -> ToolConfiguration {
 
     func readFile() throws -> String {
         do {
-            return try shellOut(to: .readFile(at: root + "/sftool-config.json"))
+            return try shellOut(to: .readFile(at: root + "/.sftool-config"))
         } catch {
             throw ConfigurationError.notFound(error: error as! ShellOutError)
         }
@@ -65,6 +65,9 @@ struct ToolConfiguration: Codable {
 
     /// Mockolo configuration
     let mockolo: MockoloConfiguration
+
+    /// Test configuration
+    let testConfig: TestConfiguration
 
     /// Mock source path
     let mockPath: String
@@ -113,4 +116,15 @@ struct MockoloConfiguration: Codable {
 
     /// @testable modules to import
     let testableImports: [String]
+}
+
+/// Test Configuration
+struct TestConfiguration: Codable {
+
+    /// Test Device
+    let device: String
+
+    /// Test OS
+    let os: String
+
 }
