@@ -19,7 +19,8 @@ struct AnalyticsCommand: ParsableCommand {
     static let configuration = CommandConfiguration(commandName: "analytics",
                                                     abstract: "Configure Analytics",
                                                     subcommands: [AnalyticsInstall.self,
-                                                                  AnalyticsWipe.self])
+                                                                  AnalyticsWipe.self,
+                                                                  AnalyticsStatus.self])
 }
 
 struct AnalyticsInstall: ParsableCommand {
@@ -63,4 +64,27 @@ struct AnalyticsWipe: ParsableCommand {
         try Commands.writeAnalyticsConfiguration(root)
     }
 
+}
+
+struct AnalyticsStatus: ParsableCommand {
+
+    // MARK: - API
+
+    @Option(name: .shortAndLong, help: "Location of the score five repo")
+    var root: String = FileManager.default.currentDirectoryPath
+
+    // MARK: - ParsableCommand
+
+    static let configuration = CommandConfiguration(commandName: "status",
+                                                    abstract: "Current Countly Status")
+
+    func run() throws {
+        let config = try Commands.readAnalyticsConfiguration(root)
+        if config == .empty {
+            print("No Analytics Configuration Installed")
+        } else {
+            print("Host: \(String(describing: config.host))")
+            print("Key: \(String(describing: config.appKey))")
+        }
+    }
 }

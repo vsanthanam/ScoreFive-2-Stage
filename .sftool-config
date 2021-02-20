@@ -22,6 +22,10 @@
                           "type_body_length"],
         "optInRules": []
     },
+    "testConfig": {
+        "device": "iPhone 8 Plus",
+        "os": "14.4"
+    },
     "vendorCodePath": "Vendor",
     "diCodePath": "App/ScoreFive/Src/Features/",
     "diGraphPath": "App/ScoreFive/Src/Infra/DependencyGraph.swift",

@@ -16,7 +16,8 @@ struct sftool: ParsableCommand {
                       GenerateCommand.self,
                       SwiftLintCommand.self,
                       BootstrapCommand.self,
-                      AnalyticsCommand.self]
+                      AnalyticsCommand.self,
+                      TestCommand.self]
     )
 }
 
@@ -68,6 +69,32 @@ enum Commands {
         let targetPath = "/App/ScoreFive/Resources/analytics_config.json"
         try shellOut(to: .removeFile(from: root + targetPath))
         try NSData(data: data).write(toFile: root + targetPath)
+    }
+
+    static func readAnalyticsConfiguration(_ root: String) throws -> AnalyticsConfig {
+        func readFile() throws -> String {
+            do {
+                return try shellOut(to: .readFile(at: root + "/App/ScoreFive/Resources/analytics_config.json"))
+            } catch {
+                throw ConfigurationError.notFound(error: error as! ShellOutError)
+            }
+        }
+
+        let file = try readFile()
+
+        let jsonData = file.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        return try decoder.decode(AnalyticsConfig.self, from: jsonData)
+    }
+
+    static func runTests(_ root: String, name: String, os: String) throws -> String {
+        try shellOut(to: "xcodebuild -workspace \(root)/ScoreFive.xcworkspace -sdk iphonesimulator -scheme ScoreFive -destination 'platform=iOS Simulator,name=\(name),OS=\(os)' test")
+//        xcodebuild \
+//        -workspace ScoreFive.xcworkspace \
+//        -sdk iphonesimulator \
+//        -scheme ScoreFive \
+//        -destination 'platform=iOS Simulator,name=iPhone 8 Plus,OS=14.4' \
+//        test
     }
 }
 
