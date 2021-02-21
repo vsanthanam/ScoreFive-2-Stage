@@ -36,6 +36,13 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
             scores.forEach { score in
                 let index = IndexView()
                 index.title = score
+                if score == "0" {
+                    index.titleColor = .contentPositive
+                } else if score == configuration.max {
+                    index.titleColor = .contentNegative
+                } else {
+                    index.titleColor = .contentPrimary
+                }
                 stack.addArrangedSubview(index)
             }
             index.text = configuration.index
@@ -108,6 +115,11 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
                 get { label.text }
                 set { label.text = newValue }
             }
+            
+            var titleColor: UIColor? {
+                get { label.textColor }
+                set { label.textColor = newValue }
+            }
 
             private let label = UILabel()
 
@@ -137,6 +149,12 @@ final class GameRoundCell: ListCell<GameRoundCell.ContentConfiguration, GameRoun
         var orderedPlayers: [Player] = []
         var round: Round?
         var index: String?
+        var max: String {
+            orderedPlayers
+                .compactMap { round?[$0] }
+                .max()
+                .map(String.init) ?? ""
+        }
 
         // MARK: - UIContentConfiguration
 
