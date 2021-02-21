@@ -106,8 +106,8 @@ final class GameViewController: ScopeViewController, GamePresentable, GameViewCo
         gameHeader.apply(names: titles)
     }
 
-    func updateTotalScores(_ scores: [String]) {
-        gameFooter.apply(scores: scores)
+    func updateTotalScores(_ scores: [String], min: String, max: String) {
+        gameFooter.apply(scores: scores, positiveLabel: min, negativeLabel: max)
     }
 
     func showOperationFailure(_ message: String) {
