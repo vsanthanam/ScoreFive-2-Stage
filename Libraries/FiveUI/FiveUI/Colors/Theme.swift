@@ -101,7 +101,11 @@ extension UIColor {
     }
 
     public static var contentPositive: UIColor {
-        ColorPalette.Green400
+        ColorPalette.Green700
+    }
+    
+    public static var contentNegative: UIColor {
+        ColorPalette.Red700
     }
 
     // MARK: - Implementation Colors
