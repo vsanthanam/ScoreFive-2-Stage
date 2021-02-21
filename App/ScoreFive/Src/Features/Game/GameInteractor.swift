@@ -14,7 +14,7 @@ protocol GamePresentable: GameViewControllable {
     var listener: GamePresentableListener? { get set }
     func showScoreCard(_ viewController: ScoreCardViewControllable)
     func updateHeaderTitles(_ titles: [String])
-    func updateTotalScores(_ scores: [String])
+    func updateTotalScores(_ scores: [String], min: String, max: String)
     func showOperationFailure(_ message: String)
     func showNewRound(_ viewController: ViewControllable)
     func closeNewRound()
@@ -194,11 +194,10 @@ final class GameInteractor: PresentableInteractor<GamePresentable>, GameInteract
             .switchToLatest()
             .filterNil()
             .sink { card in
-                let scores = card.orderedPlayers
-                    .map { player in
-                        String(card.totalScore(for: player))
-                    }
-                self.presenter.updateTotalScores(scores)
+                let scores = card.orderedPlayers.map { card.totalScore(for: $0) }
+                let min = scores.min().map(String.init) ?? ""
+                let max = scores.max().map(String.init) ?? ""
+                self.presenter.updateTotalScores(scores.map(String.init), min: min, max: max)
             }
             .cancelOnDeactivate(interactor: self)
     }

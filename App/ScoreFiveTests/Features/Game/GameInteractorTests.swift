@@ -69,7 +69,7 @@ final class GameInteractorTests: TestCase {
             XCTAssertEqual(titles, ["P", "P"])
         }
 
-        presenter.updateTotalScoresHandler = { scores in
+        presenter.updateTotalScoresHandler = { scores, _, _ in
             XCTAssertEqual(scores, ["0", "0"])
         }
 
