@@ -28,9 +28,11 @@ final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, Sc
 
     init(presenter: ScoreCardPresentable,
          gameStorageProvider: GameStorageProviding,
-         activeGameStream: ActiveGameStreaming) {
+         activeGameStream: ActiveGameStreaming,
+         userSettings: UserSettings) {
         self.gameStorageProvider = gameStorageProvider
         self.activeGameStream = activeGameStream
+        self.userSettings = userSettings
         super.init(presenter: presenter)
         presenter.listener = self
     }
@@ -44,6 +46,7 @@ final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, Sc
     override func didBecomeActive() {
         super.didBecomeActive()
         startObservingScoreCardChanges()
+        startObservingScoreIndexSettingChanges()
     }
 
     // MARK: - ScoreCardInteractabble
@@ -75,7 +78,8 @@ final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, Sc
     }
 
     func index(at index: Int) -> String? {
-        String(index + 1)
+        // TODO: - Implement Reload after Index by Player Support
+        return String(index + 1)
     }
 
     func editRowAtIndex(at index: Int) {
@@ -86,8 +90,13 @@ final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, Sc
 
     private let gameStorageProvider: GameStorageProviding
     private let activeGameStream: ActiveGameStreaming
+    private let userSettings: UserSettings
 
-    private var automaticReload: Bool = true
+    private var indexByPlayer: Bool = true {
+        didSet {
+            // TODO: - Implement Reload after Index by Player Support
+        }
+    }
 
     private var currentScoreCard: ScoreCard? {
         didSet {
@@ -105,6 +114,12 @@ final class ScoreCardInteractor: PresentableInteractor<ScoreCardPresentable>, Sc
             .filterNil()
             .toOptional()
             .assign(to: \.currentScoreCard, on: self)
+            .cancelOnDeactivate(interactor: self)
+    }
+
+    private func startObservingScoreIndexSettingChanges() {
+        userSettings.indexByPlayerStream
+            .assign(to: \.indexByPlayer, on: self)
             .cancelOnDeactivate(interactor: self)
     }
 }
