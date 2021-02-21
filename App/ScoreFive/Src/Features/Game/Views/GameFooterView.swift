@@ -21,11 +21,18 @@ final class GameFooterView: BaseView {
 
     // MARK: - API
 
-    func apply(scores: [String]) {
+    func apply(scores: [String], positiveLabel: String?, negativeLabel: String?) {
         stack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         scores.forEach { name in
             let view = IndexView()
             view.title = name
+            if name == positiveLabel {
+                view.titleColor = .contentPositive
+            } else if name == negativeLabel {
+                view.titleColor = .contentNegative
+            } else {
+                view.titleColor = .contentPrimary
+            }
             stack.addArrangedSubview(view)
         }
     }
@@ -103,6 +110,15 @@ final class GameFooterView: BaseView {
             set { label.text = newValue }
         }
 
+        var titleColor: UIColor? {
+            get {
+                label.textColor
+            }
+            set {
+                label.textColor = newValue
+            }
+        }
+        
         private let label = UILabel()
 
         private func setUp() {
