@@ -1,6 +1,6 @@
 #  ScoreFive
-[![Bitrise](https://img.shields.io/bitrise/fe59272550a1b3ee/main?label=build&token=7qUOrruzIv3Ca3ntoOoHvw)](https://app.bitrise.io/app/fe59272550a1b3ee)
-[![GitHub](https://img.shields.io/github/license/vsanthanam/scorefive-2)](https://opensource.org/licenses/MIT)
+[![Build Status](https://jenkins.vsanthanam.com/buildStatus/icon?job=ScoreFive-iOS-Default)](https://jenkins.vsanthanam.com/job/ScoreFive-iOS-Default/)
+[![License](https://img.shields.io/github/license/vsanthanam/scorefive-2)](https://opensource.org/licenses/MIT)
 
 ## Setup
 
